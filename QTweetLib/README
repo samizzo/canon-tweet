@@ -1,0 +1,7 @@
+- Supports most of the Twitter API
+- Supports XAuth and pin based authorization
+- Modular
+
+Requirements and dependencies:
+- Qt needs to be compiled with OpenSSL support
+- Valid OAuth consumer tokens for Twitter API access
