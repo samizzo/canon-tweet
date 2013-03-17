@@ -1,16 +1,12 @@
 syntax: glob
 
-QtwitterLib.pro.user
+*.user
 *.pdb
 debug/*
 Makefile*
-QTwitLib.pro.user
 release/*
-QTweetLib.pro.user
-QTweetLib.pro.user.*
 exampletest/debug/*
 exampletest/ui_*.h
-exampletest/exampletest.pro.user
 exampletest/*.sdf
 exampletest/*.sln
 exampletest/*.suo
@@ -18,7 +14,6 @@ exampletest/*.vcxproj
 exampletest/*.vcxproj.*
 exampletest/ipch/*
 *.opensdf
-exampletest/exampletest.pro.user.*
 lib/*.exe
 lib/*.dll
 lib/*.exp
