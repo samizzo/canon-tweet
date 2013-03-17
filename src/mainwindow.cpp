@@ -31,14 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_authorized = false;
 
-    QDoubleValidator *latValidator = new QDoubleValidator(ui->latLineEdit);
-    latValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->latLineEdit->setValidator(latValidator);
-
-    QDoubleValidator *longValidator = new QDoubleValidator(ui->longLineEdit);
-    longValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->longLineEdit->setValidator(longValidator);
-
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
     connect(m_oauthTwitter, SIGNAL(authorizeXAuthFinished()), SLOT(xauthFinished()));
@@ -92,13 +84,8 @@ void MainWindow::updateButtonClicked()
 {
     if (m_authorized) {
         QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
-        statusUpdate->post(ui->statusTextEdit->toPlainText(),
-                           0,
-                           QTweetGeoCoord(ui->latLineEdit->text().toDouble(), ui->longLineEdit->text().toDouble()),
-                           QString(),
-                           true);
+        statusUpdate->post(ui->statusTextEdit->toPlainText());
         connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
-
     } else {
         ui->statusbar->showMessage("You cannot post, needs autorization!");
     }
