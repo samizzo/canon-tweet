@@ -1,5 +1,6 @@
 syntax: glob
 
+ui_mainwindow.h
 *.user
 *.pdb
 debug/*
@@ -33,9 +34,6 @@ src/*.vcxproj.*
 examples/search/debug/*
 examples/timelines/debug/*
 examples/statusupdate/debug/*
-examples/statusupdate/ui_mainwindow.h
-examples/timelines/ui_mainwindow.h
-examples/timelines/ui_mainwindow.h
 examples/geosearch/debug/*
 ipch/*
 examples/timelines/*.vcxproj.*

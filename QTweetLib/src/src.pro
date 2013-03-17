@@ -2,7 +2,8 @@ QT       += network
 QT       += gui
 
 TEMPLATE = lib
-TARGET = qtweetlib
+Debug:TARGET = qtweetlibd
+Release:TARGET = qtweetlib
 DESTDIR = ../lib
 CONFIG += create_prl
 INCLUDEPATH += ..
