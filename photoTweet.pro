@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = sub_src sub_qtweetlib
+SUBDIRS = sub_qtweetlib sub_src
 
 sub_src.subdir = src
 

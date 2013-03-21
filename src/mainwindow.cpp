@@ -1,103 +1,124 @@
-/* Copyright 2010 Antonie Jovanoski
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * Contact e-mail: Antonie Jovanoski <minimoog77_at_gmail.com>
- */
-
 #include <QNetworkAccessManager>
-#include <QDoubleValidator>
+#include <QApplication>
+#include <QStringList>
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow()
 {
-    ui->setupUi(this);
-
     m_authorized = false;
 
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
-    connect(m_oauthTwitter, SIGNAL(authorizeXAuthFinished()), SLOT(xauthFinished()));
-    connect(m_oauthTwitter, SIGNAL(authorizeXAuthError()), SLOT(xauthError()));
+}
 
-    connect(ui->authPushButton, SIGNAL(clicked()), SLOT(authorizeButtonClicked()));
-    connect(ui->udpatePushButton, SIGNAL(clicked()), SLOT(updateButtonClicked()));
+void MainWindow::showUsage()
+{
+    printf("photoTweet.exe -message <message text> [-image <image path>]\n");
+    printf("tweets <message text> to the account, optionally attaching the");
+    printf("image specified by <image path> to the tweet.");
+}
 
+void MainWindow::run()
+{
+    // TODO: Read these from a file.
     m_authorized = true;
     m_oauthTwitter->setConsumerKey("8Y0v3tSsxiTVE8EPK93bKg");
     m_oauthTwitter->setConsumerSecret("38THDrK3hoFWNVYXMhS953KAqt1MgiYgxfxRvR0ROFQ");
     m_oauthTwitter->setOAuthToken("1264390094-1umU5vWcNDlFobbDAlwdJu9aRa7cW7xPGubE7wa");
     m_oauthTwitter->setOAuthTokenSecret("8ZOr4y8NMVwAWeHnNloYCSgZ3rhrLIbhn2DF7msrvwM");
-}
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+    QString message;
+    QString imagePath;
 
-void MainWindow::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
-    default:
-        break;
+    QStringList& args = QApplication::arguments();
+    bool error = false;
+
+    for (int i = 0; i < args.count(); i++)
+    {
+        if (!args.at(i).compare("-message"))
+        {
+            if (i + 1 < args.count())
+            {
+                message = args.at(i + 1);
+            }
+            else
+            {
+                printf("Missing argument to -message!");
+                error = true;
+                break;
+            }
+        }
+        else if (!args.at(i).compare("-imagePath"))
+        {
+            if (i + 1 < args.count())
+            {
+                imagePath = args.at(i + 1);
+            }
+            else
+            {
+                printf("Missing argument to -imagePath!");
+                error = true;
+                break;
+            }
+        }
+    }
+
+    if (message.length() == 0 || error)
+    {
+        showUsage();
+        return quit();
+    }
+
+    // TODO: Some other form of auth?
+
+    printf("tweeting message: '%s'", message.toAscii().constData());
+    if (imagePath.length() > 0)
+    {
+        printf("attaching image: '%s'", imagePath.toAscii().constData());
+        postMessageWithImage(message, imagePath);
+    }
+    else
+    {
+        postMessage(message);
     }
 }
 
-void MainWindow::authorizeButtonClicked()
+void MainWindow::quit()
 {
-    m_oauthTwitter->authorizeXAuth(ui->userNameLineEdit->text(), ui->passwordLineEdit->text());
+    emit finished();
 }
 
-void MainWindow::xauthFinished()
+void MainWindow::postMessage(const QString& message)
 {
-    ui->statusbar->showMessage("XAuth succesfull!");
-    m_authorized = true;
+    QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
+    connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
+    connect(statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
+    statusUpdate->post(message);
 }
 
-void MainWindow::xauthError()
+void MainWindow::postMessageWithImage(const QString& message, const QString& imagePath)
 {
-    ui->statusbar->showMessage("XAuth failed");
-    m_authorized = false;
-}
-
-void MainWindow::updateButtonClicked()
-{
-    if (m_authorized) {
-        QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
-        statusUpdate->post(ui->statusTextEdit->toPlainText());
-        connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
-    } else {
-        ui->statusbar->showMessage("You cannot post, needs autorization!");
-    }
+    QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
+    connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
+    connect(statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
+    statusUpdate->post(message);
 }
 
 void MainWindow::postStatusFinished(const QTweetStatus &status)
 {
     QTweetStatusUpdate *statusUpdate = qobject_cast<QTweetStatusUpdate*>(sender());
-
-    if (statusUpdate) {
-        ui->statusbar->showMessage("Posted status with id " + QString::number(status.id()));
-
+    if (statusUpdate)
+    {
+        printf("Posted status with id %llu", status.id());
         statusUpdate->deleteLater();
     }
+    return quit();
+}
+
+void MainWindow::postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg)
+{
+    return quit();
 }

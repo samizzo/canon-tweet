@@ -1,5 +1,4 @@
 QT       += network
-QT       += gui
 
 TEMPLATE = lib
 Debug:TARGET = qtweetlibd
@@ -9,7 +8,7 @@ CONFIG += create_prl
 INCLUDEPATH += ..
 
 windows: {
-	DEFINES += QTWEETLIB_MAKEDLL
+        DEFINES += QTWEETLIB_MAKEDLL
 }
 
 HEADERS += \
