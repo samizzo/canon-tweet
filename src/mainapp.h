@@ -29,12 +29,17 @@ private slots:
 private:
     void printObject(const QVariant& object);
     void getConfiguration();
-    void postMessage(const QString& message);
-    void postMessageWithImage(const QString& message, const QString& imagePath);
+    void postMessage();
+    void postMessageWithImage();
     void showUsage();
     void doQuit();
 
     OAuthTwitter *m_oauthTwitter;
+
+    QString m_message;
+    QString m_imagePath;
+    bool m_doPost;
+    int m_photoSizeLimit;
 };
 
 #endif // MAINAPP_H
