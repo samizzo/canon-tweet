@@ -8,7 +8,7 @@ CONFIG += create_prl
 INCLUDEPATH += ..
 
 windows: {
-        DEFINES += QTWEETLIB_MAKEDLL
+        DEFINES += QTWEETLIB_MAKEDLL Q_JSONRPC_DLL Q_BUILD_JSONRPC
 }
 
 HEADERS += \
@@ -84,7 +84,8 @@ HEADERS += \
     json/qjson_p.h \
     qtweetentitymedia.h \
     qtweetstatusupdatewithmedia.h \
-    qtweetdirectmessagesshow.h
+    qtweetdirectmessagesshow.h \
+    qtweetconfiguration.h
 
 SOURCES += \
     oauth.cpp \
@@ -157,7 +158,8 @@ SOURCES += \
     json/qjson.cpp \
     qtweetentitymedia.cpp \
     qtweetstatusupdatewithmedia.cpp \
-    qtweetdirectmessagesshow.cpp
+    qtweetdirectmessagesshow.cpp \
+    qtweetconfiguration.cpp
 
 OTHER_FILES +=
 
