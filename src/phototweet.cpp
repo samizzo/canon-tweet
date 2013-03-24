@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <QtDebug>
 #include <QFile>
+#include <QTextStream>
 #include <QDateTime>
 #include "phototweet.h"
 #include "oauthtwitter.h"
@@ -20,6 +21,48 @@ m_photoSizeLimit(0)
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
 }
 
+bool PhotoTweet::loadConfig()
+{
+    QFile configFile("phototweet.cfg");
+    if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        printf("Couldn't load config file phototweet.cfg\n");
+        return false;
+    }
+
+    QTextStream reader(&configFile);
+    while (!reader.atEnd())
+    {
+        QString line = reader.readLine().trimmed();
+        if (line.length() > 0 && line.at(0) == '[' && line.endsWith(']'))
+        {
+            QString key = line.mid(1, line.length() - 2);
+            QString val = reader.readLine().trimmed();
+            if (val.length() > 0)
+            {
+                if (!key.compare("consumer_key"))
+                {
+                    m_oauthTwitter->setConsumerKey(val.toAscii());
+                }
+                else if (!key.compare("consumer_secret"))
+                {
+                    m_oauthTwitter->setConsumerSecret(val.toAscii());
+                }
+                else if (!key.compare("oauth_token"))
+                {
+                    m_oauthTwitter->setOAuthToken(val.toAscii());
+                }
+                else if (!key.compare("oauth_token_secret"))
+                {
+                    m_oauthTwitter->setOAuthTokenSecret(val.toAscii());
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 void PhotoTweet::showUsage()
 {
     printf("photoTweet.exe [args]\n\n");
@@ -34,12 +77,6 @@ void PhotoTweet::showUsage()
 
 void PhotoTweet::main()
 {
-    // TODO: Read these from a file.
-    m_oauthTwitter->setConsumerKey("8Y0v3tSsxiTVE8EPK93bKg");
-    m_oauthTwitter->setConsumerSecret("38THDrK3hoFWNVYXMhS953KAqt1MgiYgxfxRvR0ROFQ");
-    m_oauthTwitter->setOAuthToken("1264390094-1umU5vWcNDlFobbDAlwdJu9aRa7cW7xPGubE7wa");
-    m_oauthTwitter->setOAuthTokenSecret("8ZOr4y8NMVwAWeHnNloYCSgZ3rhrLIbhn2DF7msrvwM");
-
     QStringList& args = QApplication::arguments();
     bool error = false;
 
@@ -217,6 +254,10 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
         {
             postMessageWithImage();
         }
+    }
+    else
+    {
+        return doQuit();
     }
 }
 

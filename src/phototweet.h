@@ -14,6 +14,8 @@ class PhotoTweet : public QObject
 public:
     explicit PhotoTweet();
 
+    bool loadConfig();
+
 signals:
     void quit();
 
