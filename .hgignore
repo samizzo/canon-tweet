@@ -1,5 +1,10 @@
 syntax: glob
 
+notes.txt
+*.jpg
+*.png
+*.JPG
+*.PNG
 GeneratedFiles\*
 *.vtcache
 *.ncb
