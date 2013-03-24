@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     MainWindow m;
-    QObject::connect(&m, SIGNAL(finished()), &app, SLOT(quit()));
+    QObject::connect(&m, SIGNAL(quit()), &app, SLOT(quit()));
     QMetaObject::invokeMethod(&m, "run", Qt::QueuedConnection);
     return app.exec();
 }

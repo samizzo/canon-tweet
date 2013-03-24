@@ -15,7 +15,7 @@ public:
     explicit MainWindow();
 
 signals:
-    void finished();
+    void quit();
 
 public slots:
     void run();
@@ -24,6 +24,7 @@ private slots:
     void getConfigurationFinished(const QJsonDocument& json);
     void postStatusFinished(const QTweetStatus& status);
     void postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
+    void replyFinished(const QByteArray& response, const QNetworkReply& reply);
 
 private:
     void printObject(const QVariant& object);
@@ -31,10 +32,9 @@ private:
     void postMessage(const QString& message);
     void postMessageWithImage(const QString& message, const QString& imagePath);
     void showUsage();
-    void quit();
+    void doQuit();
 
     OAuthTwitter *m_oauthTwitter;
-    bool m_authorized;
 };
 
 #endif // MAINWINDOW_H
