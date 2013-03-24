@@ -18,7 +18,8 @@ signals:
     void quit();
 
 public slots:
-    void run();
+    void run(QString& message, QString& imagePath);
+    void main();
 
 private slots:
     void getConfigurationFinished(const QJsonDocument& json);

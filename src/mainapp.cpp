@@ -32,7 +32,7 @@ void MainApp::showUsage()
     printf("around the message text to specify multiple words.\n");
 }
 
-void MainApp::run()
+void MainApp::main()
 {
     // TODO: Read these from a file.
     m_oauthTwitter->setConsumerKey("8Y0v3tSsxiTVE8EPK93bKg");
@@ -43,13 +43,15 @@ void MainApp::run()
     QStringList& args = QApplication::arguments();
     bool error = false;
 
+    QString message, imagePath;
+
     for (int i = 0; i < args.count(); i++)
     {
         if (!args.at(i).compare("-message"))
         {
             if (i + 1 < args.count())
             {
-                m_message = args.at(i + 1);
+                message = args.at(i + 1);
             }
             else
             {
@@ -62,10 +64,10 @@ void MainApp::run()
         {
             if (i + 1 < args.count())
             {
-                m_imagePath = args.at(i + 1);
-                if (!QFile::exists(m_imagePath))
+                imagePath = args.at(i + 1);
+                if (!QFile::exists(imagePath))
                 {
-                    printf("Couldn't find file %s!\n", m_imagePath.toAscii().constData());
+                    printf("Couldn't find file %s!\n", imagePath.toAscii().constData());
                     error = true;
                 }
             }
@@ -83,7 +85,7 @@ void MainApp::run()
         }
     }
 
-    if (m_message.length() == 0)
+    if (message.length() == 0)
     {
         showUsage();
         return doQuit();
@@ -94,7 +96,13 @@ void MainApp::run()
         return doQuit();
     }
 
-    // TODO: Some other form of auth?
+    run(message, imagePath);
+}
+
+void MainApp::run(QString& message, QString& imagePath)
+{
+    m_message = message;
+    m_imagePath = imagePath;
 
     printf("Tweeting message: '%s'\n", m_message.toAscii().constData());
     if (m_imagePath.length() > 0)
