@@ -1,10 +1,10 @@
 #include <QCoreApplication>
-#include "mainwindow.h"
+#include "mainapp.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    MainWindow m;
+    MainApp m;
     QObject::connect(&m, SIGNAL(quit()), &app, SLOT(quit()));
     QMetaObject::invokeMethod(&m, "run", Qt::QueuedConnection);
     return app.exec();

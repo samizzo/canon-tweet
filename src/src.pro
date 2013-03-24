@@ -5,10 +5,10 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainapp.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainapp.h
 
 CONFIG += console
 

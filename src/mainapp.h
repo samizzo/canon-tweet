@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINAPP_H
+#define MAINAPP_H
 
 #include <QObject>
 #include "qtweetnetbase.h"
@@ -7,12 +7,12 @@
 class OAuthTwitter;
 class QTweetStatus;
 
-class MainWindow : public QObject
+class MainApp : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow();
+    explicit MainApp();
 
 signals:
     void quit();
@@ -37,4 +37,4 @@ private:
     OAuthTwitter *m_oauthTwitter;
 };
 
-#endif // MAINWINDOW_H
+#endif // MAINAPP_H

@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <QtDebug>
 #include <QFile>
-#include "mainwindow.h"
+#include "mainapp.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
@@ -11,13 +11,13 @@
 #include "json/qjsondocument.h"
 #include "json/qjsonobject.h"
 
-MainWindow::MainWindow()
+MainApp::MainApp()
 {
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
 }
 
-void MainWindow::showUsage()
+void MainApp::showUsage()
 {
     printf("photoTweet.exe [args]\n\n");
     printf("where args are:\n\n");
@@ -28,7 +28,7 @@ void MainWindow::showUsage()
     printf("Note: a message must always be specified\n");
 }
 
-void MainWindow::run()
+void MainApp::run()
 {
     // TODO: Read these from a file.
     m_oauthTwitter->setConsumerKey("8Y0v3tSsxiTVE8EPK93bKg");
@@ -107,12 +107,12 @@ void MainWindow::run()
     }
 }
 
-void MainWindow::doQuit()
+void MainApp::doQuit()
 {
     emit quit();
 }
 
-void MainWindow::getConfiguration()
+void MainApp::getConfiguration()
 {
     QTweetConfiguration* config = new QTweetConfiguration(m_oauthTwitter, this);
     connect(config, SIGNAL(configuration(QJsonDocument)), SLOT(getConfigurationFinished(QJsonDocument)));
@@ -120,7 +120,7 @@ void MainWindow::getConfiguration()
     config->get();
 }
 
-void MainWindow::printObject(const QVariant& object)
+void MainApp::printObject(const QVariant& object)
 {
     if (object.type() == QVariant::Map)
     {
@@ -147,7 +147,7 @@ void MainWindow::printObject(const QVariant& object)
     }
 }
 
-void MainWindow::getConfigurationFinished(const QJsonDocument& json)
+void MainApp::getConfigurationFinished(const QJsonDocument& json)
 {
     QJsonObject response = json.object();
     QStringList& keys = response.keys();
@@ -182,7 +182,7 @@ void MainWindow::getConfigurationFinished(const QJsonDocument& json)
     return doQuit();
 }
 
-void MainWindow::postMessage(const QString& message)
+void MainApp::postMessage(const QString& message)
 {
     QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
     connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
@@ -191,7 +191,7 @@ void MainWindow::postMessage(const QString& message)
     statusUpdate->post(message);
 }
 
-void MainWindow::postMessageWithImage(const QString& message, const QString& imagePath)
+void MainApp::postMessageWithImage(const QString& message, const QString& imagePath)
 {
     QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
     connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
@@ -200,7 +200,7 @@ void MainWindow::postMessageWithImage(const QString& message, const QString& ima
     statusUpdate->post(message, imagePath, 0, QTweetGeoCoord(-37.83148, 144.9646), QString(), true);
 }
 
-void MainWindow::postStatusFinished(const QTweetStatus &status)
+void MainApp::postStatusFinished(const QTweetStatus &status)
 {
     QTweetStatusUpdate *statusUpdate = qobject_cast<QTweetStatusUpdate*>(sender());
     if (statusUpdate)
@@ -211,7 +211,7 @@ void MainWindow::postStatusFinished(const QTweetStatus &status)
     return doQuit();
 }
 
-void MainWindow::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
+void MainApp::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
     if (errorMsg.length() > 0)
     {
@@ -220,7 +220,7 @@ void MainWindow::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
     return doQuit();
 }
 
-void MainWindow::replyFinished(const QByteArray&, const QNetworkReply& reply)
+void MainApp::replyFinished(const QByteArray&, const QNetworkReply& reply)
 {
     QList<QByteArray> headers = reply.rawHeaderList();
     if (reply.hasRawHeader("X-MediaRateLimit-Limit"))
