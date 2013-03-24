@@ -5,10 +5,10 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    mainapp.cpp
+    phototweet.cpp
 
 HEADERS += \
-    mainapp.h
+    phototweet.h
 
 CONFIG += console
 

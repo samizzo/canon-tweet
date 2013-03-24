@@ -1,5 +1,5 @@
-#ifndef MAINAPP_H
-#define MAINAPP_H
+#ifndef PHOTOTWEET_H
+#define PHOTOTWEET_H
 
 #include <QObject>
 #include "qtweetnetbase.h"
@@ -7,12 +7,12 @@
 class OAuthTwitter;
 class QTweetStatus;
 
-class MainApp : public QObject
+class PhotoTweet : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit MainApp();
+    explicit PhotoTweet();
 
 signals:
     void quit();
@@ -43,4 +43,4 @@ private:
     int m_photoSizeLimit;
 };
 
-#endif // MAINAPP_H
+#endif // PHOTOTWEET_H
