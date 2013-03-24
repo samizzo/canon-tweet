@@ -1,5 +1,14 @@
 syntax: glob
 
+GeneratedFiles\*
+*.vtcache
+*.ncb
+*.vcproj
+*.manifest
+*.idb
+src\Win32\Debug\*
+src\Win32\Release\*
+*.obj
 ui_mainwindow.h
 *.user
 *.pdb
