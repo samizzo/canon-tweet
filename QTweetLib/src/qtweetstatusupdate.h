@@ -31,6 +31,7 @@ public:
     QTweetStatusUpdate(QObject *parent = 0);
     QTweetStatusUpdate(OAuthTwitter *oauthTwitter, QObject *parent = 0);
     void post(const QString& status,
+              const QString& filename = QString(),
               qint64 inReplyToStatus = 0,
               const QTweetGeoCoord& latLong = QTweetGeoCoord(),
               const QString& placeid = QString(),

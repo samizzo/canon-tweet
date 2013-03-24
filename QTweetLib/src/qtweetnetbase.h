@@ -21,6 +21,7 @@
 #include <QObject>
 #include <QVariantMap>
 #include <QByteArray>
+#include <QNetworkReply>
 #include "oauthtwitter.h"
 #include "qtweetlib_global.h"
 
@@ -78,8 +79,9 @@ signals:
     /**
      *   Emited when fetching is finished
      *   @param response contains the response in json
+     *   @param reply contains the full response
      */
-    void finished(const QByteArray& response);
+    void finished(const QByteArray& response, const QNetworkReply& reply);
 
     /** Emited when there is error. You can check error message with lastErrorMessage().
      *  @param code error code

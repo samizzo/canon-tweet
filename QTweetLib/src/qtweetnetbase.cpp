@@ -143,7 +143,7 @@ void QTweetNetBase::reply()
     if (reply) {
         if (reply->error() == QNetworkReply::NoError) {
             m_response = reply->readAll();
-            emit finished(m_response);
+            emit finished(m_response, *reply);
 
             if (isJsonParsingEnabled())
                 parseJson(m_response);
