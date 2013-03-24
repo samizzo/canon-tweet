@@ -1,6 +1,0 @@
-- App currently uses no authentication, just the specified oauth/consumer keys/tokens
-
-16/03/2013 11pm - 12am
-17/03/2013 10.15pm - 12am
-18/03/2013 11pm - 2.30am
-21/03/2013 11.39pm - 
