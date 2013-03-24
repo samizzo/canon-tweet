@@ -1,10 +1,14 @@
 #include <QNetworkAccessManager>
 #include <QApplication>
 #include <QStringList>
+#include <QtDebug>
 #include "mainwindow.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
+#include "qtweetconfiguration.h"
+#include "json/qjsondocument.h"
+#include "json/qjsonobject.h"
 
 MainWindow::MainWindow()
 {
@@ -17,7 +21,7 @@ MainWindow::MainWindow()
 void MainWindow::showUsage()
 {
     printf("photoTweet.exe -message <message text> [-image <image path>]\n");
-    printf("tweets <message text> to the account, optionally attaching the");
+    printf("tweets <message text> to the account, optionally attaching the\n");
     printf("image specified by <image path> to the tweet.");
 }
 
@@ -46,7 +50,7 @@ void MainWindow::run()
             }
             else
             {
-                printf("Missing argument to -message!");
+                printf("Missing argument to -message!\n");
                 error = true;
                 break;
             }
@@ -59,10 +63,15 @@ void MainWindow::run()
             }
             else
             {
-                printf("Missing argument to -imagePath!");
+                printf("Missing argument to -imagePath!\n");
                 error = true;
                 break;
             }
+        }
+        else if (!args.at(i).compare("-getConfig"))
+        {
+            getConfiguration();
+            return;
         }
     }
 
@@ -74,10 +83,10 @@ void MainWindow::run()
 
     // TODO: Some other form of auth?
 
-    printf("tweeting message: '%s'", message.toAscii().constData());
+    printf("tweeting message: '%s'\n", message.toAscii().constData());
     if (imagePath.length() > 0)
     {
-        printf("attaching image: '%s'", imagePath.toAscii().constData());
+        printf("attaching image: '%s'\n", imagePath.toAscii().constData());
         postMessageWithImage(message, imagePath);
     }
     else
@@ -89,6 +98,75 @@ void MainWindow::run()
 void MainWindow::quit()
 {
     emit finished();
+}
+
+void MainWindow::getConfiguration()
+{
+    QTweetConfiguration* config = new QTweetConfiguration(m_oauthTwitter, this);
+    connect(config, SIGNAL(configuration(QJsonDocument)), SLOT(getConfigurationFinished(QJsonDocument)));
+    connect(config, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
+    config->get();
+}
+
+void MainWindow::printObject(const QVariant& object)
+{
+    if (object.type() == QVariant::Map)
+    {
+        QVariantMap m = object.toMap();
+        QList<QString> keys = m.keys();
+        for (int i = 0; i < keys.count(); i++)
+        {
+            QVariant value = m[keys[i]];
+            QString key = keys[i];
+            printf("%s=", key.toAscii().constData());
+            if (value.type() == QVariant::String || value.type() == QVariant::Int || value.type() == QVariant::Double)
+            {
+                printf("%s", value.toString().toAscii().constData());
+            }
+            else
+            {
+                printf("(%s)", value.typeName());
+            }
+            if (i < keys.count() - 1)
+            {
+                printf(", ");
+            }
+        }
+    }
+}
+
+void MainWindow::getConfigurationFinished(const QJsonDocument& json)
+{
+    QJsonObject response = json.object();
+    QStringList& keys = response.keys();
+    for (int i = 0; i < keys.count(); i++)
+    {
+        QJsonValue value = response[keys[i]];
+        printf("%s=", keys[i].toAscii().constData());
+        if (value.isArray())
+        {
+            printf("<array>\n");
+        }
+        else if (value.isObject())
+        {
+            printf("\n");
+            QVariant v = value.toVariant();
+            QVariantMap m = v.toMap();
+            QList<QString> k = m.keys();
+            for (int i = 0; i < k.count(); i++)
+            {
+                printf("   %s={ ", k[i].toAscii().constData());
+                printObject(m[k[i]]);
+                printf(" }\n");
+            }
+        }
+        else
+        {
+            QVariant v = value.toVariant();
+            QString s = v.toString();
+            printf("%s\n", s.toAscii().constData());
+        }
+    }
 }
 
 void MainWindow::postMessage(const QString& message)
@@ -112,7 +190,7 @@ void MainWindow::postStatusFinished(const QTweetStatus &status)
     QTweetStatusUpdate *statusUpdate = qobject_cast<QTweetStatusUpdate*>(sender());
     if (statusUpdate)
     {
-        printf("Posted status with id %llu", status.id());
+        printf("Posted status with id %llu\n", status.id());
         statusUpdate->deleteLater();
     }
     return quit();

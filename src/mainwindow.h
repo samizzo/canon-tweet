@@ -21,10 +21,13 @@ public slots:
     void run();
 
 private slots:
+    void getConfigurationFinished(const QJsonDocument& json);
     void postStatusFinished(const QTweetStatus& status);
     void postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
 
 private:
+    void printObject(const QVariant& object);
+    void getConfiguration();
     void postMessage(const QString& message);
     void postMessageWithImage(const QString& message, const QString& imagePath);
     void showUsage();
