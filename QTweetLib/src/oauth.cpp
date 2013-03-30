@@ -347,7 +347,7 @@ QByteArray OAuth::generateSignatureBase(const QUrl& url, HttpMethod method, cons
  *   @param method type of http method
  *   @remarks If HttpMethod is POST put query items in url (QUrl::addEncodedQueryItem)
  */
-QByteArray OAuth::generateAuthorizationHeader( const QUrl& url, HttpMethod method )
+QByteArray OAuth::generateAuthorizationHeader( const QUrl& url, HttpMethod method, const QString& realm /*= QString()*/)
 {
     if (m_oauthToken.isEmpty() && m_oauthTokenSecret.isEmpty())
         qDebug() << "OAuth tokens are empty!";
@@ -360,13 +360,17 @@ QByteArray OAuth::generateAuthorizationHeader( const QUrl& url, HttpMethod metho
 
     QByteArray header;
     header += "OAuth ";
-    header += "oauth_consumer_key=\"" + m_oauthConsumerKey + "\",";
+	if (realm.length() > 0)
+	{
+		header += "realm=\"" + realm + "\", ";
+	}
+    header += "oauth_consumer_key=\"" + m_oauthConsumerKey + "\", ";
     if(!m_oauthToken.isEmpty())
-            header += "oauth_token=\"" + m_oauthToken + "\",";
-    header += "oauth_signature_method=\"HMAC-SHA1\",";
-    header += "oauth_signature=\"" + signature + "\",";
-    header += "oauth_timestamp=\"" + timeStamp + "\",";
-    header += "oauth_nonce=\"" + nonce + "\",";
+            header += "oauth_token=\"" + m_oauthToken + "\", ";
+    header += "oauth_signature_method=\"HMAC-SHA1\", ";
+    header += "oauth_signature=\"" + signature + "\", ";
+    header += "oauth_timestamp=\"" + timeStamp + "\", ";
+    header += "oauth_nonce=\"" + nonce + "\", ";
     header += "oauth_version=\"1.0\"";
 
     return header;

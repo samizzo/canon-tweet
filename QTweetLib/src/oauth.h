@@ -43,7 +43,7 @@ public:
     enum HttpMethod {GET, POST, PUT, DELETE};
 
     void parseTokens(const QByteArray& response);
-    QByteArray generateAuthorizationHeader(const QUrl& url, HttpMethod method);
+    QByteArray generateAuthorizationHeader(const QUrl& url, HttpMethod method, const QString& realm = QString());
     void setOAuthToken(const QByteArray& token);
     void setOAuthTokenSecret(const QByteArray& tokenSecret);
     void setConsumerKey(const QByteArray& key);

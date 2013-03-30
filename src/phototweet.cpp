@@ -323,9 +323,9 @@ void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
     }
 }
 
-void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode errorCode, QString errorMsg)
+void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
-	printf("Error posting image to twitpic:\n%i %s\n", errorCode, errorMsg.toLatin1().constData());
+	printf("Error posting image to twitpic:\n%s\n", errorMsg.toLatin1().constData());
 	doQuit();
 }
 

@@ -25,6 +25,7 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
 		return;
 	}
 
+	QString realm("http://api.twitter.com/");
 	QString authProviderUrl("https://api.twitter.com/1.1/account/verify_credentials.json");
 	QUrl url("http://api.twitpic.com/2/upload.json");
 
@@ -46,8 +47,8 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
     // Add the image data.
     QFile file(filename);
     QHttpPart imagePart;
+    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"media\"; filename=\"" + file.fileName() + "\"");
     imagePart.setHeader(QNetworkRequest::ContentTypeHeader, "application/octet-stream");
-    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"media[]\"; filename=\"" + filename + "\"");
     imagePart.setBody(file.readAll());
     mp->append(imagePart);
 
@@ -63,7 +64,7 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
     msgPart.setBody(message.toLatin1());
 	mp->append(msgPart);
 
-	QByteArray oauthHeader = m_oauthTwitter->generateAuthorizationHeader(url, OAuth::POST);
+	QByteArray oauthHeader = m_oauthTwitter->generateAuthorizationHeader(authProviderUrl, OAuth::GET, realm);
     QNetworkRequest req(url);
 	req.setRawHeader("X-Auth-Service-Provider", authProviderUrl.toLatin1());
     req.setRawHeader("X-Verify-Credentials-Authorization", oauthHeader);
@@ -84,6 +85,9 @@ void TwitpicUpload::reply()
 
         if (reply->error() == QNetworkReply::NoError)
 		{
+			QString limit = reply->rawHeader("X-RateLimit-Limit");
+			QString remaining = reply->rawHeader("X-RateLimit-Remaining");
+
 			QJsonParseError jsonError;
 			QJsonDocument json = QJsonDocument::fromJson(response, &jsonError);
 			if (jsonError.error == QJsonParseError::NoError && json.isObject() && !json.isNull())
