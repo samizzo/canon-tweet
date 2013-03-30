@@ -6,6 +6,7 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include "twitpicUpload.h"
 #include "oauthtwitter.h"
 #include "twitpicUploadStatus.h"
@@ -98,16 +99,38 @@ void TwitpicUpload::reply()
 		}
 		else
 		{
-            qDebug() << "Network error: " << reply->error();
+            /*qDebug() << "Network error: " << reply->error();
             qDebug() << "Error string: " << reply->errorString();
-            qDebug() << "Error response: " << response;
+            qDebug() << "Error response: " << response;*/
 
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-            // TODO: Parse json response
+            /*
+				"{
+					"errors": [ {"code" : 401, "message" : "Could not authenticate you (header rejected by twitter)." } ]
+				}"
+			*/
 
-			QString errorMsg;
+			QString msg;
+			QJsonDocument doc = QJsonDocument::fromJson(response);
+			if (doc.isObject() && !doc.isNull())
+			{
+				QJsonValue errorsVal = doc.object().value("errors");
+				if (!errorsVal.isNull() && errorsVal.isArray())
+				{
+					QJsonArray errors = errorsVal.toArray();
+					if (errors.count() > 0)
+					{
+						QJsonValue error = errors.at(0);
+						if (!error.isNull() && error.isObject())
+						{
+							QJsonObject obj = error.toObject();
+							msg = obj.value("message").toString();
+						}
+					}
+				}
+			}
 
             switch (httpStatus)
 			{
@@ -122,13 +145,13 @@ void TwitpicUpload::reply()
 				case QTweetNetBase::BadGateway:
 				case QTweetNetBase::ServiceUnavailable:
 				{
-					emit error(static_cast<QTweetNetBase::ErrorCode>(httpStatus), errorMsg);
+					emit error(static_cast<QTweetNetBase::ErrorCode>(httpStatus), msg);
 					break;
 				}
 
 				default:
 				{
-					emit error(QTweetNetBase::UnknownError, errorMsg);
+					emit error(QTweetNetBase::UnknownError, msg);
 				}
             }
         }

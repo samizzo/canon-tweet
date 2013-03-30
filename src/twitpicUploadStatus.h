@@ -15,16 +15,16 @@ class TwitpicUploadStatus : public QObject
 	public:
 		TwitpicUploadStatus(const QJsonObject& jsonObject);
 
-		QString getText();
+		const QString& getText() const;
 		void setText(const QString& text);
 
-		QString getImageUrl();
+		const QString& getImageUrl() const;
 		void setImageUrl(const QString& imageUrl);
 
-		int getWidth();
+		int getWidth() const;
 		void setWidth(int width);
 
-		int getHeight();
+		int getHeight() const;
 		void setHeight(int height);
 
 	private:
@@ -34,7 +34,7 @@ class TwitpicUploadStatus : public QObject
 		QString m_imageUrl;
 };
 
-inline QString TwitpicUploadStatus::getText()
+inline const QString& TwitpicUploadStatus::getText() const
 {
 	return m_text;
 }
@@ -44,7 +44,7 @@ inline void TwitpicUploadStatus::setText(const QString& text)
 	m_text = text;
 }
 
-inline QString TwitpicUploadStatus::getImageUrl()
+inline const QString& TwitpicUploadStatus::getImageUrl() const
 {
 	return m_imageUrl;
 }
@@ -54,7 +54,7 @@ inline void TwitpicUploadStatus::setImageUrl(const QString& imageUrl)
 	m_imageUrl = imageUrl;
 }
 
-inline int TwitpicUploadStatus::getWidth()
+inline int TwitpicUploadStatus::getWidth() const
 {
 	return m_width;
 }
@@ -64,7 +64,7 @@ inline void TwitpicUploadStatus::setWidth(int width)
 	m_width = width;
 }
 
-inline int TwitpicUploadStatus::getHeight()
+inline int TwitpicUploadStatus::getHeight() const
 {
 	return m_height;
 }

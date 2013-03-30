@@ -4,6 +4,7 @@
 #include <QObject>
 #include "qtweetnetbase.h"
 
+class TwitpicUploadStatus;
 class OAuthTwitter;
 class QTweetStatus;
 
@@ -29,16 +30,21 @@ private slots:
     void postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
     void replyFinished(const QByteArray& response, const QNetworkReply& reply);
 
+	void twitpicError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
+	void twitpicJsonParseError(const QByteArray& json);
+	void twitpicFinished(const TwitpicUploadStatus& status);
+
 private:
     void printObject(const QVariant& object);
     void getConfiguration();
     void postMessage();
-    void postMessageWithImage();
+	void postMessageWithImage();
     void showUsage();
     void doQuit();
 
     OAuthTwitter *m_oauthTwitter;
 
+	QString m_twitpicApiKey;
     QString m_message;
     QString m_imagePath;
     bool m_doPost;

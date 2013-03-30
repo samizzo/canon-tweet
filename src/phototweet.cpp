@@ -13,6 +13,8 @@
 #include "qtweetconfiguration.h"
 #include <QJsonDocument>
 #include <QJsonObject>
+#include "twitpicUpload.h"
+#include "twitpicUploadStatus.h"
 
 PhotoTweet::PhotoTweet() :
 m_doPost(false),
@@ -57,6 +59,10 @@ bool PhotoTweet::loadConfig()
                 {
                     m_oauthTwitter->setOAuthTokenSecret(val.toLatin1());
                 }
+				else if (!key.compare("twitpic_api_key"))
+				{
+					m_twitpicApiKey = val;
+				}
             }
         }
     }
@@ -146,8 +152,7 @@ void PhotoTweet::run(QString& message, QString& imagePath)
     if (m_imagePath.length() > 0)
     {
         printf("Attaching image: '%s'\n", m_imagePath.toLatin1().constData());
-        m_doPost = true;
-        getConfiguration();
+		postMessageWithImage();
     }
     else
     {
@@ -241,25 +246,7 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
         }
     }
 
-    if (m_doPost)
-    {
-        QFile file(m_imagePath);
-        qint64 fileSize = file.size();
-        if (fileSize > m_photoSizeLimit)
-        {
-            printf("Can't post file %s, because its size is greater than the limit\n(limit is %i bytes, file is %llu bytes)!\n",
-                m_imagePath.toLatin1().constData(), m_photoSizeLimit, fileSize);
-            return doQuit();
-        }
-        else
-        {
-            postMessageWithImage();
-        }
-    }
-    else
-    {
-        return doQuit();
-    }
+	return doQuit();
 }
 
 void PhotoTweet::postMessage()
@@ -273,13 +260,11 @@ void PhotoTweet::postMessage()
 
 void PhotoTweet::postMessageWithImage()
 {
-	QTweetStatusUpdateWithMedia* statusUpdate = new QTweetStatusUpdateWithMedia(m_oauthTwitter, this);
-	statusUpdate->setStatus(m_message);
-	statusUpdate->setImageFilename(m_imagePath);
-	connect(statusUpdate, SIGNAL(postedUpdate(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
-    connect(statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
-    connect(statusUpdate, SIGNAL(finished(QByteArray, QNetworkReply)), SLOT(replyFinished(QByteArray, QNetworkReply)));
-	statusUpdate->post();
+	TwitpicUpload* upload = new TwitpicUpload(m_twitpicApiKey, m_oauthTwitter, this);
+	connect(upload, SIGNAL(jsonParseError(QByteArray)), SLOT(twitpicJsonParseError(QByteArray)));
+    connect(upload, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(twitpicError(QTweetNetBase::ErrorCode, QString)));
+    connect(upload, SIGNAL(finished(TwitpicUploadStatus)), SLOT(twitpicFinished(TwitpicUploadStatus)));
+	upload->upload(m_message, m_imagePath);
 }
 
 void PhotoTweet::postStatusFinished(const QTweetStatus &status)
@@ -336,5 +321,24 @@ void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
         printf("\nYou have %i tweets with media remaining out of a total of %i.\n", remaining, limit);
         printf("This limit will reset at %s.\n", reset.toLocalTime().toString().toLatin1().constData());
     }
+}
+
+void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode errorCode, QString errorMsg)
+{
+	printf("Error posting image to twitpic:\n%i %s\n", errorCode, errorMsg.toLatin1().constData());
+	doQuit();
+}
+
+void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
+{
+	printf("Error parsing json result while posting image to twitpic\n");
+	printf("json: %s\n", json.constData());
+	doQuit();
+}
+
+void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
+{
+	printf("Posted image to twitpic!  Url is %s\n", status.getImageUrl().toLatin1().constData());
+	doQuit();
 }
 

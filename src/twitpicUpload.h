@@ -20,7 +20,6 @@ class TwitpicUpload : public QObject
 		void upload(const QString& message, const QString& filename);
 
 	signals:
-		void uploadImage(const TwitpicUploadStatus& status);
 		void error(QTweetNetBase::ErrorCode code, const QString& errorMsg);
 		void jsonParseError(const QByteArray& json);
 		void finished(const TwitpicUploadStatus& status);
