@@ -25,13 +25,8 @@
 #include "oauthtwitter.h"
 #include "qtweetlib_global.h"
 
-class QTweetStatus;
 class QTweetUser;
-class QTweetDMStatus;
-class QTweetList;
-class QTweetSearchResult;
-class QTweetSearchPageResults;
-class QTweetPlace;
+class QTweetStatus;
 class QJsonDocument;
 
 /**

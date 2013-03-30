@@ -18,12 +18,8 @@
 #include "qtweetconvert.h"
 #include <QSize>
 #include "qtweetstatus.h"
-#include "qtweetdmstatus.h"
 #include "qtweetuser.h"
-#include "qtweetlist.h"
 #include "qtweetplace.h"
-#include "qtweetsearchresult.h"
-#include "qtweetsearchpageresults.h"
 #include "qtweetentityurl.h"
 #include "qtweetentityhashtag.h"
 #include "qtweetentityusermentions.h"
@@ -159,69 +155,7 @@ QTweetUser QTweetConvert::jsonObjectToUser(const QJsonObject &jsonObject)
     return userInfo;
 }
 
-QList<QTweetDMStatus> QTweetConvert::jsonArrayToDirectMessagesList(const QJsonArray &jsonArray)
-{
-    QList<QTweetDMStatus> directMessages;
 
-    for (int i = 0; i < jsonArray.size(); ++i) {
-        QJsonObject dmObject = jsonArray[i].toObject();
-        QTweetDMStatus dmStatus = jsonObjectToDirectMessage(dmObject);
-        directMessages.append(dmStatus);
-    }
-
-    return directMessages;
-}
-
-QTweetDMStatus QTweetConvert::jsonObjectToDirectMessage(const QJsonObject &jsonObject)
-{
-    QTweetDMStatus directMessage;
-
-    directMessage.setCreatedAt(jsonObject.value("created_at").toString());
-    directMessage.setSenderScreenName(jsonObject.value("sender_screen_name").toString());
-
-    QJsonObject jsonObjectUser = jsonObject.value("sender").toObject();
-    QTweetUser sender = jsonObjectToUser(jsonObjectUser);
-    directMessage.setSender(sender);
-
-    directMessage.setText(jsonObject.value("text").toString());
-    directMessage.setRecipientScreenName(jsonObject["recipient_screen_name"].toString());
-    directMessage.setId(static_cast<qint64>(jsonObject["id"].toDouble()));
-
-    QJsonObject jsonObjectRecipient = jsonObject["recipient"].toObject();
-    QTweetUser recipient = jsonObjectToUser(jsonObjectRecipient);
-    directMessage.setRecipient(recipient);
-
-    directMessage.setRecipientId(static_cast<qint64>(jsonObject["recipient_id"].toDouble()));
-    directMessage.setSenderId(static_cast<qint64>(jsonObject["sender_id"].toDouble()));
-
-    return directMessage;
-}
-
-QTweetList QTweetConvert::jsonObjectToTweetList(const QJsonObject& jsonObject)
-{
-    QTweetList list;
-
-    list.setMode(jsonObject["mode"].toString());
-    list.setDescription(jsonObject["description"].toString());
-    list.setFollowing(jsonObject["following"].toBool());
-    list.setMemberCount(static_cast<int>(jsonObject["member_count"].toDouble()));
-    list.setFullName(jsonObject["full_name"].toString());
-    list.setSubscriberCount(static_cast<int>(jsonObject["subscriber_count"].toDouble()));
-    list.setSlug(jsonObject["slug"].toString());
-    list.setName(jsonObject["name"].toString());
-    list.setId(static_cast<qint64>(jsonObject["id"].toDouble()));
-    list.setUri(jsonObject["uri"].toString());
-
-    if (jsonObject.contains("user")) {
-        QJsonObject userMap = jsonObject["user"].toObject();
-
-        QTweetUser user = jsonObjectToUser(userMap);
-
-        list.setUser(user);
-    }
-
-    return list;
-}
 
 QList<QTweetUser> QTweetConvert::jsonArrayToUserInfoList(const QJsonArray& jsonArray)
 {
@@ -236,63 +170,6 @@ QList<QTweetUser> QTweetConvert::jsonArrayToUserInfoList(const QJsonArray& jsonA
     return users;
 }
 
-QList<QTweetList> QTweetConvert::jsonArrayToTweetLists(const QJsonArray& jsonArray)
-{
-    QList<QTweetList> lists;
-
-    for (int i = 0; i < jsonArray.size(); ++i) {
-        QTweetList tweetlist = jsonObjectToTweetList(jsonArray[i].toObject());
-
-        lists.append(tweetlist);
-    }
-
-    return lists;
-}
-
-/**
- *  Converts search result
- */
-QTweetSearchResult QTweetConvert::jsonObjectToSearchResult(const QJsonObject& jsonObject)
-{
-    QTweetSearchResult result;
-
-    result.setCreatedAt(jsonObject["created_at"].toString());
-    result.setFromUser(jsonObject["from_user"].toString());
-    result.setId(static_cast<qint64>(jsonObject["id"].toDouble()));
-    result.setLang(jsonObject["iso_language_code"].toString());
-    result.setProfileImageUrl(jsonObject["profile_image_url"].toString());
-    result.setSource(jsonObject["source"].toString());
-    result.setText(jsonObject["text"].toString());
-    result.setToUser(jsonObject["to_user"].toString());
-
-    return result;
-}
-
-QTweetSearchPageResults QTweetConvert::jsonObjectToSearchPageResults(const QJsonObject& jsonObject)
-{
-    QTweetSearchPageResults page;
-
-    page.setMaxId(static_cast<qint64>(jsonObject["max_id"].toDouble()));
-    page.setNextPage(jsonObject["next_page"].toString().toAscii());
-    page.setPage(static_cast<int>(jsonObject["page"].toDouble()));
-    page.setQuery(jsonObject["query"].toString().toAscii());
-    page.setRefreshUrl(jsonObject["refresh_url"].toString().toAscii());
-    page.setResultsPerPage(static_cast<int>(jsonObject["results_per_page"].toDouble()));
-    page.setSinceId(static_cast<qint64>(jsonObject["since_id"].toDouble()));
-    page.setTotal(static_cast<int>(jsonObject["total"].toDouble()));
-
-    QList<QTweetSearchResult> resultList;
-    QJsonArray resultArray = jsonObject["results"].toArray();
-
-    for (int i = 0; i < resultArray.size(); ++i) {
-        QTweetSearchResult result = jsonObjectToSearchResult(resultArray[i].toObject());
-        resultList.append(result);
-    }
-
-    page.setResults(resultList);
-
-    return page;
-}
 
 QTweetPlace QTweetConvert::jsonObjectToPlace(const QJsonObject& jsonObject)
 {

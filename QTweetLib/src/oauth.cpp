@@ -19,6 +19,7 @@
 #include <QtAlgorithms>
 #include <QCryptographicHash>
 #include <QtDebug>
+#include <QUrlQuery>
 #include "oauth.h"
 
 #ifndef CONSUMER_KEY
@@ -149,10 +150,10 @@ void OAuth::parseTokens(const QByteArray& response)
     //use QUrl for parsing
     QByteArray parseQuery("http://parse.com?");
 
-    QUrl parseUrl = QUrl::fromEncoded(parseQuery + response);
+    QUrlQuery parseUrl(QUrl::fromEncoded(parseQuery + response));
 
-    m_oauthToken = parseUrl.encodedQueryItemValue("oauth_token");
-    m_oauthTokenSecret = parseUrl.encodedQueryItemValue("oauth_token_secret");
+    m_oauthToken = parseUrl.queryItemValue("oauth_token", QUrl::FullyEncoded).toLatin1();
+    m_oauthTokenSecret = parseUrl.queryItemValue("oauth_token_secret", QUrl::FullyEncoded).toLatin1();
 }
 
 /**
@@ -265,14 +266,14 @@ QByteArray OAuth::generateSignatureBase(const QUrl& url, HttpMethod method, cons
     //OAuth spec. 9.1 http://oauth.net/core/1.0/#anchor14
 
     //OAuth spec. 9.1.1
-    QList<QPair<QByteArray, QByteArray> > urlParameters = url.encodedQueryItems();
+    QList<QPair<QString, QString> > urlParameters = QUrlQuery(url).queryItems(QUrl::FullyEncoded);
     QList<QByteArray> normParameters;
 
-    QListIterator<QPair<QByteArray, QByteArray> > i(urlParameters);
+    QListIterator<QPair<QString, QString> > i(urlParameters);
     while(i.hasNext()){
-            QPair<QByteArray, QByteArray> queryItem = i.next();
-            QByteArray normItem = queryItem.first + '=' + queryItem.second;
-            normParameters.append(normItem);
+            QPair<QString, QString> queryItem = i.next();
+            QString normItem = queryItem.first + '=' + queryItem.second;
+            normParameters.append(normItem.toLatin1());
     }
 
     //consumer key

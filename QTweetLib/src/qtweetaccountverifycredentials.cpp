@@ -15,6 +15,7 @@
  * Contact e-mail: Antonie Jovanoski <minimoog77_at_gmail.com>
  */
 
+#include <QUrlQuery>
 #include <QtDebug>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -54,10 +55,12 @@ void QTweetAccountVerifyCredentials::verify(bool includeEntities)
     }
 
     QUrl url("https://api.twitter.com/1/account/verify_credentials.json");
+	QUrlQuery query;
 
     if (includeEntities)
-        url.addQueryItem("include_entities", "true");
+        query.addQueryItem("include_entities", "true");
 
+	url.setQuery(query);
     QNetworkRequest req(url);
 
     QByteArray oauthHeader = oauthTwitter()->generateAuthorizationHeader(url, OAuth::GET);

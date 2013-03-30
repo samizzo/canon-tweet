@@ -54,5 +54,8 @@
     <CustomBuild Include="phototweet.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\bin\libeay32.dll" />
+    <CustomBuild Include="..\bin\ssleay32.dll" />
+    <CustomBuild Include="phototweet.cfg" />
   </ItemGroup>
 </Project>

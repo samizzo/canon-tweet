@@ -22,6 +22,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QUrl>
+#include <QUrlQuery>
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
 #include "qtweetgeocoord.h"
@@ -74,8 +75,8 @@ void QTweetStatusUpdate::post(const QString &status,
     QByteArray oauthHeader;
 
     QUrl urlBase = QUrl(urlString);
-    QUrl urlQuery(urlString);
-    urlQuery.addEncodedQueryItem("status", QUrl::toPercentEncoding(status));
+    QUrlQuery urlQuery;
+    urlQuery.addQueryItem("status", QUrl::toPercentEncoding(status));
 
     if (inReplyToStatus != 0)
         urlQuery.addQueryItem("in_reply_to_status_id", QString::number(inReplyToStatus));
@@ -102,7 +103,9 @@ void QTweetStatusUpdate::post(const QString &status,
         // Not uploading a file, so we are using urlencoded args.
         // We therefore need to generate the OAuth signature based on
         // the entire query.
-        oauthHeader = oauthTwitter()->generateAuthorizationHeader(urlQuery, OAuth::POST);
+		QUrl u(urlBase);
+		u.setQuery(urlQuery);
+        oauthHeader = oauthTwitter()->generateAuthorizationHeader(u, OAuth::POST);
     }
     else
     {
@@ -115,9 +118,7 @@ void QTweetStatusUpdate::post(const QString &status,
     req.setRawHeader(AUTH_HEADER, oauthHeader);
 
     //build status post array
-    QByteArray statusPost = urlQuery.toEncoded(QUrl::RemoveScheme | QUrl::RemoveAuthority | QUrl::RemovePath);
-    //remove '?'
-    statusPost.remove(0, 1);
+    QByteArray statusPost = urlQuery.query(QUrl::FullyEncoded).toLatin1();
 
     QNetworkReply* reply = 0;
 
@@ -151,8 +152,8 @@ void QTweetStatusUpdate::post(const QString &status,
             if (pairs.count() == 2)
             {
                 QHttpPart part;
-                part.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"" + QUrl::fromPercentEncoding(pairs[0].toAscii()) + "\"");
-                part.setBody(QUrl::fromPercentEncoding(pairs[1].toAscii()).toAscii());
+                part.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"" + QUrl::fromPercentEncoding(pairs[0].toLatin1()) + "\"");
+                part.setBody(QUrl::fromPercentEncoding(pairs[1].toLatin1()).toLatin1());
                 mp->append(part);
             }
         }

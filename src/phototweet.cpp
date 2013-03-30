@@ -1,5 +1,5 @@
 #include <QNetworkAccessManager>
-#include <QApplication>
+#include <QtWidgets/QApplication>
 #include <QStringList>
 #include <QtDebug>
 #include <QFile>
@@ -42,19 +42,19 @@ bool PhotoTweet::loadConfig()
             {
                 if (!key.compare("consumer_key"))
                 {
-                    m_oauthTwitter->setConsumerKey(val.toAscii());
+                    m_oauthTwitter->setConsumerKey(val.toLatin1());
                 }
                 else if (!key.compare("consumer_secret"))
                 {
-                    m_oauthTwitter->setConsumerSecret(val.toAscii());
+                    m_oauthTwitter->setConsumerSecret(val.toLatin1());
                 }
                 else if (!key.compare("oauth_token"))
                 {
-                    m_oauthTwitter->setOAuthToken(val.toAscii());
+                    m_oauthTwitter->setOAuthToken(val.toLatin1());
                 }
                 else if (!key.compare("oauth_token_secret"))
                 {
-                    m_oauthTwitter->setOAuthTokenSecret(val.toAscii());
+                    m_oauthTwitter->setOAuthTokenSecret(val.toLatin1());
                 }
             }
         }
@@ -104,7 +104,7 @@ void PhotoTweet::main()
                 imagePath = args.at(i + 1);
                 if (!QFile::exists(imagePath))
                 {
-                    printf("Couldn't find file %s!\n", imagePath.toAscii().constData());
+                    printf("Couldn't find file %s!\n", imagePath.toLatin1().constData());
                     error = true;
                 }
             }
@@ -141,10 +141,10 @@ void PhotoTweet::run(QString& message, QString& imagePath)
     m_message = message;
     m_imagePath = imagePath;
 
-    printf("Tweeting message: '%s'\n", m_message.toAscii().constData());
+    printf("Tweeting message: '%s'\n", m_message.toLatin1().constData());
     if (m_imagePath.length() > 0)
     {
-        printf("Attaching image: '%s'\n", m_imagePath.toAscii().constData());
+        printf("Attaching image: '%s'\n", m_imagePath.toLatin1().constData());
         m_doPost = true;
         getConfiguration();
     }
@@ -177,10 +177,10 @@ void PhotoTweet::printObject(const QVariant& object)
         {
             QVariant value = m[keys[i]];
             QString key = keys[i];
-            printf("%s=", key.toAscii().constData());
+            printf("%s=", key.toLatin1().constData());
             if (value.type() == QVariant::String || value.type() == QVariant::Int || value.type() == QVariant::Double)
             {
-                printf("%s", value.toString().toAscii().constData());
+                printf("%s", value.toString().toLatin1().constData());
             }
             else
             {
@@ -212,7 +212,7 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
         }
         else
         {
-            printf("%s=", key.toAscii().constData());
+            printf("%s=", key.toLatin1().constData());
 
             if (value.isArray())
             {
@@ -226,7 +226,7 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
                 QList<QString> k = m.keys();
                 for (int i = 0; i < k.count(); i++)
                 {
-                    printf("   %s={ ", k[i].toAscii().constData());
+                    printf("   %s={ ", k[i].toLatin1().constData());
                     printObject(m[k[i]]);
                     printf(" }\n");
                 }
@@ -235,7 +235,7 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
             {
                 QVariant v = value.toVariant();
                 QString s = v.toString();
-                printf("%s\n", s.toAscii().constData());
+                printf("%s\n", s.toLatin1().constData());
             }
         }
     }
@@ -247,7 +247,7 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
         if (fileSize > m_photoSizeLimit)
         {
             printf("Can't post file %s, because its size is greater than the limit\n(limit is %i bytes, file is %llu bytes)!\n",
-                m_imagePath.toAscii().constData(), m_photoSizeLimit, fileSize);
+                m_imagePath.toLatin1().constData(), m_photoSizeLimit, fileSize);
             return doQuit();
         }
         else
@@ -294,7 +294,7 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
     if (errorMsg.length() > 0)
     {
-        printf("Error posting message: %s\n", errorMsg.toAscii().constData());
+        printf("Error posting message: %s\n", errorMsg.toLatin1().constData());
     }
     return doQuit();
 }
@@ -331,7 +331,7 @@ void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
     if (haveLimit && haveRemaining && haveReset)
     {
         printf("\nYou have %i tweets with media remaining out of a total of %i.\n", remaining, limit);
-        printf("This limit will reset at %s.\n", reset.toLocalTime().toString().toAscii().constData());
+        printf("This limit will reset at %s.\n", reset.toLocalTime().toString().toLatin1().constData());
     }
 }
 

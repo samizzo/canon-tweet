@@ -20,11 +20,7 @@
 #include <QNetworkReply>
 #include "qtweetnetbase.h"
 #include "qtweetstatus.h"
-#include "qtweetdmstatus.h"
 #include "qtweetuser.h"
-#include "qtweetlist.h"
-#include "qtweetsearchresult.h"
-#include "qtweetsearchpageresults.h"
 #include "qtweetplace.h"
 #include "json/qjsondocument.h"
 

@@ -23,9 +23,6 @@
 class QTweetStatus;
 class QTweetUser;
 class QTweetDMStatus;
-class QTweetList;
-class QTweetSearchResult;
-class QTweetSearchPageResults;
 class QTweetPlace;
 class QTweetEntityUrl;
 class QTweetEntityHashtag;
@@ -44,13 +41,7 @@ public:
     static QList<QTweetStatus> jsonArrayToStatusList(const QJsonArray& jsonArray);
     static QTweetStatus jsonObjectToStatus(const QJsonObject& jsonObject);
     static QTweetUser jsonObjectToUser(const QJsonObject& jsonObject);
-    static QList<QTweetDMStatus> jsonArrayToDirectMessagesList(const QJsonArray& jsonArray);
-    static QTweetDMStatus jsonObjectToDirectMessage(const QJsonObject& jsonObject);
-    static QTweetList jsonObjectToTweetList(const QJsonObject& jsonObject);
     static QList<QTweetUser> jsonArrayToUserInfoList(const QJsonArray& jsonArray);
-    static QList<QTweetList> jsonArrayToTweetLists(const QJsonArray& jsonArray);
-    static QTweetSearchResult jsonObjectToSearchResult(const QJsonObject& var);
-    static QTweetSearchPageResults jsonObjectToSearchPageResults(const QJsonObject& jsonObject);
     static QTweetPlace jsonObjectToPlace(const QJsonObject& var);
     static QTweetPlace jsonObjectToPlaceRecursive(const QJsonObject& jsonObject);
     static QList<QTweetPlace> jsonObjectToPlaceList(const QJsonObject& jsonObject);

@@ -20,13 +20,15 @@
 
 #include <QtCore/qglobal.h>
 
-#ifndef QTWEETLIBSHARED_EXPORT 
+/*#ifndef QTWEETLIBSHARED_EXPORT 
 # if defined (QTWEETLIB_MAKEDLL)
 #  define QTWEETLIBSHARED_EXPORT Q_DECL_EXPORT
 # else
 #  define QTWEETLIBSHARED_EXPORT Q_DECL_IMPORT
 # endif
-#endif
+#endif*/
+
+#define QTWEETLIBSHARED_EXPORT
 
 #define AUTH_HEADER "Authorization"
 
