@@ -1,5 +1,6 @@
 syntax: glob
 
+*.tlog
 notes.txt
 *.jpg
 *.png
@@ -11,8 +12,8 @@ GeneratedFiles\*
 *.vcproj
 *.manifest
 *.idb
-src\Win32\Debug\*
-src\Win32\Release\*
+Debug\*
+Release\*
 *.obj
 ui_mainwindow.h
 *.user
@@ -31,8 +32,8 @@ exampletest/ipch/*
 *.opensdf
 lib/*.exe
 lib/*.dll
-lib/*.exp
-lib/*.ilk
+*.exp
+*.ilk
 lib/*.lib
 lib/*.prl
 qjson/debug
