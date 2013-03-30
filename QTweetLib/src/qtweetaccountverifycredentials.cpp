@@ -19,11 +19,11 @@
 #include <QtDebug>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "qtweetaccountverifycredentials.h"
 #include "qtweetuser.h"
 #include "qtweetconvert.h"
-#include "json/qjsondocument.h"
-#include "json/qjsonobject.h"
 
 /**
  *  Constructor

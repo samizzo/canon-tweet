@@ -11,8 +11,8 @@
 #include "qtweetstatusupdatewithmedia.h"
 #include "qtweetstatus.h"
 #include "qtweetconfiguration.h"
-#include "json/qjsondocument.h"
-#include "json/qjsonobject.h"
+#include <QJsonDocument>
+#include <QJsonObject>
 
 PhotoTweet::PhotoTweet() :
 m_doPost(false),

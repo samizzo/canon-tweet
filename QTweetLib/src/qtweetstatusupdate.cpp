@@ -23,12 +23,13 @@
 #include <QFile>
 #include <QUrl>
 #include <QUrlQuery>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
 #include "qtweetgeocoord.h"
 #include "qtweetconvert.h"
-#include "json/qjsondocument.h"
-#include "json/qjsonobject.h"
+
 
 QTweetStatusUpdate::QTweetStatusUpdate(QObject *parent) :
     QTweetNetBase(parent)

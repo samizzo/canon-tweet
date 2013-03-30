@@ -18,9 +18,9 @@
 #include <QtDebug>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "qtweetaccountratelimitstatus.h"
-#include "json/qjsondocument.h"
-#include "json/qjsonobject.h"
 
 /**
  *  Constructor

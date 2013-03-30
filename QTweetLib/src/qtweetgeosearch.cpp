@@ -19,10 +19,10 @@
 #include <QtDebug>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "qtweetgeosearch.h"
 #include "qtweetconvert.h"
-#include "json/qjsondocument.h"
-#include "json/qjsonobject.h"
 
 /**
  *  Constructor

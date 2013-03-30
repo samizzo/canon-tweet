@@ -43,27 +43,6 @@
     <ClCompile Include="oauthtwitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="json\qjson.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsonarray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsondocument.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsonobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsonparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsonvalue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\qjsonwriter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qtweetaccountratelimitstatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -183,30 +162,6 @@
     <CustomBuild Include="oauthtwitter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="json\qjson_p.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonarray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsondocument.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonexport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonobject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonparser_p.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonvalue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\qjsonwriter_p.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <CustomBuild Include="qtweetaccountratelimitstatus.h">
       <Filter>Header Files</Filter>
     </CustomBuild>

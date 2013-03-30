@@ -167,13 +167,6 @@
     </ClCompile>
     <ClCompile Include="oauth.cpp" />
     <ClCompile Include="oauthtwitter.cpp" />
-    <ClCompile Include="json\qjson.cpp" />
-    <ClCompile Include="json\qjsonarray.cpp" />
-    <ClCompile Include="json\qjsondocument.cpp" />
-    <ClCompile Include="json\qjsonobject.cpp" />
-    <ClCompile Include="json\qjsonparser.cpp" />
-    <ClCompile Include="json\qjsonvalue.cpp" />
-    <ClCompile Include="json\qjsonwriter.cpp" />
     <ClCompile Include="qtweetaccountratelimitstatus.cpp" />
     <ClCompile Include="qtweetaccountverifycredentials.cpp" />
     <ClCompile Include="qtweetconfiguration.cpp" />
@@ -213,14 +206,6 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing oauthtwitter.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <ClInclude Include="json\qjson_p.h" />
-    <ClInclude Include="json\qjsonarray.h" />
-    <ClInclude Include="json\qjsondocument.h" />
-    <ClInclude Include="json\qjsonexport.h" />
-    <ClInclude Include="json\qjsonobject.h" />
-    <ClInclude Include="json\qjsonparser_p.h" />
-    <ClInclude Include="json\qjsonvalue.h" />
-    <ClInclude Include="json\qjsonwriter_p.h" />
     <CustomBuild Include="qtweetaccountratelimitstatus.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>

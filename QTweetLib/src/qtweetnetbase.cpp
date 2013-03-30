@@ -18,11 +18,12 @@
 #include <QtDebug>
 #include <QThreadPool>
 #include <QNetworkReply>
+#include <QJsonDocument>
 #include "qtweetnetbase.h"
 #include "qtweetstatus.h"
 #include "qtweetuser.h"
 #include "qtweetplace.h"
-#include "json/qjsondocument.h"
+
 
 /**
  *   Constructor
