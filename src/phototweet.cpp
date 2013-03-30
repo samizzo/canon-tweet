@@ -8,6 +8,7 @@
 #include "phototweet.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
+#include "qtweetstatusupdatewithmedia.h"
 #include "qtweetstatus.h"
 #include "qtweetconfiguration.h"
 #include "json/qjsondocument.h"
@@ -272,11 +273,13 @@ void PhotoTweet::postMessage()
 
 void PhotoTweet::postMessageWithImage()
 {
-    QTweetStatusUpdate *statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
-    connect(statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
+	QTweetStatusUpdateWithMedia* statusUpdate = new QTweetStatusUpdateWithMedia(m_oauthTwitter, this);
+	statusUpdate->setStatus(m_message);
+	statusUpdate->setImageFilename(m_imagePath);
+	connect(statusUpdate, SIGNAL(postedUpdate(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
     connect(statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
     connect(statusUpdate, SIGNAL(finished(QByteArray, QNetworkReply)), SLOT(replyFinished(QByteArray, QNetworkReply)));
-    statusUpdate->post(m_message, m_imagePath, 0, QTweetGeoCoord(-37.83148, 144.9646), QString(), true);
+	statusUpdate->post();
 }
 
 void PhotoTweet::postStatusFinished(const QTweetStatus &status)
