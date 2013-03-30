@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "src", "qtweetlib\src\src.vcxproj", "{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "photoTweet", "src\photoTweet.vcxproj", "{FC748ACA-B0C4-3EDC-B6B0-D18EF9C287BE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B} = {AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}.Debug|Win32.Build.0 = Debug|Win32
+		{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}.Release|Win32.ActiveCfg = Release|Win32
+		{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}.Release|Win32.Build.0 = Release|Win32
+		{FC748ACA-B0C4-3EDC-B6B0-D18EF9C287BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC748ACA-B0C4-3EDC-B6B0-D18EF9C287BE}.Debug|Win32.Build.0 = Debug|Win32
+		{FC748ACA-B0C4-3EDC-B6B0-D18EF9C287BE}.Release|Win32.ActiveCfg = Release|Win32
+		{FC748ACA-B0C4-3EDC-B6B0-D18EF9C287BE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = qt5
+	EndGlobalSection
+EndGlobal

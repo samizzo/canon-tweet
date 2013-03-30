@@ -1,0 +1,1061 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AE923469-E4B5-3B7F-A6A0-7C7A95EBB40B}</ProjectGuid>
+    <RootNamespace>src</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <OutputDirectory>..\lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>qtweetlib</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <OutputDirectory>..\lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>qtweetlibd</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">qtweetlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">qtweetlibd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>"..";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore";"release";..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QTWEETLIB_MAKEDLL;Q_JSONRPC_DLL;Q_BUILD_JSONRPC;QT_NO_DEBUG;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QTDIR)\lib\Qt5Network.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;libEGL.lib;libGLESv2.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:\Qt\Qt5.0.1\5.0.1\msvc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\qtweetlib.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QTWEETLIB_MAKEDLL;Q_JSONRPC_DLL;Q_BUILD_JSONRPC;QT_NO_DEBUG;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>"..";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui";"..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore";"debug";..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QTWEETLIB_MAKEDLL;Q_JSONRPC_DLL;Q_BUILD_JSONRPC;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QTDIR)\lib\Qt5Networkd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:\Qt\Qt5.0.1\5.0.1\msvc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\qtweetlibd.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QTWEETLIB_MAKEDLL;Q_JSONRPC_DLL;Q_BUILD_JSONRPC;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Debug\moc_oauth.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_oauthtwitter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetaccountratelimitstatus.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetaccountverifycredentials.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetblocksblocking.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetblocksblockingids.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetblockscreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetblocksdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetblocksexists.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetconfiguration.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetdirectmessagedestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetdirectmessagenew.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetdirectmessages.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetdirectmessagessent.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetdirectmessagesshow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfavorites.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfavoritescreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfavoritesdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfollowersid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfriendshipcreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfriendshipdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetfriendsid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetgeoplacecreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetgeoplaceid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetgeoreversegeocode.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetgeosearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetgeosimilarplaces.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweethometimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistaddmember.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistcreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistdeletemember.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistshowlist.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistsubscribe.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetlistupdate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetmentions.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetnetbase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetsearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusretweet.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusretweetbyid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusretweetedby.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusretweets.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusshow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusupdate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetstatusupdatewithmedia.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetuserlookup.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetusersearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetusershow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetuserstatusesfollowers.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetuserstream.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qtweetusertimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="oauth.cpp" />
+    <ClCompile Include="oauthtwitter.cpp" />
+    <ClCompile Include="json\qjson.cpp" />
+    <ClCompile Include="json\qjsonarray.cpp" />
+    <ClCompile Include="json\qjsondocument.cpp" />
+    <ClCompile Include="json\qjsonobject.cpp" />
+    <ClCompile Include="json\qjsonparser.cpp" />
+    <ClCompile Include="json\qjsonvalue.cpp" />
+    <ClCompile Include="json\qjsonwriter.cpp" />
+    <ClCompile Include="qtweetaccountratelimitstatus.cpp" />
+    <ClCompile Include="qtweetaccountverifycredentials.cpp" />
+    <ClCompile Include="qtweetblocksblocking.cpp" />
+    <ClCompile Include="qtweetblocksblockingids.cpp" />
+    <ClCompile Include="qtweetblockscreate.cpp" />
+    <ClCompile Include="qtweetblocksdestroy.cpp" />
+    <ClCompile Include="qtweetblocksexists.cpp" />
+    <ClCompile Include="qtweetconfiguration.cpp" />
+    <ClCompile Include="qtweetconvert.cpp" />
+    <ClCompile Include="qtweetdirectmessagedestroy.cpp" />
+    <ClCompile Include="qtweetdirectmessagenew.cpp" />
+    <ClCompile Include="qtweetdirectmessages.cpp" />
+    <ClCompile Include="qtweetdirectmessagessent.cpp" />
+    <ClCompile Include="qtweetdirectmessagesshow.cpp" />
+    <ClCompile Include="qtweetdmstatus.cpp" />
+    <ClCompile Include="qtweetentityhashtag.cpp" />
+    <ClCompile Include="qtweetentitymedia.cpp" />
+    <ClCompile Include="qtweetentityurl.cpp" />
+    <ClCompile Include="qtweetentityusermentions.cpp" />
+    <ClCompile Include="qtweetfavorites.cpp" />
+    <ClCompile Include="qtweetfavoritescreate.cpp" />
+    <ClCompile Include="qtweetfavoritesdestroy.cpp" />
+    <ClCompile Include="qtweetfollowersid.cpp" />
+    <ClCompile Include="qtweetfriendshipcreate.cpp" />
+    <ClCompile Include="qtweetfriendshipdestroy.cpp" />
+    <ClCompile Include="qtweetfriendsid.cpp" />
+    <ClCompile Include="qtweetgeoboundingbox.cpp" />
+    <ClCompile Include="qtweetgeocoord.cpp" />
+    <ClCompile Include="qtweetgeoplacecreate.cpp" />
+    <ClCompile Include="qtweetgeoplaceid.cpp" />
+    <ClCompile Include="qtweetgeoreversegeocode.cpp" />
+    <ClCompile Include="qtweetgeosearch.cpp" />
+    <ClCompile Include="qtweetgeosimilarplaces.cpp" />
+    <ClCompile Include="qtweethometimeline.cpp" />
+    <ClCompile Include="qtweetlist.cpp" />
+    <ClCompile Include="qtweetlistaddmember.cpp" />
+    <ClCompile Include="qtweetlistcreate.cpp" />
+    <ClCompile Include="qtweetlistdeletemember.cpp" />
+    <ClCompile Include="qtweetlistshowlist.cpp" />
+    <ClCompile Include="qtweetlistsubscribe.cpp" />
+    <ClCompile Include="qtweetlistupdate.cpp" />
+    <ClCompile Include="qtweetmentions.cpp" />
+    <ClCompile Include="qtweetnetbase.cpp" />
+    <ClCompile Include="qtweetplace.cpp" />
+    <ClCompile Include="qtweetsearch.cpp" />
+    <ClCompile Include="qtweetsearchpageresults.cpp" />
+    <ClCompile Include="qtweetsearchresult.cpp" />
+    <ClCompile Include="qtweetstatus.cpp" />
+    <ClCompile Include="qtweetstatusdestroy.cpp" />
+    <ClCompile Include="qtweetstatusretweet.cpp" />
+    <ClCompile Include="qtweetstatusretweetbyid.cpp" />
+    <ClCompile Include="qtweetstatusretweetedby.cpp" />
+    <ClCompile Include="qtweetstatusretweets.cpp" />
+    <ClCompile Include="qtweetstatusshow.cpp" />
+    <ClCompile Include="qtweetstatusupdate.cpp" />
+    <ClCompile Include="qtweetstatusupdatewithmedia.cpp" />
+    <ClCompile Include="qtweetuser.cpp" />
+    <ClCompile Include="qtweetuserlookup.cpp" />
+    <ClCompile Include="qtweetusersearch.cpp" />
+    <ClCompile Include="qtweetusershow.cpp" />
+    <ClCompile Include="qtweetuserstatusesfollowers.cpp" />
+    <ClCompile Include="qtweetuserstream.cpp" />
+    <ClCompile Include="qtweetusertimeline.cpp" />
+    <ClCompile Include="Release\moc_qtweetusertimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="oauth.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing oauth.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing oauth.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="oauthtwitter.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing oauthtwitter.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing oauthtwitter.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="json\qjson_p.h" />
+    <ClInclude Include="json\qjsonarray.h" />
+    <ClInclude Include="json\qjsondocument.h" />
+    <ClInclude Include="json\qjsonexport.h" />
+    <ClInclude Include="json\qjsonobject.h" />
+    <ClInclude Include="json\qjsonparser_p.h" />
+    <ClInclude Include="json\qjsonvalue.h" />
+    <ClInclude Include="json\qjsonwriter_p.h" />
+    <CustomBuild Include="qtweetaccountratelimitstatus.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetaccountratelimitstatus.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetaccountratelimitstatus.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetaccountverifycredentials.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetaccountverifycredentials.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetaccountverifycredentials.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetblocksblocking.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblocksblocking.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblocksblocking.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetblocksblockingids.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblocksblockingids.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblocksblockingids.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetblockscreate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblockscreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblockscreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetblocksdestroy.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblocksdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblocksdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetblocksexists.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblocksexists.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblocksexists.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetconfiguration.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetconfiguration.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetconfiguration.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetconvert.h" />
+    <CustomBuild Include="qtweetdirectmessagedestroy.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetdirectmessagedestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetdirectmessagedestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetdirectmessagenew.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetdirectmessagenew.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetdirectmessagenew.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetdirectmessages.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetdirectmessages.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetdirectmessages.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetdirectmessagessent.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetdirectmessagessent.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetdirectmessagessent.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetdirectmessagesshow.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetdirectmessagesshow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetdirectmessagesshow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetdmstatus.h" />
+    <ClInclude Include="qtweetentityhashtag.h" />
+    <ClInclude Include="qtweetentitymedia.h" />
+    <ClInclude Include="qtweetentityurl.h" />
+    <ClInclude Include="qtweetentityusermentions.h" />
+    <CustomBuild Include="qtweetfavorites.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfavorites.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfavorites.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfavoritescreate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfavoritescreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfavoritescreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfavoritesdestroy.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfavoritesdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfavoritesdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfollowersid.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfollowersid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfollowersid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfriendshipcreate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfriendshipcreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfriendshipcreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfriendshipdestroy.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfriendshipdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfriendshipdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetfriendsid.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetfriendsid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetfriendsid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetgeoboundingbox.h" />
+    <ClInclude Include="qtweetgeocoord.h" />
+    <CustomBuild Include="qtweetgeoplacecreate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetgeoplacecreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetgeoplacecreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetgeoplaceid.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetgeoplaceid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetgeoplaceid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetgeoreversegeocode.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetgeoreversegeocode.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetgeoreversegeocode.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetgeosearch.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetgeosearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetgeosearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetgeosimilarplaces.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetgeosimilarplaces.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetgeosimilarplaces.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweethometimeline.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweethometimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweethometimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetlib_global.h" />
+    <ClInclude Include="qtweetlist.h" />
+    <CustomBuild Include="qtweetlistaddmember.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistaddmember.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistaddmember.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetlistcreate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistcreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistcreate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetlistdeletemember.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistdeletemember.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistdeletemember.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetlistshowlist.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistshowlist.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistshowlist.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetlistsubscribe.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistsubscribe.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistsubscribe.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetlistupdate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetlistupdate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetlistupdate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetmentions.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetmentions.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetmentions.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetnetbase.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetnetbase.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetnetbase.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetplace.h" />
+    <CustomBuild Include="qtweetsearch.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetsearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetsearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetsearchpageresults.h" />
+    <ClInclude Include="qtweetsearchresult.h" />
+    <ClInclude Include="qtweetstatus.h" />
+    <CustomBuild Include="qtweetstatusdestroy.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusdestroy.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusretweet.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusretweet.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusretweet.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusretweetbyid.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusretweetbyid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusretweetbyid.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusretweetedby.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusretweetedby.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusretweetedby.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusretweets.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusretweets.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusretweets.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusshow.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusshow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusshow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusupdate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusupdate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusupdate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetstatusupdatewithmedia.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetstatusupdatewithmedia.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetstatusupdatewithmedia.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qtweetuser.h" />
+    <CustomBuild Include="qtweetuserlookup.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetuserlookup.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetuserlookup.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetusersearch.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetusersearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetusersearch.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetusershow.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetusershow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetusershow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetuserstatusesfollowers.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetuserstatusesfollowers.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetuserstatusesfollowers.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetuserstream.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetuserstream.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetuserstream.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="qtweetusertimeline.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetusertimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetusertimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Release\moc_oauth.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_oauthtwitter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetaccountratelimitstatus.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetaccountverifycredentials.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetblocksblocking.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetblocksblockingids.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetblockscreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetblocksdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetblocksexists.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetconfiguration.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetdirectmessagedestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetdirectmessagenew.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetdirectmessages.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetdirectmessagessent.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetdirectmessagesshow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfavorites.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfavoritescreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfavoritesdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfollowersid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfriendshipcreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfriendshipdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetfriendsid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetgeoplacecreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetgeoplaceid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetgeoreversegeocode.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetgeosearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetgeosimilarplaces.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweethometimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistaddmember.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistcreate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistdeletemember.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistshowlist.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistsubscribe.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetlistupdate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetmentions.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetnetbase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetsearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusdestroy.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusretweet.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusretweetbyid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusretweetedby.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusretweets.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusshow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusupdate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetstatusupdatewithmedia.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetuserlookup.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetusersearch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetusershow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetuserstatusesfollowers.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qtweetuserstream.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Qt5Version_x0020_Win32="qt5" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
