@@ -1,12 +1,4 @@
-//#include <QtDebug>
-//#include <QFile>
-//#include <QNetworkRequest>
 #include <QHttpMultipart>
-//#include <QNetworkAccessManager>
-//#include <QNetworkReply>
-//#include <QtXml>
-//#include "oauth.h"
-//#include "oauthtwitter.h"
 #include "yfrogUpload.h"
 #include "yfrogUploadStatus.h"
 
@@ -17,13 +9,8 @@ m_yfrogApiKey(yfrogApiKey)
 {
 }
 
-void YfrogUpload::upload(const QString& message, const QString& filename)
+void YfrogUpload::upload(const QString& filename)
 {
-	if (!QFile::exists(filename))
-	{
-		return;
-	}
-
 	QString realm("http://api.twitter.com/");
 	QString authProviderUrl("https://api.twitter.com/1/account/verify_credentials.xml");
 	QUrl url("http://yfrog.com/api/xauth_upload");
@@ -44,12 +31,6 @@ void YfrogUpload::upload(const QString& message, const QString& filename)
     keyPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"key\"");
     keyPart.setBody(m_yfrogApiKey.toLatin1());
     mp->append(keyPart);
-
-	/*// message
-	QHttpPart msgPart;
-	msgPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"message\"");
-    msgPart.setBody(message.toLatin1());
-	mp->append(msgPart);*/
 
 	QByteArray oauthHeader = m_oauthTwitter->generateAuthorizationHeader(authProviderUrl, OAuth::GET, realm);
     QNetworkRequest req(url);
@@ -79,10 +60,6 @@ void YfrogUpload::reply()
 		}
 		else
 		{
-            /*qDebug() << "Network error: " << reply->error();
-            qDebug() << "Error string: " << reply->errorString();
-            qDebug() << "Error response: " << response;*/
-
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 

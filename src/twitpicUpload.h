@@ -17,7 +17,7 @@ class TwitpicUpload : public QObject
 
 	public:
 		TwitpicUpload(const QString& twitpicAppKey, OAuthTwitter *oauthTwitter, QObject *parent = 0);
-		void upload(const QString& message, const QString& filename);
+		void upload(const QString& filename);
 
 	signals:
 		void error(QTweetNetBase::ErrorCode code, const QString& errorMsg);

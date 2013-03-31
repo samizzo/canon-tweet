@@ -137,14 +137,20 @@ void QTweetNetBase::reply()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
 
-    if (reply) {
-        if (reply->error() == QNetworkReply::NoError) {
+    if (reply)
+	{
+        if (reply->error() == QNetworkReply::NoError)
+		{
             m_response = reply->readAll();
             emit finished(m_response, *reply);
 
             if (isJsonParsingEnabled())
+			{
                 parseJson(m_response);
-        } else {
+			}
+        }
+		else
+		{
             m_response = reply->readAll();
 
             //dump error
@@ -157,23 +163,30 @@ void QTweetNetBase::reply()
 
             //### TODO: try to json parse the error response
 
-            switch (httpStatus) {
-            case NotModified:
-            case BadRequest:
-            case Unauthorized:
-            case Forbidden:
-            case NotFound:
-            case NotAcceptable:
-            case EnhanceYourCalm:
-            case InternalServerError:
-            case BadGateway:
-            case ServiceUnavailable:
-                emit error(static_cast<ErrorCode>(httpStatus), m_lastErrorMessage);
-                break;
-            default:
-                emit error(UnknownError, m_lastErrorMessage);
+            switch (httpStatus)
+			{
+				case NotModified:
+				case BadRequest:
+				case Unauthorized:
+				case Forbidden:
+				case NotFound:
+				case NotAcceptable:
+				case EnhanceYourCalm:
+				case InternalServerError:
+				case BadGateway:
+				case ServiceUnavailable:
+				{
+					emit error(static_cast<ErrorCode>(httpStatus), m_lastErrorMessage);
+					break;
+				}
+
+				default:
+				{
+					emit error(UnknownError, m_lastErrorMessage);
+				}
             }
         }
+
         reply->deleteLater();
     }
 }

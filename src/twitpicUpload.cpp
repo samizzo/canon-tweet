@@ -18,13 +18,8 @@ m_twitpicAppKey(twitpicAppKey)
 {
 }
 
-void TwitpicUpload::upload(const QString& message, const QString& filename)
+void TwitpicUpload::upload(const QString& filename)
 {
-	if (!QFile::exists(filename))
-	{
-		return;
-	}
-
 	QString realm("http://api.twitter.com/");
 	QString authProviderUrl("https://api.twitter.com/1.1/account/verify_credentials.json");
 	QUrl url("http://api.twitpic.com/2/upload.json");
@@ -45,12 +40,6 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
     keyPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"key\"");
     keyPart.setBody(m_twitpicAppKey.toLatin1());
     mp->append(keyPart);
-
-	// message
-	QHttpPart msgPart;
-	msgPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"message\"");
-    msgPart.setBody(message.toLatin1());
-	mp->append(msgPart);
 
 	QByteArray oauthHeader = m_oauthTwitter->generateAuthorizationHeader(authProviderUrl, OAuth::GET, realm);
     QNetworkRequest req(url);

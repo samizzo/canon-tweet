@@ -8,6 +8,10 @@ class TwitpicUploadStatus;
 class OAuthTwitter;
 class QTweetStatus;
 class YfrogUploadStatus;
+class QTweetConfiguration;
+class QTweetStatusUpdate;
+class TwitpicUpload;
+class YfrogUpload;
 
 class PhotoTweet : public QObject
 {
@@ -22,8 +26,7 @@ signals:
     void quit();
 
 public slots:
-    void run(QString& message, QString& imagePath);
-    void main();
+	void main();
 
 private slots:
     void getConfigurationFinished(const QJsonDocument& json);
@@ -39,6 +42,7 @@ private slots:
 	void yfrogFinished(const YfrogUploadStatus& status);
 
 private:
+    void run(QString& message, QString& imagePath = QString());
     void printObject(const QVariant& object);
     void getConfiguration();
     void postMessage();
@@ -46,15 +50,21 @@ private:
 	void postMessageWithImageYfrog();
     void showUsage();
     void doQuit();
+	void runConsole();
 
     OAuthTwitter *m_oauthTwitter;
-
 	QString m_yfrogApiKey;
 	QString m_twitpicApiKey;
     QString m_message;
     QString m_imagePath;
-    bool m_doPost;
-    int m_photoSizeLimit;
+
+	QTweetConfiguration* m_tweetConfig;
+	QTweetStatusUpdate* m_statusUpdate;
+	TwitpicUpload* m_twitpic;
+	YfrogUpload* m_yfrog;
+
+	bool m_processing;
+	bool m_quit;
 };
 
 #endif // PHOTOTWEET_H
