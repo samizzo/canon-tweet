@@ -62,9 +62,6 @@ void TwitpicUpload::reply()
 
         if (reply->error() == QNetworkReply::NoError)
 		{
-			//QString limit = reply->rawHeader("X-RateLimit-Limit");
-			//QString remaining = reply->rawHeader("X-RateLimit-Remaining");
-
 			QJsonParseError jsonError;
 			QJsonDocument json = QJsonDocument::fromJson(response, &jsonError);
 			if (jsonError.error == QJsonParseError::NoError && json.isObject() && !json.isNull())
@@ -80,9 +77,9 @@ void TwitpicUpload::reply()
 		}
 		else
 		{
-            /*qDebug() << "Network error: " << reply->error();
+            qDebug() << "Network error: " << reply->error();
             qDebug() << "Error string: " << reply->errorString();
-            qDebug() << "Error response: " << response;*/
+            qDebug() << "Error response: " << response;
 
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();

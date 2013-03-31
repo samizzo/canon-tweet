@@ -60,6 +60,10 @@ void YfrogUpload::reply()
 		}
 		else
 		{
+            qDebug() << "Network error: " << reply->error();
+            qDebug() << "Error string: " << reply->errorString();
+            qDebug() << "Error response: " << response;
+
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 

@@ -61,7 +61,7 @@ bool PhotoTweet::loadConfig()
     QFile configFile("phototweet.cfg");
     if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        printf("Couldn't load config file phototweet.cfg\n");
+        qWarning("Couldn't load config file 'phototweet.cfg'");
         return false;
     }
 
@@ -238,10 +238,10 @@ void PhotoTweet::run(QString& message, QString& imagePath)
     m_message = message;
     m_imagePath = imagePath;
 
-    printf("Tweeting message: '%s'\n", m_message.toLatin1().constData());
+    qDebug("Tweeting message: '%s'", m_message.toLatin1().constData());
     if (m_imagePath.length() > 0)
     {
-        printf("Attaching image: '%s'\n", m_imagePath.toLatin1().constData());
+        qDebug("Attaching image: '%s'", m_imagePath.toLatin1().constData());
 		postMessageWithImageYfrog();
     }
     else
@@ -344,7 +344,8 @@ void PhotoTweet::postMessageWithImageTwitpic()
 	}
 	else
 	{
-		printf("Couldn't find file %s\n", m_imagePath.toLatin1().constData());
+		qWarning("Couldn't find file %s", m_imagePath.toLatin1().constData());
+		qWarning("Aborting post..");
 		m_processing = false;
 	}
 }
@@ -357,14 +358,14 @@ void PhotoTweet::postMessageWithImageYfrog()
 	}
 	else
 	{
-		printf("Couldn't find file %s\n", m_imagePath.toLatin1().constData());
+		qWarning("Couldn't find file %s", m_imagePath.toLatin1().constData());
 		m_processing = false;
 	}
 }
 
 void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 {
-	printf("Posted status with id %llu\n", status.id());
+	qDebug("Posted status with id %llu", status.id());
 
 	m_processing = false;
 
@@ -378,7 +379,7 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
     if (errorMsg.length() > 0)
     {
-        printf("Error posting message: %s\n", errorMsg.toLatin1().constData());
+        qWarning("Error posting message: %s", errorMsg.toLatin1().constData());
     }
 
 	m_processing = false;
@@ -399,28 +400,28 @@ void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
 
     if (reply.hasRawHeader("X-MediaRateLimit-Limit"))
     {
-        //printf("X-MediaRateLimit-Limit: %s\n", reply.rawHeader("X-MediaRateLimit-Limit").constData());
+        //qDebug("X-MediaRateLimit-Limit: %s", reply.rawHeader("X-MediaRateLimit-Limit").constData());
         limit = reply.rawHeader("X-MediaRateLimit-Limit").toInt();
         haveLimit = true;
     }
 
     if (reply.hasRawHeader("X-MediaRateLimit-Remaining"))
     {
-        //printf("X-MediaRateLimit-Remaining: %s\n", reply.rawHeader("X-MediaRateLimit-Remaining").constData());
+        //qDebug("X-MediaRateLimit-Remaining: %s", reply.rawHeader("X-MediaRateLimit-Remaining").constData());
         remaining = reply.rawHeader("X-MediaRateLimit-Remaining").toInt();
         haveRemaining = true;
     }
 
     if (reply.hasRawHeader("X-MediaRateLimit-Reset"))
     {
-        //printf("X-MediaRateLimit-Reset: %s\n", reply.rawHeader("X-MediaRateLimit-Reset").constData());
+        //qDebug("X-MediaRateLimit-Reset: %s", reply.rawHeader("X-MediaRateLimit-Reset").constData());
         reset.setTime_t(reply.rawHeader("X-MediaRateLimit-Reset").toInt());
         haveReset = true;
     }
 
     if (haveLimit && haveRemaining && haveReset)
     {
-        printf("\nYou have %i tweets with media remaining out of a total of %i.\n", remaining, limit);
+        printf("You have %i tweets with media remaining out of a total of %i.\n", remaining, limit);
         printf("This limit will reset at %s.\n", reset.toLocalTime().toString().toLatin1().constData());
     }
 
@@ -429,7 +430,7 @@ void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
 
 void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
-	printf("Error posting image to twitpic:\n%s\n", errorMsg.toLatin1().constData());
+	qWarning("Error posting image to twitpic: %s", errorMsg.toLatin1().constData());
 
 	m_processing = false;
 
@@ -441,8 +442,8 @@ void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode, QString errorMsg)
 
 void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
 {
-	printf("Error parsing json result while posting image to twitpic\n");
-	printf("json: %s\n", json.constData());
+	qWarning("Error parsing json result while posting image to twitpic");
+	qWarning("json: %s", json.constData());
 
 	m_processing = false;
 
@@ -454,19 +455,20 @@ void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
 
 void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
 {
-	printf("Posted image to twitpic!  Url is %s\n", status.getImageUrl().toLatin1().constData());
+	qDebug("Posted image to twitpic!");
+	qDebug("Url is %s", status.getImageUrl().toLatin1().constData());
 	if (m_message.length() > 0)
 	{
 		m_message += " ";
 	}
 	m_message += status.getImageUrl();
-	printf("Posting link to twitter..\n");
+	qDebug("Posting link to twitter..");
 	postMessage();
 }
 
 void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode, const YfrogUploadStatus& status)
 {
-	printf("Error posting image to yfrog:\n%s\n", status.getStatusString().toLatin1().constData());
+	qWarning("Error posting image to yfrog: %s", status.getStatusString().toLatin1().constData());
 
 	m_processing = false;
 
@@ -480,7 +482,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 {
 	if (status.getStatus() != YfrogUploadStatus::Ok)
 	{
-		printf("Error posting image to yfrog: %s\n", status.getStatusString().toLatin1().constData());
+		qWarning("Error posting image to yfrog: %s", status.getStatusString().toLatin1().constData());
 
 		m_processing = false;
 
@@ -491,14 +493,15 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 	}
 	else
 	{
-		printf("Posted image to yfrog!  Url is %s\n", status.getMediaUrl().toLatin1().constData());
+		qDebug("Posted image to yfrog!");
+		qDebug("Url is %s", status.getMediaUrl().toLatin1().constData());
 		if (m_message.length() > 0)
 		{
 			m_message += " ";
 		}
 
 		m_message += status.getMediaUrl();
-		printf("Posting link to twitter..\n");
+		qDebug("Posting link to twitter..");
 		postMessage();
 	}
 }
