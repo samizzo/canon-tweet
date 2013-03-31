@@ -353,7 +353,12 @@ void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
 void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
 {
 	printf("Posted image to twitpic!  Url is %s\n", status.getImageUrl().toLatin1().constData());
-	m_message = m_message + " " + status.getImageUrl();
+	if (m_message.length() > 0)
+	{
+		m_message += " ";
+	}
+	m_message += status.getImageUrl();
+	printf("Posting link to twitter..\n");
 	postMessage();
 }
 
@@ -373,7 +378,12 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 	else
 	{
 		printf("Posted image to yfrog!  Url is %s\n", status.getMediaUrl().toLatin1().constData());
-		m_message = m_message + " " + status.getMediaUrl();
+		if (m_message.length() > 0)
+		{
+			m_message += " ";
+		}
+		m_message += status.getMediaUrl();
+		printf("Posting link to twitter..\n");
 		postMessage();
 	}
 }
