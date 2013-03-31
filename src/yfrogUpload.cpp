@@ -1,24 +1,23 @@
-#include <QtDebug>
-#include <QFile>
-#include <QNetworkRequest>
+//#include <QtDebug>
+//#include <QFile>
+//#include <QNetworkRequest>
 #include <QHttpMultipart>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include "twitpicUpload.h"
-#include "oauthtwitter.h"
-#include "twitpicUploadStatus.h"
+//#include <QNetworkAccessManager>
+//#include <QNetworkReply>
+//#include <QtXml>
+//#include "oauth.h"
+//#include "oauthtwitter.h"
+#include "yfrogUpload.h"
+#include "yfrogUploadStatus.h"
 
-TwitpicUpload::TwitpicUpload(const QString& twitpicAppKey, OAuthTwitter* oauthTwitter, QObject* parent /*= 0*/) :
+YfrogUpload::YfrogUpload(const QString& yfrogApiKey, OAuthTwitter* oauthTwitter, QObject* parent /*= 0*/) :
 QObject(parent),
 m_oauthTwitter(oauthTwitter),
-m_twitpicAppKey(twitpicAppKey)
+m_yfrogApiKey(yfrogApiKey)
 {
 }
 
-void TwitpicUpload::upload(const QString& message, const QString& filename)
+void YfrogUpload::upload(const QString& message, const QString& filename)
 {
 	if (!QFile::exists(filename))
 	{
@@ -26,8 +25,8 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
 	}
 
 	QString realm("http://api.twitter.com/");
-	QString authProviderUrl("https://api.twitter.com/1.1/account/verify_credentials.json");
-	QUrl url("http://api.twitpic.com/2/upload.json");
+	QString authProviderUrl("https://api.twitter.com/1/account/verify_credentials.xml");
+	QUrl url("http://yfrog.com/api/xauth_upload");
 
     QHttpMultiPart* mp = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
@@ -43,14 +42,14 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
 	// key
 	QHttpPart keyPart;
     keyPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"key\"");
-    keyPart.setBody(m_twitpicAppKey.toLatin1());
+    keyPart.setBody(m_yfrogApiKey.toLatin1());
     mp->append(keyPart);
 
-	// message
+	/*// message
 	QHttpPart msgPart;
 	msgPart.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"message\"");
     msgPart.setBody(message.toLatin1());
-	mp->append(msgPart);
+	mp->append(msgPart);*/
 
 	QByteArray oauthHeader = m_oauthTwitter->generateAuthorizationHeader(authProviderUrl, OAuth::GET, realm);
     QNetworkRequest req(url);
@@ -63,7 +62,7 @@ void TwitpicUpload::upload(const QString& message, const QString& filename)
 	connect(reply, SIGNAL(finished()), this, SLOT(reply()));
 }
 
-void TwitpicUpload::reply()
+void YfrogUpload::reply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
@@ -73,21 +72,10 @@ void TwitpicUpload::reply()
 
         if (reply->error() == QNetworkReply::NoError)
 		{
-			//QString limit = reply->rawHeader("X-RateLimit-Limit");
-			//QString remaining = reply->rawHeader("X-RateLimit-Remaining");
-
-			QJsonParseError jsonError;
-			QJsonDocument json = QJsonDocument::fromJson(response, &jsonError);
-			if (jsonError.error == QJsonParseError::NoError && json.isObject() && !json.isNull())
-			{
-				QJsonObject object = json.object();
-				TwitpicUploadStatus status(object);
-				emit finished(status);
-			}
-			else
-			{
-				emit jsonParseError(response);
-			}
+			QDomDocument doc;
+			doc.setContent(response);
+			YfrogUploadStatus status(doc);
+			emit finished(status);
 		}
 		else
 		{
@@ -98,31 +86,9 @@ void TwitpicUpload::reply()
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-            /*
-				"{
-					"errors": [ {"code" : 401, "message" : "Could not authenticate you (header rejected by twitter)." } ]
-				}"
-			*/
-
-			QString msg;
-			QJsonDocument doc = QJsonDocument::fromJson(response);
-			if (doc.isObject() && !doc.isNull())
-			{
-				QJsonValue errorsVal = doc.object().value("errors");
-				if (!errorsVal.isNull() && errorsVal.isArray())
-				{
-					QJsonArray errors = errorsVal.toArray();
-					if (errors.count() > 0)
-					{
-						QJsonValue error = errors.at(0);
-						if (!error.isNull() && error.isObject())
-						{
-							QJsonObject obj = error.toObject();
-							msg = obj.value("message").toString();
-						}
-					}
-				}
-			}
+			QDomDocument doc;
+			doc.setContent(response);
+			YfrogUploadStatus status(doc);
 
             switch (httpStatus)
 			{
@@ -137,13 +103,13 @@ void TwitpicUpload::reply()
 				case QTweetNetBase::BadGateway:
 				case QTweetNetBase::ServiceUnavailable:
 				{
-					emit error(static_cast<QTweetNetBase::ErrorCode>(httpStatus), msg);
+					emit error(static_cast<QTweetNetBase::ErrorCode>(httpStatus), status);
 					break;
 				}
 
 				default:
 				{
-					emit error(QTweetNetBase::UnknownError, msg);
+					emit error(QTweetNetBase::UnknownError, status);
 				}
             }
         }

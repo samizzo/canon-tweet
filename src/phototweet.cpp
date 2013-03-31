@@ -15,6 +15,8 @@
 #include <QJsonObject>
 #include "twitpicUpload.h"
 #include "twitpicUploadStatus.h"
+#include "yfrogUpload.h"
+#include "yfrogUploadStatus.h"
 
 PhotoTweet::PhotoTweet() :
 m_doPost(false),
@@ -62,6 +64,10 @@ bool PhotoTweet::loadConfig()
 				else if (!key.compare("twitpic_api_key"))
 				{
 					m_twitpicApiKey = val;
+				}
+				else if(!key.compare("yfrog_api_key"))
+				{
+					m_yfrogApiKey = val;
 				}
             }
         }
@@ -152,7 +158,7 @@ void PhotoTweet::run(QString& message, QString& imagePath)
     if (m_imagePath.length() > 0)
     {
         printf("Attaching image: '%s'\n", m_imagePath.toLatin1().constData());
-		postMessageWithImage();
+		postMessageWithImageYfrog();
     }
     else
     {
@@ -258,12 +264,20 @@ void PhotoTweet::postMessage()
     statusUpdate->post(m_message);
 }
 
-void PhotoTweet::postMessageWithImage()
+void PhotoTweet::postMessageWithImageTwitpic()
 {
 	TwitpicUpload* upload = new TwitpicUpload(m_twitpicApiKey, m_oauthTwitter, this);
 	connect(upload, SIGNAL(jsonParseError(QByteArray)), SLOT(twitpicJsonParseError(QByteArray)));
     connect(upload, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(twitpicError(QTweetNetBase::ErrorCode, QString)));
     connect(upload, SIGNAL(finished(TwitpicUploadStatus)), SLOT(twitpicFinished(TwitpicUploadStatus)));
+	upload->upload(m_message, m_imagePath);
+}
+
+void PhotoTweet::postMessageWithImageYfrog()
+{
+	YfrogUpload* upload = new YfrogUpload(m_yfrogApiKey, m_oauthTwitter, this);
+    connect(upload, SIGNAL(error(QTweetNetBase::ErrorCode, YfrogUploadStatus)), SLOT(yfrogError(QTweetNetBase::ErrorCode, YfrogUploadStatus)));
+    connect(upload, SIGNAL(finished(YfrogUploadStatus)), SLOT(yfrogFinished(YfrogUploadStatus)));
 	upload->upload(m_message, m_imagePath);
 }
 
@@ -339,6 +353,27 @@ void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
 void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
 {
 	printf("Posted image to twitpic!  Url is %s\n", status.getImageUrl().toLatin1().constData());
+	m_message = m_message + " " + status.getImageUrl();
+	postMessage();
+}
+
+void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode, const YfrogUploadStatus& status)
+{
+	printf("Error posting image to yfrog:\n%s\n", status.getStatusString().toLatin1().constData());
 	doQuit();
 }
 
+void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
+{
+	if (status.getStatus() != YfrogUploadStatus::Ok)
+	{
+		printf("Error posting image to yfrog: %s\n", status.getStatusString().toLatin1().constData());
+		doQuit();
+	}
+	else
+	{
+		printf("Posted image to yfrog!  Url is %s\n", status.getMediaUrl().toLatin1().constData());
+		m_message = m_message + " " + status.getMediaUrl();
+		postMessage();
+	}
+}
