@@ -76,3 +76,4 @@ examples/pinauthstatusupdate/debug/*.ilk
 examples/pinauthstatusupdate/debug/*.intermediate.manifest
 examples/pinauthstatusupdate/ui_*.h
 *.o
+EOS SDK v2.11 Windows\*
