@@ -15,56 +15,57 @@ class YfrogUpload;
 
 class PhotoTweet : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
-public:
-    explicit PhotoTweet();
+	public:
+		PhotoTweet();
+		~PhotoTweet();
 
-    bool loadConfig();
+		bool loadConfig();
 
-signals:
-    void quit();
+	signals:
+		void quit();
 
-public slots:
-	void main();
+	public slots:
+		void main();
 
-private slots:
-    void getConfigurationFinished(const QJsonDocument& json);
-    void postStatusFinished(const QTweetStatus& status);
-    void postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
-    void replyFinished(const QByteArray& response, const QNetworkReply& reply);
+	private slots:
+		void getConfigurationFinished(const QJsonDocument& json);
+		void postStatusFinished(const QTweetStatus& status);
+		void postStatusError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
+		void replyFinished(const QByteArray& response, const QNetworkReply& reply);
 
-	void twitpicError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
-	void twitpicJsonParseError(const QByteArray& json);
-	void twitpicFinished(const TwitpicUploadStatus& status);
+		void twitpicError(QTweetNetBase::ErrorCode errorCode, QString errorMsg);
+		void twitpicJsonParseError(const QByteArray& json);
+		void twitpicFinished(const TwitpicUploadStatus& status);
 
-	void yfrogError(QTweetNetBase::ErrorCode errorCode, const YfrogUploadStatus& status);
-	void yfrogFinished(const YfrogUploadStatus& status);
+		void yfrogError(QTweetNetBase::ErrorCode errorCode, const YfrogUploadStatus& status);
+		void yfrogFinished(const YfrogUploadStatus& status);
 
-private:
-    void run(QString& message, QString& imagePath = QString());
-    void printObject(const QVariant& object);
-    void getConfiguration();
-    void postMessage();
-	void postMessageWithImageTwitpic();
-	void postMessageWithImageYfrog();
-    void showUsage();
-    void doQuit();
-	void runConsole();
+	private:
+		void run(QString& message, QString& imagePath = QString());
+		void printObject(const QVariant& object);
+		void getConfiguration();
+		void postMessage();
+		void postMessageWithImageTwitpic();
+		void postMessageWithImageYfrog();
+		void showUsage();
+		void doQuit();
+		void runConsole();
 
-    OAuthTwitter *m_oauthTwitter;
-	QString m_yfrogApiKey;
-	QString m_twitpicApiKey;
-    QString m_message;
-    QString m_imagePath;
+		OAuthTwitter *m_oauthTwitter;
+		QString m_yfrogApiKey;
+		QString m_twitpicApiKey;
+		QString m_message;
+		QString m_imagePath;
 
-	QTweetConfiguration* m_tweetConfig;
-	QTweetStatusUpdate* m_statusUpdate;
-	TwitpicUpload* m_twitpic;
-	YfrogUpload* m_yfrog;
+		QTweetConfiguration* m_tweetConfig;
+		QTweetStatusUpdate* m_statusUpdate;
+		TwitpicUpload* m_twitpic;
+		YfrogUpload* m_yfrog;
 
-	bool m_processing;
-	bool m_quit;
+		bool m_processing;
+		bool m_quit;
 };
 
 #endif // PHOTOTWEET_H

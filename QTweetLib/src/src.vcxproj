@@ -147,9 +147,6 @@
     <ClCompile Include="Debug\moc_qtweetaccountverifycredentials.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Debug\moc_qtweetblocksexists.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Debug\moc_qtweetconfiguration.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -226,16 +223,6 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetaccountverifycredentials.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="qtweetblocksexists.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qtweetblocksexists.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -D_WINDLL "-I.\.." "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qtweetblocksexists.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
-    </CustomBuild>
     <CustomBuild Include="qtweetconfiguration.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQTWEETLIB_MAKEDLL -DQ_JSONRPC_DLL -DQ_BUILD_JSONRPC -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I.\.." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml"</Command>
@@ -309,9 +296,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_qtweetaccountverifycredentials.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Release\moc_qtweetblocksexists.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_qtweetconfiguration.cpp">

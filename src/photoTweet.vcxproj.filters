@@ -35,6 +35,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Dlls">
+      <UniqueIdentifier>{fc9bce1a-0573-44e8-b563-c479a7d8d2ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -85,13 +88,14 @@
     <ClCompile Include="yfrogUpload.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="phototweet.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\bin\libeay32.dll" />
-    <CustomBuild Include="..\bin\ssleay32.dll" />
     <CustomBuild Include="phototweet.cfg" />
     <CustomBuild Include="twitpicUpload.h">
       <Filter>Header Files</Filter>
@@ -104,6 +108,36 @@
     </CustomBuild>
     <CustomBuild Include="yfrogUploadStatus.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\EDSDK.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\bin\libeay32.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\bin\ssleay32.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\Ucs32P.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\Mlib.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\EdsImage.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPDLL.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPLibCom.dll">
+      <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPRSC.dll">
+      <Filter>Dlls</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

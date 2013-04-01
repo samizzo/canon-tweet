@@ -17,6 +17,7 @@
 #include "twitpicUploadStatus.h"
 #include "yfrogUpload.h"
 #include "yfrogUploadStatus.h"
+#include "Camera.h"
 
 void getInput(const char* msg, char* buf, int bufSize)
 {
@@ -34,6 +35,12 @@ PhotoTweet::PhotoTweet() :
 m_processing(false),
 m_quit(true)
 {
+	if (!Camera::Startup())
+	{
+		qCritical("Couldn't start the camera system!");
+		qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+	}
+
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
 
@@ -54,6 +61,11 @@ m_quit(true)
 	m_yfrog = new YfrogUpload(m_yfrogApiKey, m_oauthTwitter, this);
     connect(m_yfrog, SIGNAL(error(QTweetNetBase::ErrorCode, YfrogUploadStatus)), SLOT(yfrogError(QTweetNetBase::ErrorCode, YfrogUploadStatus)));
     connect(m_yfrog, SIGNAL(finished(YfrogUploadStatus)), SLOT(yfrogFinished(YfrogUploadStatus)));
+}
+
+PhotoTweet::~PhotoTweet()
+{
+	Camera::Shutdown();
 }
 
 bool PhotoTweet::loadConfig()
@@ -154,9 +166,30 @@ void PhotoTweet::runConsole()
 		{
 			getConfiguration();
 		}
+		else if (!_stricmp(buf, "takephotoandtweet"))
+		{
+			if (Camera::Connect())
+			{
+				QString imagePath;
+				if (Camera::TakePicture(imagePath))
+				{
+					run(QString(), imagePath);
+				}
+				else
+				{
+					qCritical("Couldn't take a picture!");
+					qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+				}
+			}
+			else
+			{
+				qCritical("Couldn't connect to the camera!");
+				qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+			}
+		}
 		else
 		{
-			printf("commands: quit, post, postimage, getconfig\n");
+			printf("commands: quit, post, postimage, getconfig, takephotoandtweet\n");
 		}
 	}
 }

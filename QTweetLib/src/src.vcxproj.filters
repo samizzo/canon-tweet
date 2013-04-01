@@ -118,12 +118,6 @@
     <ClCompile Include="Debug\moc_qtweetaccountverifycredentials.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Release\moc_qtweetblocksexists.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_qtweetblocksexists.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="Release\moc_qtweetconfiguration.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
@@ -166,9 +160,6 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="qtweetaccountverifycredentials.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="qtweetblocksexists.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="qtweetconfiguration.h">

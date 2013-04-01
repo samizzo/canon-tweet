@@ -135,6 +135,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_phototweet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -188,19 +189,25 @@
     <CustomBuild Include="..\bin\libeay32.dll">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension);%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\bin\ssleay32.dll">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension);%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="phototweet.cfg">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension);%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(FullPath) $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +256,77 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing yfrogUploadStatus.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Camera.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\EDSDK.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPDLL.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPLibCom.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPRSC.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\EdsImage.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\Mlib.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\Ucs32P.dll">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y "%(FullPath)" $(OutputPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutputPath)\%(Filename)%(Extension)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
