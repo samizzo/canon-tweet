@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\qtweetlib\src;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore;release;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)qtweetlib\src;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;release;$(QTDIR)\mkspecs\win32-msvc2010;$(QTDIR)\include\QtXml;$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -68,8 +68,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:/Programming/photoTweet/src/../qtweetlib/lib/\qtweetlib.lib;$(QTDIR)\lib\Qt5Network.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;$(QTDIR)\lib\Qt5Xml.lib;libEGL.lib;libGLESv2.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:/Programming/photoTweet/src/../qtweetlib/lib/;C:\Qt\Qt5.0.1\5.0.1\msvc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qtweetlib.lib;Qt5Network.lib;Qt5Gui.lib;Qt5Core.lib;Qt5Xml.lib;libEGL.lib;libGLESv2.lib;gdi32.lib;user32.lib;EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)qtweetlib\lib;$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -91,7 +91,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\qtweetlib\src;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore;debug;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010;..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)qtweetlib\src;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;debug;$(QTDIR)\mkspecs\win32-msvc2010;$(QTDIR)\include\QtXml;$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -110,8 +110,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:/Programming/photoTweet/src/../qtweetlib/lib/\qtweetlibd.lib;$(QTDIR)\lib\Qt5Networkd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;$(QTDIR)\lib\Qt5Xmld.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:/Programming/photoTweet/src/../qtweetlib/lib/;C:\Qt\Qt5.0.1\5.0.1\msvc2010\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qtweetlibd.lib;Qt5Networkd.lib;Qt5Guid.lib;Qt5Cored.lib;Qt5Xmld.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)qtweetlib\lib;$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -129,6 +129,10 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_phototweet.cpp">
@@ -171,11 +175,11 @@
   <ItemGroup>
     <CustomBuild Include="phototweet.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
@@ -201,11 +205,11 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="twitpicUpload.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
@@ -213,11 +217,11 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="twitpicUploadStatus.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing twitpicUploadStatus.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing twitpicUploadStatus.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
@@ -228,11 +232,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing yfrogUpload.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing yfrogUpload.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -240,11 +244,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing yfrogUploadStatus.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\release" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing yfrogUploadStatus.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I.\..\qtweetlib\src" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtNetwork" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtGui" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtCore" "-I.\debug" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\mkspecs\win32-msvc2010" "-I.\..\..\..\Qt\Qt5.0.1\5.0.1\msvc2010\include\QtXml"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
