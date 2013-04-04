@@ -1,32 +1,44 @@
 #include <QCoreApplication>
+#include <QDateTime>
 #include "phototweet.h"
 
 void messageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
+	QDateTime now = QDateTime::currentDateTime();
+	QDate nowDate = now.date();
+	QTime nowTime = now.time();
 	QByteArray localMsg = msg.toLocal8Bit();
     switch (type)
 	{
 		case QtDebugMsg:
 		{
-			printf("DEBUG: %s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+			printf("DEBUG: %02i/%02i/%4i %02i:%02i:%02i %s\n",
+				nowDate.day(), nowDate.month(), nowDate.year(), nowTime.hour(), nowTime.minute(), nowTime.second(),
+				localMsg.constData());
 			break;
 		}
 
 		case QtWarningMsg:
 		{
-			printf("WARNING: %s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+			printf("WARNING: %02i/%02i/%4i %02i:%02i:%02i %s\n",
+				nowDate.day(), nowDate.month(), nowDate.year(), nowTime.hour(), nowTime.minute(), nowTime.second(),
+				localMsg.constData());
 			break;
 		}
 
 		case QtCriticalMsg:
 		{
-			printf("CRITICAL: %s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+			printf("CRITICAL: %02i/%02i/%4i %02i:%02i:%02i %s\n",
+				nowDate.day(), nowDate.month(), nowDate.year(), nowTime.hour(), nowTime.minute(), nowTime.second(),
+				localMsg.constData());
 			break;
 		}
 
 		case QtFatalMsg:
 		{
-			printf("FATAL: %s (%s:%u)\n", localMsg.constData(), context.file, context.line);
+			printf("FATAL: %02i/%02i/%4i %02i:%02i:%02i %s\n",
+				nowDate.day(), nowDate.month(), nowDate.year(), nowTime.hour(), nowTime.minute(), nowTime.second(),
+				localMsg.constData());
 			abort();
 		}
     }

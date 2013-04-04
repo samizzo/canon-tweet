@@ -52,6 +52,8 @@ class PhotoTweet : public QObject
 		void showUsage();
 		void doQuit();
 		void runConsole();
+		void runContinuous(float shotTime);
+		void takePhotoAndTweet();
 
 		OAuthTwitter *m_oauthTwitter;
 		QString m_yfrogApiKey;

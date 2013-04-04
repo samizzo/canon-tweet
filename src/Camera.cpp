@@ -1,9 +1,10 @@
 #include "Camera.h"
-#include <EDSDK.h>
+#include <QDateTime>
 #include <QtDebug>
 #include <QDir>
 #include <QCoreApplication>
 #include <QtWidgets/QApplication>
+#include <EDSDK.h>
 
 static QString s_filePath;
 static bool s_photoDone = false;
@@ -18,8 +19,9 @@ static EdsError EDSCALLBACK HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inPara
 
 	if (inEvent == kEdsStateEvent_Shutdown)
 	{
-		// Camera was disconnected externally so shutdown the system.
-		Camera::Shutdown();
+		// Camera was disconnected externally so make sure we are disconnected.
+		qWarning("Camera was disconnected!");
+		Camera::Disconnect();
 	}
 
 	return EDS_ERR_OK;
@@ -41,7 +43,13 @@ static EdsError EDSCALLBACK HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRe
 		if (s_lastError == EDS_ERR_OK)
 		{
 			// Create the output file.
-			s_filePath = s_imageDir + "/" + dirItemInfo.szFileName;
+			QDateTime now = QDateTime::currentDateTime();
+			QDate nowDate = now.date();
+			QTime nowTime = now.time();
+			s_filePath.sprintf("%04i%02i%02i-%02i%02i%02i.jpg",
+				nowDate.year(), nowDate.month(), nowDate.day(),
+				nowTime.hour(), nowTime.minute(), nowTime.second());
+			s_filePath = s_imageDir + "/" + s_filePath;
 			s_lastError = EdsCreateFileStream(s_filePath.toLatin1().constData(), kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
 			if (s_lastError == EDS_ERR_OK)
 			{

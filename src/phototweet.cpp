@@ -126,9 +126,31 @@ void PhotoTweet::showUsage()
     printf("-message <message text>     tweet specified status text\n");
     printf("-getconfig                  return media configuration settings\n");
 	printf("-console                    run in console mode\n");
+	printf("-continuousMode <time>      take photo and tweet every <time> seconds\n");
     printf("\n");
     printf("Note: a message must always be specified if tweeting.  Use quotes\n");
     printf("around the message text to specify multiple words.\n");
+}
+
+void PhotoTweet::runContinuous(float shotTime)
+{
+	QTime timer;
+
+	printf("Running continuously, taking a photo every %.2f minutes..\n", shotTime);
+
+	while (1)
+	{
+		timer.start();
+		while (timer.elapsed() < (shotTime * 60 * 1000));
+		takePhotoAndTweet();
+
+		QApplication::processEvents();
+		while (m_processing)
+		{
+			QApplication::processEvents();
+		}
+		QApplication::processEvents();
+	}
 }
 
 void PhotoTweet::runConsole()
@@ -168,24 +190,7 @@ void PhotoTweet::runConsole()
 		}
 		else if (!_stricmp(buf, "takephotoandtweet"))
 		{
-			if (Camera::Connect())
-			{
-				QString imagePath;
-				if (Camera::TakePicture(imagePath))
-				{
-					run(QString(), imagePath);
-				}
-				else
-				{
-					qCritical("Couldn't take a picture!");
-					qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
-				}
-			}
-			else
-			{
-				qCritical("Couldn't connect to the camera!");
-				qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
-			}
+			takePhotoAndTweet();
 		}
 		else
 		{
@@ -194,10 +199,34 @@ void PhotoTweet::runConsole()
 	}
 }
 
+void PhotoTweet::takePhotoAndTweet()
+{
+	qDebug("Taking a photo..");
+	if (Camera::Connect())
+	{
+		QString imagePath;
+		if (Camera::TakePicture(imagePath))
+		{
+			run(QString(), imagePath);
+		}
+		else
+		{
+			qCritical("Couldn't take a picture!");
+			qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+		}
+	}
+	else
+	{
+		qCritical("Couldn't connect to the camera!");
+		qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+	}
+}
+
 void PhotoTweet::main()
 {
     QStringList& args = QApplication::arguments();
-    bool error = false, console = false;
+    bool error = false, console = false, continuous = false;
+	float shotTime = 2.0f;
 
     QString message, imagePath;
 
@@ -244,11 +273,30 @@ void PhotoTweet::main()
 			console = true;
 			m_quit = false;
 		}
+		else if (!args.at(i).compare("-continuousMode"))
+		{
+			if (i + 1 < args.count())
+			{
+				shotTime = args.at(i + 1).toFloat();
+				continuous = true;
+				m_quit = false;
+			}
+			else
+			{
+				printf("Missing argument to -continuousMode!\n");
+				error = true;
+				break;
+			}
+		}
     }
 
 	if (console)
 	{
 		return runConsole();
+	}
+	else if (continuous)
+	{
+		return runContinuous(shotTime);
 	}
 
     if (message.length() == 0)
