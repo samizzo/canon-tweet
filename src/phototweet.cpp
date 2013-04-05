@@ -127,6 +127,7 @@ void PhotoTweet::showUsage()
     printf("-getconfig                  return media configuration settings\n");
 	printf("-console                    run in console mode\n");
 	printf("-continuousMode <time>      take photo and tweet every <time> seconds\n");
+	printf("-takePhotoAndTweet          take a photo and tweet it\n");
     printf("\n");
     printf("Note: a message must always be specified if tweeting.  Use quotes\n");
     printf("around the message text to specify multiple words.\n");
@@ -287,6 +288,10 @@ void PhotoTweet::main()
 				error = true;
 				break;
 			}
+		}
+		else if (!args.at(i).compare("-takePhotoAndTweet"))
+		{
+			return takePhotoAndTweet();
 		}
     }
 
