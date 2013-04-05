@@ -10,7 +10,24 @@ static QString s_filePath;
 static bool s_photoDone = false;
 static QString s_imageDir;
 static EdsCameraRef s_camera = 0;
+
+enum ExtendedError
+{
+	ExtendedError_None,
+	ExtendedError_CaptureError
+};
+
 static EdsError s_lastError = EDS_ERR_OK;
+static ExtendedError s_extendedError = ExtendedError_None;
+
+static EdsError EDSCALLBACK HandlePropertyEvent(EdsPropertyEvent inEvent, EdsPropertyID inPropertyID, EdsUInt32 inParam, EdsVoid* inContext)
+{
+	(void)inEvent;
+	(void)inPropertyID;
+	(void)inParam;
+	(void)inContext;
+	return EDS_ERR_OK;
+}
 
 static EdsError EDSCALLBACK HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam, EdsVoid* inContext)
 {
@@ -22,6 +39,11 @@ static EdsError EDSCALLBACK HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inPara
 		// Camera was disconnected externally so make sure we are disconnected.
 		qWarning("Camera was disconnected!");
 		Camera::Disconnect();
+	}
+	else if (inEvent == kEdsStateEvent_CaptureError)
+	{
+		s_lastError = 0xffffffff;
+		s_extendedError = ExtendedError_CaptureError;
 	}
 
 	return EDS_ERR_OK;
@@ -189,6 +211,10 @@ bool Camera::Connect()
 		if (s_lastError == EDS_ERR_OK)
 		{
 			s_lastError = EdsSetObjectEventHandler(s_camera, kEdsObjectEvent_All, HandleObjectEvent, 0);
+			if (s_lastError == EDS_ERR_OK)
+			{
+				s_lastError = EdsSetPropertyEventHandler(s_camera, kEdsObjectEvent_All, HandlePropertyEvent, 0);
+			}
 		}
 	}
 
@@ -217,6 +243,12 @@ case code: \
 }
 
 #define MAKE_ERROR_MSG(code, msg) \
+case code: \
+{ \
+	return msg; \
+}
+
+#define MAKE_EXTENDED_ERROR(code, msg) \
 case code: \
 { \
 	return msg; \
@@ -312,7 +344,7 @@ QString Camera::GetLastErrorMessage()
 
 		/* Communications errors */
 		MAKE_ERROR(EDS_ERR_COMM_PORT_IS_IN_USE);
-		MAKE_ERROR(EDS_ERR_COMM_DISCONNECTED);
+		MAKE_ERROR_MSG(EDS_ERR_COMM_DISCONNECTED, "Camera was disconnected!");
 		MAKE_ERROR(EDS_ERR_COMM_DEVICE_INCOMPATIBLE);
 		MAKE_ERROR(EDS_ERR_COMM_BUFFER_FULL);
 		MAKE_ERROR(EDS_ERR_COMM_USB_BUS_ERR);
@@ -375,6 +407,14 @@ QString Camera::GetLastErrorMessage()
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG);
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG);
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG);
+
+		case 0xffffffff:
+		{
+			switch (s_extendedError)
+			{
+				MAKE_EXTENDED_ERROR(ExtendedError_CaptureError, "Couldn't take a photo because camera couldn't focus!");
+			}
+		}
 	}
 
 	return "Unknown error";
