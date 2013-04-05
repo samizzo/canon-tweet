@@ -1,6 +1,9 @@
 #include "yfrogUploadStatus.h"
 
-YfrogUploadStatus::YfrogUploadStatus(const QDomDocument& xml)
+YfrogUploadStatus::YfrogUploadStatus(const QDomDocument& xml, int httpStatus /*= 0*/, QString httpStatusString /*= QString()*/) :
+m_httpStatus(httpStatus),
+m_errorCode(0),
+m_httpStatusString(httpStatusString)
 {
 	setStatus(UnknownError);
 
@@ -40,25 +43,38 @@ YfrogUploadStatus::YfrogUploadStatus(const QDomDocument& xml)
 				{
 					QDomNamedNodeMap attr = err.attributes();
 					QDomNode code = attr.namedItem("code");
-					if (!code.nodeValue().compare("1001"))
+					m_errorCode = code.nodeValue().toInt();
+					if (m_errorCode == 1001)
 					{
 						setStatus(AuthFailed);
 					}
-					else if (!code.nodeValue().compare("1002"))
+					else if (m_errorCode == 1002)
 					{
 						setStatus(MediaNotFound);
 					}
-					else if (!code.nodeValue().compare("1003"))
+					else if (m_errorCode == 1003)
 					{
 						setStatus(UnsupportedMediaType);
 					}
-					else if (!code.nodeValue().compare("1004"))
+					else if (m_errorCode == 1004)
 					{
 						setStatus(MediaTooBig);
 					}
 				}
+				else
+				{
+					setStatus(MissingErrorTag);
+				}
+			}
+			else
+			{
+				setStatus(BadXmlResponse);
 			}
 		}
+	}
+	else
+	{
+		setStatus(MissingXmlResponse);
 	}
 }
 

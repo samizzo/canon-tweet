@@ -549,7 +549,7 @@ void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
 
 void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode, const YfrogUploadStatus& status)
 {
-	qWarning("Error posting image to yfrog: %s", status.getStatusString().toLatin1().constData());
+	qWarning("Error posting image to yfrog: %s", status.getHttpStatusString());
 
 	m_processing = false;
 

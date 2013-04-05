@@ -14,7 +14,8 @@ static EdsCameraRef s_camera = 0;
 enum ExtendedError
 {
 	ExtendedError_None,
-	ExtendedError_CaptureError
+	ExtendedError_CaptureError,
+	ExtendedError_InternalError,
 };
 
 static EdsError s_lastError = EDS_ERR_OK;
@@ -44,6 +45,11 @@ static EdsError EDSCALLBACK HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inPara
 	{
 		s_lastError = 0xffffffff;
 		s_extendedError = ExtendedError_CaptureError;
+	}
+	else if (inEvent == kEdsStateEvent_InternalError)
+	{
+		s_lastError = 0xffffffff;
+		s_extendedError = ExtendedError_InternalError;
 	}
 
 	return EDS_ERR_OK;
@@ -397,7 +403,7 @@ QString Camera::GetLastErrorMessage()
 		MAKE_ERROR(EDS_ERR_CANNOT_MAKE_OBJECT);
 
 		/* Take Picture errors */ 
-		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_AF_NG);
+		MAKE_ERROR_MSG(EDS_ERR_TAKE_PICTURE_AF_NG, "Couldn't take a photo because autofocus failed!");
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_RESERVED);
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_MIRROR_UP_NG);
 		MAKE_ERROR(EDS_ERR_TAKE_PICTURE_SENSOR_CLEANING_NG);
@@ -413,6 +419,7 @@ QString Camera::GetLastErrorMessage()
 			switch (s_extendedError)
 			{
 				MAKE_EXTENDED_ERROR(ExtendedError_CaptureError, "Couldn't take a photo because camera couldn't focus!");
+				MAKE_EXTENDED_ERROR(ExtendedError_InternalError, "Internal error while taking photo!");
 			}
 		}
 	}

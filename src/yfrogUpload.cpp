@@ -69,7 +69,7 @@ void YfrogUpload::reply()
 
 			QDomDocument doc;
 			doc.setContent(response);
-			YfrogUploadStatus status(doc);
+			YfrogUploadStatus status(doc, httpStatus, reply->errorString());
 
             switch (httpStatus)
 			{
