@@ -43,8 +43,10 @@ class PhotoTweet : public QObject
 		void yfrogError(QTweetNetBase::ErrorCode errorCode, const YfrogUploadStatus& status);
 		void yfrogFinished(const YfrogUploadStatus& status);
 
+		void takePhoto();
+
 	private:
-		void run(QString& message, QString& imagePath = QString());
+		void uploadAndTweet(QString& message, QString& imagePath = QString());
 		void printObject(const QVariant& object);
 		void getConfiguration();
 		void postMessage();
@@ -52,8 +54,6 @@ class PhotoTweet : public QObject
 		void postMessageWithImageYfrog();
 		void showUsage();
 		void doQuit();
-		void runConsole();
-		void runContinuous(float shotTime);
 		void takePhotoAndTweet();
 
 		OAuthTwitter *m_oauthTwitter;

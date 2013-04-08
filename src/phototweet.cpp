@@ -126,7 +126,6 @@ void PhotoTweet::showUsage()
     printf("-image <image path>         upload specified image\n");
     printf("-message <message text>     tweet specified status text\n");
     printf("-getconfig                  return media configuration settings\n");
-	printf("-console                    run in console mode\n");
 	printf("-continuousMode <time>      take photo and tweet every <time> seconds\n");
 	printf("-takePhotoAndTweet          take a photo and tweet it\n");
     printf("\n");
@@ -134,71 +133,16 @@ void PhotoTweet::showUsage()
     printf("around the message text to specify multiple words.\n");
 }
 
-void PhotoTweet::runContinuous(float shotTime)
+void PhotoTweet::takePhoto()
 {
-	QTime timer;
+	takePhotoAndTweet();
 
-	printf("Running continuously, taking a photo every %.2f minutes..\n", shotTime);
-
-	while (1)
-	{
-		timer.start();
-		while (timer.elapsed() < (shotTime * 60 * 1000));
-		takePhotoAndTweet();
-
-		QApplication::processEvents();
-		while (m_processing)
-		{
-			QApplication::processEvents();
-		}
-		QApplication::processEvents();
-	}
-}
-
-void PhotoTweet::runConsole()
-{
-	while (1)
+	QApplication::processEvents();
+	while (m_processing)
 	{
 		QApplication::processEvents();
-		while (m_processing)
-		{
-			QApplication::processEvents();
-		}
-		QApplication::processEvents();
-
-		static const int MAX_BUF = 128;
-		char buf[MAX_BUF];
-		getInput(0, buf, MAX_BUF);
-		if (!_stricmp(buf, "quit"))
-		{
-			return doQuit();
-		}
-		else if (!_stricmp(buf, "post"))
-		{
-			getInput("Enter message:", buf, MAX_BUF);
-			run(QString(buf));
-		}
-		else if (!_stricmp(buf, "postimage"))
-		{
-			getInput("Enter message:", buf, MAX_BUF);
-			QString msg(buf);
-			getInput("Enter image path:", buf, MAX_BUF);
-			QString img(buf);
-			run(msg, img);
-		}
-		else if (!_stricmp(buf, "getconfig"))
-		{
-			getConfiguration();
-		}
-		else if (!_stricmp(buf, "takephotoandtweet"))
-		{
-			takePhotoAndTweet();
-		}
-		else
-		{
-			printf("commands: quit, post, postimage, getconfig, takephotoandtweet\n");
-		}
 	}
+	QApplication::processEvents();
 }
 
 void PhotoTweet::takePhotoAndTweet()
@@ -209,7 +153,7 @@ void PhotoTweet::takePhotoAndTweet()
 		QString imagePath;
 		if (m_camera->TakePicture(imagePath))
 		{
-			run(QString(), imagePath);
+			uploadAndTweet(QString(), imagePath);
 		}
 		else
 		{
@@ -227,7 +171,7 @@ void PhotoTweet::takePhotoAndTweet()
 void PhotoTweet::main()
 {
     QStringList& args = QApplication::arguments();
-    bool error = false, console = false, continuous = false;
+    bool error = false, continuous = false;
 	float shotTime = 2.0f;
 
     QString message, imagePath;
@@ -270,11 +214,6 @@ void PhotoTweet::main()
             getConfiguration();
             return;
         }
-		else if (!args.at(i).compare("-console"))
-		{
-			console = true;
-			m_quit = false;
-		}
 		else if (!args.at(i).compare("-continuousMode"))
 		{
 			if (i + 1 < args.count())
@@ -296,13 +235,12 @@ void PhotoTweet::main()
 		}
     }
 
-	if (console)
+	if (continuous)
 	{
-		return runConsole();
-	}
-	else if (continuous)
-	{
-		return runContinuous(shotTime);
+		QTimer* timer = new QTimer(this);
+		connect(timer, SIGNAL(timeout()), this, SLOT(takePhoto()));
+		timer->start(shotTime * 1000);
+		return;
 	}
 
     if (message.length() == 0)
@@ -316,10 +254,10 @@ void PhotoTweet::main()
         return doQuit();
     }
 
-    run(message, imagePath);
+    uploadAndTweet(message, imagePath);
 }
 
-void PhotoTweet::run(QString& message, QString& imagePath)
+void PhotoTweet::uploadAndTweet(QString& message, QString& imagePath)
 {
 	m_processing = true;
     m_message = message;
