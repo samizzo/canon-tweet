@@ -1,64 +1,65 @@
-#include "Camera.h"
 #include <QDateTime>
 #include <QtDebug>
 #include <QDir>
 #include <QCoreApplication>
 #include <QtWidgets/QApplication>
-#include <EDSDK.h>
+#include "Camera.h"
 
-static QString s_filePath;
-static bool s_photoDone = false;
-static QString s_imageDir;
-static EdsCameraRef s_camera = 0;
-
-enum ExtendedError
-{
-	ExtendedError_None,
-	ExtendedError_CaptureError,
-	ExtendedError_InternalError,
-};
-
-static EdsError s_lastError = EDS_ERR_OK;
-static ExtendedError s_extendedError = ExtendedError_None;
-
-static EdsError EDSCALLBACK HandlePropertyEvent(EdsPropertyEvent inEvent, EdsPropertyID inPropertyID, EdsUInt32 inParam, EdsVoid* inContext)
+EdsError EDSCALLBACK Camera::HandlePropertyEventImp(EdsPropertyEvent inEvent, EdsPropertyID inPropertyID, EdsUInt32 inParam, EdsVoid* inContext)
 {
 	(void)inEvent;
 	(void)inPropertyID;
 	(void)inParam;
-	(void)inContext;
+	Camera* camera = (Camera*)(inContext);
+	return camera->HandlePropertyEvent(inEvent, inPropertyID, inParam);
+}
+
+EdsError Camera::HandlePropertyEvent(EdsPropertyEvent inEvent, EdsPropertyID inPropertyID, EdsUInt32 inParam)
+{
+	(void)inParam;
+	(void)inPropertyID;
+	(void)inEvent;
 	return EDS_ERR_OK;
 }
 
-static EdsError EDSCALLBACK HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam, EdsVoid* inContext)
+EdsError EDSCALLBACK Camera::HandleStateEventImp(EdsUInt32 inEvent, EdsUInt32 inParam, EdsVoid* inContext)
 {
 	(void)inParam;
-	(void)inContext;
+	Camera* camera = (Camera*)(inContext);
+	return camera->HandleStateEvent(inEvent, inParam);
+}
 
+EdsError Camera::HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam)
+{
+	(void)inParam;
 	if (inEvent == kEdsStateEvent_Shutdown)
 	{
 		// Camera was disconnected externally so make sure we are disconnected.
 		qWarning("Camera was disconnected!");
-		Camera::Disconnect();
+		Disconnect();
 	}
 	else if (inEvent == kEdsStateEvent_CaptureError)
 	{
-		s_lastError = 0xffffffff;
-		s_extendedError = ExtendedError_CaptureError;
+		m_lastError = 0xffffffff;
+		m_extendedError = ExtendedError_CaptureError;
 	}
 	else if (inEvent == kEdsStateEvent_InternalError)
 	{
-		s_lastError = 0xffffffff;
-		s_extendedError = ExtendedError_InternalError;
+		m_lastError = 0xffffffff;
+		m_extendedError = ExtendedError_InternalError;
 	}
 
 	return EDS_ERR_OK;
 }
 
-static EdsError EDSCALLBACK HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRef, EdsVoid* inContext)
+EdsError EDSCALLBACK Camera::HandleObjectEventImp(EdsUInt32 inEvent, EdsBaseRef inRef, EdsVoid* inContext)
 {
-	(void)inContext;
+	Camera* camera = (Camera*)(inContext);
+	return camera->HandleObjectEvent(inEvent, inRef);
+}
 
+EdsError Camera::HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRef)
+{
 	if (inEvent == kEdsObjectEvent_DirItemRequestTransfer)
 	{
 		// Transfer request event so download the image.
@@ -67,26 +68,26 @@ static EdsError EDSCALLBACK HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRe
 		EdsStreamRef stream = 0;
 
 		// Get info about the file to transfer.
-		s_lastError = EdsGetDirectoryItemInfo(dirItem, &dirItemInfo);
-		if (s_lastError == EDS_ERR_OK)
+		m_lastError = EdsGetDirectoryItemInfo(dirItem, &dirItemInfo);
+		if (m_lastError == EDS_ERR_OK)
 		{
 			// Create the output file.
 			QDateTime now = QDateTime::currentDateTime();
 			QDate nowDate = now.date();
 			QTime nowTime = now.time();
-			s_filePath.sprintf("%04i%02i%02i-%02i%02i%02i.jpg",
+			m_filePath.sprintf("%04i%02i%02i-%02i%02i%02i.jpg",
 				nowDate.year(), nowDate.month(), nowDate.day(),
 				nowTime.hour(), nowTime.minute(), nowTime.second());
-			s_filePath = s_imageDir + "/" + s_filePath;
-			s_lastError = EdsCreateFileStream(s_filePath.toLatin1().constData(), kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
-			if (s_lastError == EDS_ERR_OK)
+			m_filePath = m_imageDir + "/" + m_filePath;
+			m_lastError = EdsCreateFileStream(m_filePath.toLatin1().constData(), kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
+			if (m_lastError == EDS_ERR_OK)
 			{
 				// Download the file.
-				s_lastError = EdsDownload(dirItem, dirItemInfo.size, stream);
-				if (s_lastError == EDS_ERR_OK)
+				m_lastError = EdsDownload(dirItem, dirItemInfo.size, stream);
+				if (m_lastError == EDS_ERR_OK)
 				{
 					// Signal download has finished.
-					s_lastError = EdsDownloadComplete(dirItem);
+					m_lastError = EdsDownloadComplete(dirItem);
 				}
 			}
 		}
@@ -96,7 +97,7 @@ static EdsError EDSCALLBACK HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRe
 			EdsRelease(stream);
 		}
 
-		s_photoDone = true;
+		m_photoDone = true;
 	}
 
 	if (inRef)
@@ -105,6 +106,14 @@ static EdsError EDSCALLBACK HandleObjectEvent(EdsUInt32 inEvent, EdsBaseRef inRe
 	}
 
 	return EDS_ERR_OK;
+}
+
+Camera::Camera() :
+m_photoDone(false),
+m_camera(0),
+m_lastError(EDS_ERR_OK),
+m_extendedError(ExtendedError_None)
+{
 }
 
 bool Camera::Startup()
@@ -118,12 +127,12 @@ bool Camera::Startup()
 		imageDir.mkdir(imageDir.path());
 	}
 
-	s_imageDir = imageDir.path();
+	m_imageDir = imageDir.path();
 
-	Q_ASSERT(!s_camera);
+	Q_ASSERT(!m_camera);
 
-	s_lastError = EdsInitializeSDK();
-	return s_lastError == EDS_ERR_OK;
+	m_lastError = EdsInitializeSDK();
+	return m_lastError == EDS_ERR_OK;
 }
 
 void Camera::Shutdown()
@@ -147,56 +156,56 @@ bool Camera::Connect()
 
 	// Get camera list
 	EdsCameraListRef cameraList = 0;
-	s_lastError = EdsGetCameraList(&cameraList);
-	if (s_lastError == EDS_ERR_OK)
+	m_lastError = EdsGetCameraList(&cameraList);
+	if (m_lastError == EDS_ERR_OK)
 	{
 		// Get number of cameras
 		EdsUInt32 count = 0;
-		s_lastError = EdsGetChildCount(cameraList, &count);
-		if (s_lastError == EDS_ERR_OK && count > 0)
+		m_lastError = EdsGetChildCount(cameraList, &count);
+		if (m_lastError == EDS_ERR_OK && count > 0)
 		{
 			// Get first camera.
-			s_lastError = EdsGetChildAtIndex(cameraList, 0, &s_camera);
-			if (s_lastError == EDS_ERR_OK)
+			m_lastError = EdsGetChildAtIndex(cameraList, 0, &m_camera);
+			if (m_lastError == EDS_ERR_OK)
 			{
 				// Check if the camera is a legacy device.
 				EdsDeviceInfo deviceInfo;
-				s_lastError = EdsGetDeviceInfo(s_camera , &deviceInfo);
-				if (s_lastError == EDS_ERR_OK)
+				m_lastError = EdsGetDeviceInfo(m_camera , &deviceInfo);
+				if (m_lastError == EDS_ERR_OK)
 				{
 					if (deviceInfo.deviceSubType == 0)
 					{
 						// Legacy devices aren't supported.
 						qWarning("Camera is a legacy device!  Legacy devices are not supported!");
-						s_lastError = EDS_ERR_DEVICE_NOT_FOUND;
+						m_lastError = EDS_ERR_DEVICE_NOT_FOUND;
 					}
 					else
 					{
 						// Open connection to camera.
-						Q_ASSERT(s_camera);
-						s_lastError = EdsOpenSession(s_camera);
+						Q_ASSERT(m_camera);
+						m_lastError = EdsOpenSession(m_camera);
 
-						if (s_lastError == EDS_ERR_OK)
+						if (m_lastError == EDS_ERR_OK)
 						{
 							// Tell the camera to save to the host PC.
 							EdsUInt32 saveTo = kEdsSaveTo_Host;
-							s_lastError = EdsSetPropertyData(s_camera, kEdsPropID_SaveTo, 0, sizeof(saveTo), &saveTo);
+							m_lastError = EdsSetPropertyData(m_camera, kEdsPropID_SaveTo, 0, sizeof(saveTo), &saveTo);
 
-							if (s_lastError == EDS_ERR_OK)
+							if (m_lastError == EDS_ERR_OK)
 							{
 								// Tell the camera we have plenty of space to store the image.
 								EdsCapacity capacity = { 0x7FFFFFFF, 0x1000, 1 };
-								s_lastError = EdsSetCapacity(s_camera, capacity);
+								m_lastError = EdsSetCapacity(m_camera, capacity);
 							}
 						}
 					}
 				}
 			}
 		}
-		else if (s_lastError == EDS_ERR_OK)
+		else if (m_lastError == EDS_ERR_OK)
 		{
 			// Last error was ok so count must be 0.
-			s_lastError = EDS_ERR_DEVICE_NOT_FOUND;
+			m_lastError = EDS_ERR_DEVICE_NOT_FOUND;
 		}
 	}
 
@@ -205,40 +214,40 @@ bool Camera::Connect()
 		EdsRelease(cameraList);
 	}
 
-	if (s_lastError != EDS_ERR_OK && s_camera)
+	if (m_lastError != EDS_ERR_OK && m_camera)
 	{
 		// Last error wasn't ok and there's currently a camera.
-		EdsRelease(s_camera);
-		s_camera = 0;
+		EdsRelease(m_camera);
+		m_camera = 0;
 	}
-	else if (s_lastError == EDS_ERR_OK)
+	else if (m_lastError == EDS_ERR_OK)
 	{
-		s_lastError = EdsSetCameraStateEventHandler(s_camera, kEdsStateEvent_All, HandleStateEvent, 0);
-		if (s_lastError == EDS_ERR_OK)
+		m_lastError = EdsSetCameraStateEventHandler(m_camera, kEdsStateEvent_All, HandleStateEventImp, this);
+		if (m_lastError == EDS_ERR_OK)
 		{
-			s_lastError = EdsSetObjectEventHandler(s_camera, kEdsObjectEvent_All, HandleObjectEvent, 0);
-			if (s_lastError == EDS_ERR_OK)
+			m_lastError = EdsSetObjectEventHandler(m_camera, kEdsObjectEvent_All, HandleObjectEventImp, this);
+			if (m_lastError == EDS_ERR_OK)
 			{
-				s_lastError = EdsSetPropertyEventHandler(s_camera, kEdsObjectEvent_All, HandlePropertyEvent, 0);
+				m_lastError = EdsSetPropertyEventHandler(m_camera, kEdsObjectEvent_All, HandlePropertyEventImp, this);
 			}
 		}
 	}
 
-	return s_lastError == EDS_ERR_OK;
+	return m_lastError == EDS_ERR_OK;
 }
 
 bool Camera::IsConnected()
 {
-	return s_camera != 0;
+	return m_camera != 0;
 }
 
 void Camera::Disconnect()
 {
 	if (IsConnected())
 	{
-		EdsCloseSession(s_camera);
-		EdsRelease(s_camera);
-		s_camera = 0;
+		EdsCloseSession(m_camera);
+		EdsRelease(m_camera);
+		m_camera = 0;
 	}
 }
 
@@ -262,7 +271,7 @@ case code: \
 
 QString Camera::GetLastErrorMessage()
 {
-	switch (s_lastError)
+	switch (m_lastError)
 	{
 		MAKE_ERROR(EDS_ERR_OK);
 
@@ -416,7 +425,7 @@ QString Camera::GetLastErrorMessage()
 
 		case 0xffffffff:
 		{
-			switch (s_extendedError)
+			switch (m_extendedError)
 			{
 				MAKE_EXTENDED_ERROR(ExtendedError_CaptureError, "Couldn't take a photo because camera couldn't focus!");
 				MAKE_EXTENDED_ERROR(ExtendedError_InternalError, "Internal error while taking photo!");
@@ -430,22 +439,22 @@ QString Camera::GetLastErrorMessage()
 bool Camera::TakePicture(QString& imagePath)
 {
 	Q_ASSERT(IsConnected());
-	s_photoDone = false;
-	s_filePath = "";
-	s_lastError = EdsSendCommand(s_camera, kEdsCameraCommand_TakePicture, 0);
-	if (s_lastError == EDS_ERR_OK)
+	m_photoDone = false;
+	m_filePath = "";
+	m_lastError = EdsSendCommand(m_camera, kEdsCameraCommand_TakePicture, 0);
+	if (m_lastError == EDS_ERR_OK)
 	{
 		// Wait for picture to download.
-		while (!s_photoDone)
+		while (!m_photoDone)
 		{
 			QApplication::processEvents();
 		}
 
-		if (s_lastError == EDS_ERR_OK)
+		if (m_lastError == EDS_ERR_OK)
 		{
-			imagePath = s_filePath;
+			imagePath = m_filePath;
 		}
 	}
 
-	return s_lastError == EDS_ERR_OK;
+	return m_lastError == EDS_ERR_OK;
 }

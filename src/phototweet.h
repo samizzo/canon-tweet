@@ -12,6 +12,7 @@ class QTweetConfiguration;
 class QTweetStatusUpdate;
 class TwitpicUpload;
 class YfrogUpload;
+class Camera;
 
 class PhotoTweet : public QObject
 {
@@ -68,6 +69,8 @@ class PhotoTweet : public QObject
 
 		bool m_processing;
 		bool m_quit;
+
+		Camera* m_camera;
 };
 
 #endif // PHOTOTWEET_H

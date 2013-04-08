@@ -4,6 +4,7 @@
 
 void messageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
+	(void)context;
 	QDateTime now = QDateTime::currentDateTime();
 	QDate nowDate = now.date();
 	QTime nowTime = now.time();

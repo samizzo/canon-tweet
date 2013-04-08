@@ -35,10 +35,11 @@ PhotoTweet::PhotoTweet() :
 m_processing(false),
 m_quit(true)
 {
-	if (!Camera::Startup())
+	m_camera = new Camera();
+	if (!m_camera->Startup())
 	{
 		qCritical("Couldn't start the camera system!");
-		qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+		qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
 	}
 
     m_oauthTwitter = new OAuthTwitter(this);
@@ -65,7 +66,7 @@ m_quit(true)
 
 PhotoTweet::~PhotoTweet()
 {
-	Camera::Shutdown();
+	m_camera->Shutdown();
 }
 
 bool PhotoTweet::loadConfig()
@@ -203,23 +204,23 @@ void PhotoTweet::runConsole()
 void PhotoTweet::takePhotoAndTweet()
 {
 	qDebug("Taking a photo..");
-	if (Camera::Connect())
+	if (m_camera->Connect())
 	{
 		QString imagePath;
-		if (Camera::TakePicture(imagePath))
+		if (m_camera->TakePicture(imagePath))
 		{
 			run(QString(), imagePath);
 		}
 		else
 		{
 			qCritical("Couldn't take a picture!");
-			qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+			qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
 		}
 	}
 	else
 	{
 		qCritical("Couldn't connect to the camera!");
-		qCritical("%s", Camera::GetLastErrorMessage().toLatin1().constData());
+		qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
 	}
 }
 
