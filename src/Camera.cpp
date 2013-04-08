@@ -233,6 +233,11 @@ bool Camera::Connect()
 		}
 	}
 
+	if (m_lastError == EDS_ERR_OK)
+	{
+		qDebug("Camera connected!");
+	}
+
 	return m_lastError == EDS_ERR_OK;
 }
 
