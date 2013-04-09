@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QFile>
 #include "phototweet.h"
 
 void messageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
@@ -49,12 +50,13 @@ int main(int argc, char *argv[])
 {
 	qInstallMessageHandler(messageHandler);
     QCoreApplication app(argc, argv);
-    PhotoTweet pt;
-    if (!pt.loadConfig())
-    {
-        return 1;
-    }
+	if (!QFile::exists("phototweet.cfg"))
+	{
+		qCritical("Couldn't find config file 'phototweet.cfg'!");
+		return 1;
+	}
 
+    PhotoTweet pt;
     QObject::connect(&pt, SIGNAL(quit()), &app, SLOT(quit()));
     QMetaObject::invokeMethod(&pt, "main", Qt::QueuedConnection);
     return app.exec();

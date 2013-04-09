@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDateTime>
+#include <QMultiHash>
 #include "phototweet.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
@@ -15,11 +16,32 @@
 #include "twitpicUploadStatus.h"
 #include "yfrogUpload.h"
 #include "yfrogUploadStatus.h"
+#include "Config.h"
 
 PhotoTweet::PhotoTweet() :
 m_quit(true),
 m_idle(true)
 {
+    m_oauthTwitter = new OAuthTwitter(this);
+    m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
+
+	m_config = new Config("phototweet.cfg");
+
+	QString val = m_config->GetValue("consumer_key");
+	m_oauthTwitter->setConsumerKey(val.toLatin1());
+
+	val = m_config->GetValue("consumer_secret");
+	m_oauthTwitter->setConsumerSecret(val.toLatin1());
+
+	val = m_config->GetValue("oauth_token");
+	m_oauthTwitter->setOAuthToken(val.toLatin1());
+
+	val = m_config->GetValue("oauth_token_secret");
+	m_oauthTwitter->setOAuthTokenSecret(val.toLatin1());
+
+	QString twitpicApiKey = m_config->GetValue("twitpic_api_key");
+	QString yfrogApiKey = m_config->GetValue("yfrog_api_key");
+
 	// Setup the camera system.
 	QString imageDir = QCoreApplication::applicationDirPath() + "/images";
 	m_camera = new Camera(imageDir);
@@ -34,9 +56,6 @@ m_idle(true)
 		qCritical("%s", Camera::GetErrorMessage(Camera::ErrorType_Normal, error).toLatin1().constData());
 	}
 
-    m_oauthTwitter = new OAuthTwitter(this);
-    m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
-
 	// Setup tweet config access.
     m_tweetConfig = new QTweetConfiguration(m_oauthTwitter, this);
     connect(m_tweetConfig, SIGNAL(configuration(QJsonDocument)), SLOT(getConfigurationFinished(QJsonDocument)));
@@ -48,13 +67,13 @@ m_idle(true)
     connect(m_statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
 
 	// Setup twitpic uploads.
-	m_twitpic = new TwitpicUpload(m_twitpicApiKey, m_oauthTwitter, this);
+	m_twitpic = new TwitpicUpload(twitpicApiKey, m_oauthTwitter, this);
 	connect(m_twitpic, SIGNAL(jsonParseError(QByteArray)), SLOT(twitpicJsonParseError(QByteArray)));
     connect(m_twitpic, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(twitpicError(QTweetNetBase::ErrorCode, QString)));
     connect(m_twitpic, SIGNAL(finished(TwitpicUploadStatus)), SLOT(twitpicFinished(TwitpicUploadStatus)));
 
 	// Setup yfrog uploads.
-	m_yfrog = new YfrogUpload(m_yfrogApiKey, m_oauthTwitter, this);
+	m_yfrog = new YfrogUpload(yfrogApiKey, m_oauthTwitter, this);
     connect(m_yfrog, SIGNAL(error(QTweetNetBase::ErrorCode, YfrogUploadStatus)), SLOT(yfrogError(QTweetNetBase::ErrorCode, YfrogUploadStatus)));
     connect(m_yfrog, SIGNAL(finished(YfrogUploadStatus)), SLOT(yfrogFinished(YfrogUploadStatus)));
 }
@@ -62,56 +81,6 @@ m_idle(true)
 PhotoTweet::~PhotoTweet()
 {
 	m_camera->Shutdown();
-}
-
-bool PhotoTweet::loadConfig()
-{
-    QFile configFile("phototweet.cfg");
-    if (!configFile.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qWarning("Couldn't load config file 'phototweet.cfg'");
-        return false;
-    }
-
-    QTextStream reader(&configFile);
-    while (!reader.atEnd())
-    {
-        QString line = reader.readLine().trimmed();
-        if (line.length() > 0 && line.at(0) == '[' && line.endsWith(']'))
-        {
-            QString key = line.mid(1, line.length() - 2);
-            QString val = reader.readLine().trimmed();
-            if (val.length() > 0)
-            {
-                if (!key.compare("consumer_key"))
-                {
-                    m_oauthTwitter->setConsumerKey(val.toLatin1());
-                }
-                else if (!key.compare("consumer_secret"))
-                {
-                    m_oauthTwitter->setConsumerSecret(val.toLatin1());
-                }
-                else if (!key.compare("oauth_token"))
-                {
-                    m_oauthTwitter->setOAuthToken(val.toLatin1());
-                }
-                else if (!key.compare("oauth_token_secret"))
-                {
-                    m_oauthTwitter->setOAuthTokenSecret(val.toLatin1());
-                }
-				else if (!key.compare("twitpic_api_key"))
-				{
-					m_twitpicApiKey = val;
-				}
-				else if(!key.compare("yfrog_api_key"))
-				{
-					m_yfrogApiKey = val;
-				}
-            }
-        }
-    }
-
-    return true;
 }
 
 void PhotoTweet::showUsage()
@@ -130,6 +99,8 @@ void PhotoTweet::showUsage()
 
 void PhotoTweet::takePhotoAndTweet()
 {
+	m_message = m_config->GetValue("message");
+
 	if (m_idle)
 	{
 		m_idle = false;
@@ -144,7 +115,7 @@ void PhotoTweet::takePhotoAndTweet()
 
 void PhotoTweet::takePictureSuccess(const QString& filePath)
 {
-	uploadAndTweet(QString(), filePath);
+	uploadAndTweet(m_message, filePath);
 }
 
 void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
@@ -461,9 +432,14 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 		}
 
 		m_message += status.getMediaUrl();
+
+		QString hashtags = m_config->GetValue("hashtags");
+		if (hashtags.length() > 0)
+		{
+			m_message = m_message + " " + hashtags;
+		}
+
 		qDebug("Posting link to twitter..");
 		postMessage();
 	}
 }
-
-

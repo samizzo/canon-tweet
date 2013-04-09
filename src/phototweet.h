@@ -14,6 +14,7 @@ class QTweetStatusUpdate;
 class TwitpicUpload;
 class YfrogUpload;
 class Camera;
+class Config;
 
 class PhotoTweet : public QObject
 {
@@ -22,8 +23,6 @@ class PhotoTweet : public QObject
 	public:
 		PhotoTweet();
 		~PhotoTweet();
-
-		bool loadConfig();
 
 	signals:
 		void quit();
@@ -59,8 +58,6 @@ class PhotoTweet : public QObject
 		void doQuit();
 
 		OAuthTwitter *m_oauthTwitter;
-		QString m_yfrogApiKey;
-		QString m_twitpicApiKey;
 		QString m_message;
 
 		QTweetConfiguration* m_tweetConfig;
@@ -71,6 +68,7 @@ class PhotoTweet : public QObject
 		bool m_quit;
 		bool m_idle;
 		Camera* m_camera;
+		Config* m_config;
 };
 
 #endif // PHOTOTWEET_H

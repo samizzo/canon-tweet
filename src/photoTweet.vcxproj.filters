@@ -97,6 +97,15 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_Camera.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Config.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Config.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="phototweet.h">
@@ -144,6 +153,9 @@
     </CustomBuild>
     <CustomBuild Include="..\EOS SDK v2.11 Windows\EDSDK\Dll\DPPRSC.dll">
       <Filter>Dlls</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Config.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
