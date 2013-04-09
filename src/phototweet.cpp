@@ -1,14 +1,12 @@
 #include <QNetworkAccessManager>
 #include <QtWidgets/QApplication>
 #include <QStringList>
-#include <QtDebug>
 #include <QFile>
 #include <QTextStream>
 #include <QDateTime>
 #include "phototweet.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
-#include "qtweetstatusupdatewithmedia.h"
 #include "qtweetstatus.h"
 #include "qtweetconfiguration.h"
 #include <QJsonDocument>
@@ -17,48 +15,45 @@
 #include "twitpicUploadStatus.h"
 #include "yfrogUpload.h"
 #include "yfrogUploadStatus.h"
-#include "Camera.h"
-
-void getInput(const char* msg, char* buf, int bufSize)
-{
-	if (msg)
-	{
-		printf("%s ", msg);
-	}
-
-	memset(buf, 0, bufSize);
-	fgets(buf, bufSize-1, stdin);
-	buf[strlen(buf)-1] = 0;
-}
 
 PhotoTweet::PhotoTweet() :
-m_processing(false),
-m_quit(true)
+m_quit(true),
+m_idle(true)
 {
-	m_camera = new Camera();
-	if (!m_camera->Startup())
+	// Setup the camera system.
+	QString imageDir = QCoreApplication::applicationDirPath() + "/images";
+	m_camera = new Camera(imageDir);
+
+	connect(m_camera, SIGNAL(OnTakePictureSuccess(QString)), SLOT(takePictureSuccess(QString)));
+	connect(m_camera, SIGNAL(OnTakePictureError(Camera::ErrorType, int)), SLOT(takePictureError(Camera::ErrorType, int)));
+
+	int error = m_camera->Startup();
+	if (error != EDS_ERR_OK)
 	{
 		qCritical("Couldn't start the camera system!");
-		qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
+		qCritical("%s", Camera::GetErrorMessage(Camera::ErrorType_Normal, error).toLatin1().constData());
 	}
 
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
 
+	// Setup tweet config access.
     m_tweetConfig = new QTweetConfiguration(m_oauthTwitter, this);
     connect(m_tweetConfig, SIGNAL(configuration(QJsonDocument)), SLOT(getConfigurationFinished(QJsonDocument)));
     connect(m_tweetConfig, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
 
+	// Setup status update access.
 	m_statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
     connect(m_statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
     connect(m_statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
-    connect(m_statusUpdate, SIGNAL(finished(QByteArray, QNetworkReply)), SLOT(replyFinished(QByteArray, QNetworkReply)));
 
+	// Setup twitpic uploads.
 	m_twitpic = new TwitpicUpload(m_twitpicApiKey, m_oauthTwitter, this);
 	connect(m_twitpic, SIGNAL(jsonParseError(QByteArray)), SLOT(twitpicJsonParseError(QByteArray)));
     connect(m_twitpic, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(twitpicError(QTweetNetBase::ErrorCode, QString)));
     connect(m_twitpic, SIGNAL(finished(TwitpicUploadStatus)), SLOT(twitpicFinished(TwitpicUploadStatus)));
 
+	// Setup yfrog uploads.
 	m_yfrog = new YfrogUpload(m_yfrogApiKey, m_oauthTwitter, this);
     connect(m_yfrog, SIGNAL(error(QTweetNetBase::ErrorCode, YfrogUploadStatus)), SLOT(yfrogError(QTweetNetBase::ErrorCode, YfrogUploadStatus)));
     connect(m_yfrog, SIGNAL(finished(YfrogUploadStatus)), SLOT(yfrogFinished(YfrogUploadStatus)));
@@ -126,46 +121,37 @@ void PhotoTweet::showUsage()
     printf("-image <image path>         upload specified image\n");
     printf("-message <message text>     tweet specified status text\n");
     printf("-getconfig                  return media configuration settings\n");
-	printf("-continuousMode <time>      take photo and tweet every <time> seconds\n");
+	printf("-continuous <time>          take photo and tweet every <time> seconds\n");
 	printf("-takePhotoAndTweet          take a photo and tweet it\n");
     printf("\n");
     printf("Note: a message must always be specified if tweeting.  Use quotes\n");
     printf("around the message text to specify multiple words.\n");
 }
 
-void PhotoTweet::takePhoto()
-{
-	takePhotoAndTweet();
-
-	QApplication::processEvents();
-	while (m_processing)
-	{
-		QApplication::processEvents();
-	}
-	QApplication::processEvents();
-}
-
 void PhotoTweet::takePhotoAndTweet()
 {
-	qDebug("Taking a photo..");
-	if (m_camera->Connect())
+	if (m_idle)
 	{
-		QString imagePath;
-		if (m_camera->TakePicture(imagePath))
-		{
-			uploadAndTweet(QString(), imagePath);
-		}
-		else
-		{
-			qCritical("Couldn't take a picture!");
-			qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
-		}
+		m_idle = false;
+		qDebug("Taking a photo..");
+		m_camera->TakePicture();
 	}
 	else
 	{
-		qCritical("Couldn't connect to the camera!");
-		qCritical("%s", m_camera->GetLastErrorMessage().toLatin1().constData());
+		qDebug("Photo in progress..");
 	}
+}
+
+void PhotoTweet::takePictureSuccess(const QString& filePath)
+{
+	uploadAndTweet(QString(), filePath);
+}
+
+void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
+{
+	qCritical("Couldn't take a picture!");
+	qCritical("%s", Camera::GetErrorMessage(errorType, error).toLatin1().constData());
+	m_idle = true;
 }
 
 void PhotoTweet::main()
@@ -211,10 +197,10 @@ void PhotoTweet::main()
         }
         else if (!args.at(i).compare("-getconfig"))
         {
-            getConfiguration();
+            m_tweetConfig->get();
             return;
         }
-		else if (!args.at(i).compare("-continuousMode"))
+		else if (!args.at(i).compare("-continuous"))
 		{
 			if (i + 1 < args.count())
 			{
@@ -224,7 +210,7 @@ void PhotoTweet::main()
 			}
 			else
 			{
-				printf("Missing argument to -continuousMode!\n");
+				printf("Missing argument to -continuous!\n");
 				error = true;
 				break;
 			}
@@ -238,7 +224,7 @@ void PhotoTweet::main()
 	if (continuous)
 	{
 		QTimer* timer = new QTimer(this);
-		connect(timer, SIGNAL(timeout()), this, SLOT(takePhoto()));
+		connect(timer, SIGNAL(timeout()), this, SLOT(takePhotoAndTweet()));
 		timer->start(shotTime * 1000);
 		return;
 	}
@@ -257,17 +243,19 @@ void PhotoTweet::main()
     uploadAndTweet(message, imagePath);
 }
 
-void PhotoTweet::uploadAndTweet(QString& message, QString& imagePath)
+void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath)
 {
-	m_processing = true;
     m_message = message;
-    m_imagePath = imagePath;
 
-    qDebug("Tweeting message: '%s'", m_message.toLatin1().constData());
-    if (m_imagePath.length() > 0)
+	if (m_message.length() > 0)
+	{
+		qDebug("Tweeting message: '%s'", m_message.toLatin1().constData());
+	}
+
+    if (imagePath.length() > 0)
     {
-        qDebug("Attaching image: '%s'", m_imagePath.toLatin1().constData());
-		postMessageWithImageYfrog();
+        qDebug("Uploading image: '%s'", imagePath.toLatin1().constData());
+		postMessageWithImageYfrog(imagePath);
     }
     else
     {
@@ -278,12 +266,6 @@ void PhotoTweet::uploadAndTweet(QString& message, QString& imagePath)
 void PhotoTweet::doQuit()
 {
     emit quit();
-}
-
-void PhotoTweet::getConfiguration()
-{
-	m_processing = true;
-    m_tweetConfig->get();
 }
 
 void PhotoTweet::printObject(const QVariant& object)
@@ -348,8 +330,6 @@ void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
         }
     }
 
-	m_processing = false;
-
 	if (m_quit)
 	{
 		return doQuit();
@@ -361,30 +341,27 @@ void PhotoTweet::postMessage()
 	m_statusUpdate->post(m_message);
 }
 
-void PhotoTweet::postMessageWithImageTwitpic()
+void PhotoTweet::postMessageWithImageTwitpic(const QString& imagePath)
 {
-	if (QFile::exists(m_imagePath))
+	if (QFile::exists(imagePath))
 	{
-		m_twitpic->upload(m_imagePath);
+		m_twitpic->upload(imagePath);
 	}
 	else
 	{
-		qWarning("Couldn't find file %s", m_imagePath.toLatin1().constData());
-		qWarning("Aborting post..");
-		m_processing = false;
+		qWarning("Couldn't find file %s", imagePath.toLatin1().constData());
 	}
 }
 
-void PhotoTweet::postMessageWithImageYfrog()
+void PhotoTweet::postMessageWithImageYfrog(const QString& imagePath)
 {
-	if (QFile::exists(m_imagePath))
+	if (QFile::exists(imagePath))
 	{
-		m_yfrog->upload(m_imagePath);
+		m_yfrog->upload(imagePath);
 	}
 	else
 	{
-		qWarning("Couldn't find file %s", m_imagePath.toLatin1().constData());
-		m_processing = false;
+		qWarning("Couldn't find file %s", imagePath.toLatin1().constData());
 	}
 }
 
@@ -392,12 +369,12 @@ void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 {
 	qDebug("Posted status with id %llu", status.id());
 
-	m_processing = false;
-
 	if (m_quit)
 	{
 		doQuit();
 	}
+
+	m_idle = true;
 }
 
 void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
@@ -407,57 +384,17 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
         qWarning("Error posting message: %s", errorMsg.toLatin1().constData());
     }
 
-	m_processing = false;
-
 	if (m_quit)
 	{
 		doQuit();
 	}
-}
 
-void PhotoTweet::replyFinished(const QByteArray&, const QNetworkReply& reply)
-{
-    QList<QByteArray> headers = reply.rawHeaderList();
-
-    bool haveLimit = false, haveRemaining = false, haveReset = false;
-    int limit, remaining;
-    QDateTime reset;
-
-    if (reply.hasRawHeader("X-MediaRateLimit-Limit"))
-    {
-        //qDebug("X-MediaRateLimit-Limit: %s", reply.rawHeader("X-MediaRateLimit-Limit").constData());
-        limit = reply.rawHeader("X-MediaRateLimit-Limit").toInt();
-        haveLimit = true;
-    }
-
-    if (reply.hasRawHeader("X-MediaRateLimit-Remaining"))
-    {
-        //qDebug("X-MediaRateLimit-Remaining: %s", reply.rawHeader("X-MediaRateLimit-Remaining").constData());
-        remaining = reply.rawHeader("X-MediaRateLimit-Remaining").toInt();
-        haveRemaining = true;
-    }
-
-    if (reply.hasRawHeader("X-MediaRateLimit-Reset"))
-    {
-        //qDebug("X-MediaRateLimit-Reset: %s", reply.rawHeader("X-MediaRateLimit-Reset").constData());
-        reset.setTime_t(reply.rawHeader("X-MediaRateLimit-Reset").toInt());
-        haveReset = true;
-    }
-
-    if (haveLimit && haveRemaining && haveReset)
-    {
-        printf("You have %i tweets with media remaining out of a total of %i.\n", remaining, limit);
-        printf("This limit will reset at %s.\n", reset.toLocalTime().toString().toLatin1().constData());
-    }
-
-	m_processing = false;
+	m_idle = true;
 }
 
 void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
 	qWarning("Error posting image to twitpic: %s", errorMsg.toLatin1().constData());
-
-	m_processing = false;
 
 	if (m_quit)
 	{
@@ -469,8 +406,6 @@ void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
 {
 	qWarning("Error parsing json result while posting image to twitpic");
 	qWarning("json: %s", json.constData());
-
-	m_processing = false;
 
 	if (m_quit)
 	{
@@ -491,11 +426,11 @@ void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
 	postMessage();
 }
 
-void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode, const YfrogUploadStatus& status)
+void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStatus& status)
 {
-	qWarning("Error posting image to yfrog: %s", status.getHttpStatusString());
+	qWarning("Error posting image to yfrog: %s (%i)", status.getHttpStatusString(), code);
 
-	m_processing = false;
+	m_idle = true;
 
 	if (m_quit)
 	{
@@ -509,12 +444,12 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 	{
 		qWarning("Error posting image to yfrog: %s", status.getStatusString().toLatin1().constData());
 
-		m_processing = false;
-
 		if (m_quit)
 		{
 			doQuit();
 		}
+
+		m_idle = true;
 	}
 	else
 	{

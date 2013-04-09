@@ -23,6 +23,7 @@ class YfrogUploadStatus : public QObject
 			MissingErrorTag,
 			BadXmlResponse,
 			MissingXmlResponse,
+			UnknownErrorCode,
 			UnknownError,
 		};
 
@@ -102,32 +103,32 @@ inline QString YfrogUploadStatus::getStatusString() const
 	{
 		case YfrogUploadStatus::Ok:
 		{
-			return "Ok";
+			return "Yfrog says ok";
 		}
 
 		case YfrogUploadStatus::AuthFailed:
 		{
-			return "Authorisation with twitter failed";
+			return "Yfrog says authorisation with twitter failed";
 		}
 
 		case YfrogUploadStatus::MediaNotFound:
 		{
-			return "Media not found";
+			return "Yfrog says media not found";
 		}
 
 		case YfrogUploadStatus::UnsupportedMediaType:
 		{
-			return "Unsupported media type";
+			return "Yfrog says unsupported media type";
 		}
 
 		case YfrogUploadStatus::MediaTooBig:
 		{
-			return "Media too big";
+			return "Yfrog says media too big";
 		}
 
 		case YfrogUploadStatus::MissingErrorTag:
 		{
-			return "Missing error tag";
+			return "Missing error tag in response from Yfrog";
 		}
 
 		case YfrogUploadStatus::BadXmlResponse:
@@ -138,6 +139,11 @@ inline QString YfrogUploadStatus::getStatusString() const
 		case YfrogUploadStatus::MissingXmlResponse:
 		{
 			return "Missing XML response from Yfrog";
+		}
+
+		case YfrogUploadStatus::UnknownErrorCode:
+		{
+			return "Unknown error code from Yfrog";
 		}
 
 		default:

@@ -60,6 +60,10 @@ m_httpStatusString(httpStatusString)
 					{
 						setStatus(MediaTooBig);
 					}
+					else
+					{
+						setStatus(UnknownErrorCode);
+					}
 				}
 				else
 				{
