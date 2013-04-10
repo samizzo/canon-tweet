@@ -66,47 +66,6 @@ PhotoTweet::~PhotoTweet()
 	m_camera->Shutdown();
 }
 
-void PhotoTweet::showUsage()
-{
-    printf("photoTweet.exe [args]\n\n");
-    printf("where args are:\n\n");
-    printf("-image <image path>         upload specified image\n");
-    printf("-message <message text>     tweet specified status text\n");
-	printf("-continuous <time>          take photo and tweet every <time> seconds\n");
-	printf("-takePhotoAndTweet          take a photo and tweet it\n");
-    printf("\n");
-    printf("Note: a message must always be specified if tweeting.  Use quotes\n");
-    printf("around the message text to specify multiple words.\n");
-}
-
-void PhotoTweet::takePhotoAndTweet()
-{
-	m_message = m_config->GetValue("message");
-
-	if (m_idle)
-	{
-		m_idle = false;
-		qDebug("Taking a photo..");
-		m_camera->TakePicture();
-	}
-	else
-	{
-		qDebug("Photo in progress..");
-	}
-}
-
-void PhotoTweet::takePictureSuccess(const QString& filePath)
-{
-	uploadAndTweet(m_message, filePath);
-}
-
-void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
-{
-	qCritical("Couldn't take a picture!");
-	qCritical("%s", Camera::GetErrorMessage(errorType, error).toLatin1().constData());
-	m_idle = true;
-}
-
 void PhotoTweet::main()
 {
     QStringList& args = QApplication::arguments();
@@ -171,6 +130,7 @@ void PhotoTweet::main()
 
 	if (continuous)
 	{
+		// Run in continuous mode, taking a picture and uploading every xx seconds.
 		QTimer* timer = new QTimer(this);
 		connect(timer, SIGNAL(timeout()), this, SLOT(takePhotoAndTweet()));
 		timer->start(shotTime * 1000);
@@ -191,6 +151,50 @@ void PhotoTweet::main()
     uploadAndTweet(message, imagePath);
 }
 
+void PhotoTweet::showUsage()
+{
+    printf("photoTweet.exe [args]\n\n");
+    printf("where args are:\n\n");
+    printf("-image <image path>         upload specified image\n");
+    printf("-message <message text>     tweet specified status text\n");
+	printf("-continuous <time>          take photo and tweet every <time> seconds\n");
+	printf("-takePhotoAndTweet          take a photo and tweet it\n");
+    printf("\n");
+    printf("Note: a message must always be specified if tweeting.  Use quotes\n");
+    printf("around the message text to specify multiple words.\n");
+}
+
+void PhotoTweet::takePhotoAndTweet()
+{
+	m_message = m_config->GetValue("message");
+
+	// A photo will only be taken if we aren't currently taking a photo
+	// and/or uploading and tweeting.
+	if (m_idle)
+	{
+		m_idle = false;
+		qDebug("Taking a photo..");
+		m_camera->TakePicture();
+	}
+	else
+	{
+		qDebug("Photo in progress..");
+	}
+}
+
+void PhotoTweet::takePictureSuccess(const QString& filePath)
+{
+	// Picture was taken successfully, so now upload it and tweet.
+	uploadAndTweet(m_message, filePath);
+}
+
+void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
+{
+	qCritical("Couldn't take a picture!");
+	qCritical("%s", Camera::GetErrorMessage(errorType, error).toLatin1().constData());
+	m_idle = true;
+}
+
 void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath)
 {
     m_message = message;
@@ -200,13 +204,22 @@ void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath
 		qDebug("Tweeting message: '%s'", m_message.toLatin1().constData());
 	}
 
-    if (imagePath.length() > 0)
+    if (imagePath.length() > 0 && QFile::exists(imagePath))
     {
-        qDebug("Uploading image: '%s'", imagePath.toLatin1().constData());
-		postMessageWithImageYfrog(imagePath);
+		// Upload the image.  The message will be tweeted after the upload
+		// completes.
+		qDebug("Uploading image: '%s'", imagePath.toLatin1().constData());
+		m_yfrog->upload(imagePath);
     }
     else
     {
+		if (imagePath.length() > 0 && !QFile::exists(imagePath))
+		{
+			qWarning("Image '%s' upload was requested but the image couldn't be found!",
+				imagePath.toLatin1().constData());
+		}
+
+		// No image specified so just tweet a message.
         postMessage();
     }
 }
@@ -219,18 +232,6 @@ void PhotoTweet::doQuit()
 void PhotoTweet::postMessage()
 {
 	m_statusUpdate->post(m_message);
-}
-
-void PhotoTweet::postMessageWithImageYfrog(const QString& imagePath)
-{
-	if (QFile::exists(imagePath))
-	{
-		m_yfrog->upload(imagePath);
-	}
-	else
-	{
-		qWarning("Couldn't find file %s", imagePath.toLatin1().constData());
-	}
 }
 
 void PhotoTweet::postStatusFinished(const QTweetStatus &status)
@@ -264,12 +265,12 @@ void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStat
 {
 	qWarning("Error posting image to yfrog: %s (%i)", status.getHttpStatusString(), code);
 
-	m_idle = true;
-
 	if (m_quit)
 	{
 		doQuit();
 	}
+
+	m_idle = true;
 }
 
 void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
@@ -287,8 +288,11 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 	}
 	else
 	{
+		// Image was posted successfully, so now tweet the url.
 		qDebug("Posted image to yfrog!");
 		qDebug("Url is %s", status.getMediaUrl().toLatin1().constData());
+
+		// Prepend message to url.
 		if (m_message.length() > 0)
 		{
 			m_message += " ";
@@ -296,6 +300,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 
 		m_message += status.getMediaUrl();
 
+		// Append hashtags.
 		QString hashtags = m_config->GetValue("hashtags");
 		if (hashtags.length() > 0)
 		{

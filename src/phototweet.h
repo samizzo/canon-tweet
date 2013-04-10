@@ -42,7 +42,6 @@ class PhotoTweet : public QObject
 	private:
 		void uploadAndTweet(const QString& message, const QString& imagePath = QString());
 		void postMessage();
-		void postMessageWithImageYfrog(const QString& imagePath);
 		void showUsage();
 		void doQuit();
 
