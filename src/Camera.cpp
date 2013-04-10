@@ -285,14 +285,14 @@ QString Camera::GetErrorMessage(ErrorType errorType, int error)
 
 			/* Miscellaneous errors */
 			MAKE_ERROR(EDS_ERR_UNIMPLEMENTED);
-			MAKE_ERROR(EDS_ERR_INTERNAL_ERROR);
-			MAKE_ERROR(EDS_ERR_MEM_ALLOC_FAILED);
-			MAKE_ERROR(EDS_ERR_MEM_FREE_FAILED);
+			MAKE_ERROR_MSG(EDS_ERR_INTERNAL_ERROR, "Internal error! Try turning the camera off and on again.");
+			MAKE_ERROR_MSG(EDS_ERR_MEM_ALLOC_FAILED, "Failed to allocate memory! Try restarting the application.");
+			MAKE_ERROR_MSG(EDS_ERR_MEM_FREE_FAILED, "Failed to free memory! Try restarting the application.");
 			MAKE_ERROR(EDS_ERR_OPERATION_CANCELLED);
 			MAKE_ERROR(EDS_ERR_INCOMPATIBLE_VERSION);
 			MAKE_ERROR(EDS_ERR_NOT_SUPPORTED);
-			MAKE_ERROR(EDS_ERR_UNEXPECTED_EXCEPTION);
-			MAKE_ERROR(EDS_ERR_PROTECTION_VIOLATION);
+			MAKE_ERROR_MSG(EDS_ERR_UNEXPECTED_EXCEPTION, "Unexpected exception! Try restarting the application.");
+			MAKE_ERROR_MSG(EDS_ERR_PROTECTION_VIOLATION, "Protection violation! Try restarting the application.");
 			MAKE_ERROR(EDS_ERR_MISSING_SUBCOMPONENT);
 			MAKE_ERROR(EDS_ERR_SELECTION_UNAVAILABLE);
 
@@ -335,10 +335,10 @@ QString Camera::GetErrorMessage(ErrorType errorType, int error)
 			MAKE_ERROR(EDS_ERR_INVALID_SORT_FN);
 
 			/* Device errors */
-			MAKE_ERROR_MSG(EDS_ERR_DEVICE_NOT_FOUND, "No cameras found.  Make sure a camera is plugged into the computer.");
-			MAKE_ERROR_MSG(EDS_ERR_DEVICE_BUSY, "The device is busy!  If this happens again try turning the camera off and on.");
+			MAKE_ERROR_MSG(EDS_ERR_DEVICE_NOT_FOUND, "No cameras found. Make sure a camera is plugged into the computer.");
+			MAKE_ERROR_MSG(EDS_ERR_DEVICE_BUSY, "The device is busy! If this happens again try turning the camera off and on.");
 			MAKE_ERROR(EDS_ERR_DEVICE_INVALID);
-			MAKE_ERROR_MSG(EDS_ERR_DEVICE_EMERGENCY, "Device emergency!  Try turning the camera off and on again.");
+			MAKE_ERROR_MSG(EDS_ERR_DEVICE_EMERGENCY, "Device emergency! Try turning the camera off and on again.");
 			MAKE_ERROR(EDS_ERR_DEVICE_MEMORY_FULL);
 			MAKE_ERROR(EDS_ERR_DEVICE_INTERNAL_ERROR);
 			MAKE_ERROR(EDS_ERR_DEVICE_INVALID_PARAMETER);
