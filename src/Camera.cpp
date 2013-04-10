@@ -430,6 +430,9 @@ QString Camera::GetErrorMessage(ErrorType errorType, int error)
 			MAKE_ERROR_MSG(EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG, "The memory card in the camera is write protected");
 			MAKE_ERROR(EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG);
 			MAKE_ERROR(EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG);
+
+			// Got this error when battery was low and about to die.
+			MAKE_ERROR_MSG(0xAD19, "Camera failed to release the shutter! Check the battery.");
 		}
 	}
 	else
