@@ -9,11 +9,6 @@
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
 #include "qtweetstatus.h"
-#include "qtweetconfiguration.h"
-#include <QJsonDocument>
-#include <QJsonObject>
-#include "twitpicUpload.h"
-#include "twitpicUploadStatus.h"
 #include "yfrogUpload.h"
 #include "yfrogUploadStatus.h"
 #include "Config.h"
@@ -39,7 +34,6 @@ m_idle(true)
 	val = m_config->GetValue("oauth_token_secret");
 	m_oauthTwitter->setOAuthTokenSecret(val.toLatin1());
 
-	QString twitpicApiKey = m_config->GetValue("twitpic_api_key");
 	QString yfrogApiKey = m_config->GetValue("yfrog_api_key");
 
 	// Setup the camera system.
@@ -56,21 +50,10 @@ m_idle(true)
 		qCritical("%s", Camera::GetErrorMessage(Camera::ErrorType_Normal, error).toLatin1().constData());
 	}
 
-	// Setup tweet config access.
-    m_tweetConfig = new QTweetConfiguration(m_oauthTwitter, this);
-    connect(m_tweetConfig, SIGNAL(configuration(QJsonDocument)), SLOT(getConfigurationFinished(QJsonDocument)));
-    connect(m_tweetConfig, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
-
 	// Setup status update access.
 	m_statusUpdate = new QTweetStatusUpdate(m_oauthTwitter, this);
     connect(m_statusUpdate, SIGNAL(postedStatus(QTweetStatus)), SLOT(postStatusFinished(QTweetStatus)));
     connect(m_statusUpdate, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(postStatusError(QTweetNetBase::ErrorCode, QString)));
-
-	// Setup twitpic uploads.
-	m_twitpic = new TwitpicUpload(twitpicApiKey, m_oauthTwitter, this);
-	connect(m_twitpic, SIGNAL(jsonParseError(QByteArray)), SLOT(twitpicJsonParseError(QByteArray)));
-    connect(m_twitpic, SIGNAL(error(QTweetNetBase::ErrorCode, QString)), SLOT(twitpicError(QTweetNetBase::ErrorCode, QString)));
-    connect(m_twitpic, SIGNAL(finished(TwitpicUploadStatus)), SLOT(twitpicFinished(TwitpicUploadStatus)));
 
 	// Setup yfrog uploads.
 	m_yfrog = new YfrogUpload(yfrogApiKey, m_oauthTwitter, this);
@@ -166,11 +149,6 @@ void PhotoTweet::main()
                 break;
             }
         }
-        else if (!args.at(i).compare("-getconfig"))
-        {
-            m_tweetConfig->get();
-            return;
-        }
 		else if (!args.at(i).compare("-continuous"))
 		{
 			if (i + 1 < args.count())
@@ -239,89 +217,9 @@ void PhotoTweet::doQuit()
     emit quit();
 }
 
-void PhotoTweet::printObject(const QVariant& object)
-{
-    if (object.type() == QVariant::Map)
-    {
-        QVariantMap m = object.toMap();
-        QList<QString> keys = m.keys();
-        for (int i = 0; i < keys.count(); i++)
-        {
-            QVariant value = m[keys[i]];
-            QString key = keys[i];
-            printf("%s=", key.toLatin1().constData());
-            if (value.type() == QVariant::String || value.type() == QVariant::Int || value.type() == QVariant::Double)
-            {
-                printf("%s", value.toString().toLatin1().constData());
-            }
-            else
-            {
-                printf("(%s)", value.typeName());
-            }
-            if (i < keys.count() - 1)
-            {
-                printf(", ");
-            }
-        }
-    }
-}
-
-void PhotoTweet::getConfigurationFinished(const QJsonDocument& json)
-{
-    QJsonObject response = json.object();
-    QStringList& keys = response.keys();
-    for (int i = 0; i < keys.count(); i++)
-    {
-        QString key = keys[i];
-        QJsonValue value = response[key];
-        printf("%s=", key.toLatin1().constData());
-
-        if (value.isArray())
-        {
-            printf("<array>\n");
-        }
-        else if (value.isObject())
-        {
-            printf("\n");
-            QVariant v = value.toVariant();
-            QVariantMap m = v.toMap();
-            QList<QString> k = m.keys();
-            for (int i = 0; i < k.count(); i++)
-            {
-                printf("   %s={ ", k[i].toLatin1().constData());
-                printObject(m[k[i]]);
-                printf(" }\n");
-            }
-        }
-        else
-        {
-            QVariant v = value.toVariant();
-            QString s = v.toString();
-            printf("%s\n", s.toLatin1().constData());
-        }
-    }
-
-	if (m_quit)
-	{
-		return doQuit();
-	}
-}
-
 void PhotoTweet::postMessage()
 {
 	m_statusUpdate->post(m_message);
-}
-
-void PhotoTweet::postMessageWithImageTwitpic(const QString& imagePath)
-{
-	if (QFile::exists(imagePath))
-	{
-		m_twitpic->upload(imagePath);
-	}
-	else
-	{
-		qWarning("Couldn't find file %s", imagePath.toLatin1().constData());
-	}
 }
 
 void PhotoTweet::postMessageWithImageYfrog(const QString& imagePath)
@@ -361,40 +259,6 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 	}
 
 	m_idle = true;
-}
-
-void PhotoTweet::twitpicError(QTweetNetBase::ErrorCode, QString errorMsg)
-{
-	qWarning("Error posting image to twitpic: %s", errorMsg.toLatin1().constData());
-
-	if (m_quit)
-	{
-		doQuit();
-	}
-}
-
-void PhotoTweet::twitpicJsonParseError(const QByteArray& json)
-{
-	qWarning("Error parsing json result while posting image to twitpic");
-	qWarning("json: %s", json.constData());
-
-	if (m_quit)
-	{
-		doQuit();
-	}
-}
-
-void PhotoTweet::twitpicFinished(const TwitpicUploadStatus& status)
-{
-	qDebug("Posted image to twitpic!");
-	qDebug("Url is %s", status.getImageUrl().toLatin1().constData());
-	if (m_message.length() > 0)
-	{
-		m_message += " ";
-	}
-	m_message += status.getImageUrl();
-	qDebug("Posting link to twitter..");
-	postMessage();
 }
 
 void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStatus& status)
