@@ -347,7 +347,8 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 			m_message = m_message + " " + hashtags;
 		}
 
-		qDebug("Posting link to twitter..");
+		qDebug("Posting link to twitter, full message is:");
+		qDebug("%s", m_message.toLatin1().constData());
 		postMessage();
 	}
 }
