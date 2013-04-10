@@ -23,6 +23,7 @@ class YfrogUploadStatus : public QObject
 			MissingErrorTag,
 			BadXmlResponse,
 			MissingXmlResponse,
+			FailedToUpload,
 			UnknownErrorCode,
 			UnknownError,
 		};
@@ -124,6 +125,11 @@ inline QString YfrogUploadStatus::getStatusString() const
 		case YfrogUploadStatus::MediaTooBig:
 		{
 			return "Yfrog says media too big";
+		}
+
+		case YfrogUploadStatus::FailedToUpload:
+		{
+			return "Yfrog reported that the upload failed";
 		}
 
 		case YfrogUploadStatus::MissingErrorTag:

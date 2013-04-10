@@ -60,6 +60,10 @@ m_httpStatusString(httpStatusString)
 					{
 						setStatus(MediaTooBig);
 					}
+					else if (m_errorCode == 2002)
+					{
+						setStatus(FailedToUpload);
+					}
 					else
 					{
 						setStatus(UnknownErrorCode);
