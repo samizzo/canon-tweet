@@ -2,6 +2,7 @@
 #define PHOTOTWEET_H
 
 #include <QObject>
+#include <QTime>
 #include "qtweetnetbase.h"
 #include "Camera.h"
 
@@ -55,6 +56,7 @@ class PhotoTweet : public QObject
 		bool m_idle;
 		Camera* m_camera;
 		Config* m_config;
+		QTime m_uploadStartTime;
 };
 
 #endif // PHOTOTWEET_H

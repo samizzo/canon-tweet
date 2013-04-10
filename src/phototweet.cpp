@@ -197,6 +197,7 @@ void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
 
 void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath)
 {
+	m_uploadStartTime.start();
     m_message = message;
 
 	if (m_message.length() > 0)
@@ -242,6 +243,9 @@ void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 	{
 		doQuit();
 	}
+
+	int elapsed = m_uploadStartTime.elapsed();
+	qDebug("Uploads took %.2f seconds", elapsed / 1000.0f);
 
 	m_idle = true;
 }
