@@ -72,7 +72,6 @@ void PhotoTweet::showUsage()
     printf("where args are:\n\n");
     printf("-image <image path>         upload specified image\n");
     printf("-message <message text>     tweet specified status text\n");
-    printf("-getconfig                  return media configuration settings\n");
 	printf("-continuous <time>          take photo and tweet every <time> seconds\n");
 	printf("-takePhotoAndTweet          take a photo and tweet it\n");
     printf("\n");
