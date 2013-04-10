@@ -46,6 +46,9 @@ class PhotoTweet : public QObject
 		void showUsage();
 		void doQuit();
 
+		// Scales imagePath and returns a path to the newly scaled image.
+		QString scaleImage(const QString& imagePath);
+
 		OAuthTwitter *m_oauthTwitter;
 		QString m_message;
 

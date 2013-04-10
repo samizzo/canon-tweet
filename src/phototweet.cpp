@@ -5,6 +5,8 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <QMultiHash>
+#include <QImage>
+#include <QFileInfo>
 #include "phototweet.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
@@ -182,10 +184,44 @@ void PhotoTweet::takePhotoAndTweet()
 	}
 }
 
+QString PhotoTweet::scaleImage(const QString& imagePath)
+{
+	QImage image(imagePath);
+	if (image.isNull())
+	{
+		return imagePath;
+	}
+
+	int quality = m_config->GetValue("jpeg_quality", "-1").toInt();
+	int width = m_config->GetValue("scaled_width", "1024").toInt();
+	if ((quality < 0 && quality != -1) || quality > 100)
+	{
+		// -1 by default if a bogus value has been specified.
+		quality = -1;
+	}
+
+	// Clamp width to between 128 and 4096.
+	width = min(max(128, width), 4096);
+
+	QTime timer;
+	timer.start();
+
+	QImage scaledImage = image.scaledToWidth(width, Qt::SmoothTransformation);
+	QFileInfo fi(imagePath);
+	QString newName = fi.path() + "/" + fi.baseName() + "_small." + fi.suffix();
+	scaledImage.save(newName, 0, quality);
+
+	int elapsed = timer.elapsed();
+	qDebug("Image scaling took %.2f seconds", elapsed / 1000.0f);
+
+	return newName;
+}
+
 void PhotoTweet::takePictureSuccess(const QString& filePath)
 {
-	// Picture was taken successfully, so now upload it and tweet.
-	uploadAndTweet(m_message, filePath);
+	// Picture was taken successfully, so first scale it, then upload and tweet.
+	QString scaledImage = scaleImage(filePath);
+	uploadAndTweet(m_message, scaledImage);
 }
 
 void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
@@ -281,7 +317,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 {
 	if (status.getStatus() != YfrogUploadStatus::Ok)
 	{
-		qWarning("Error posting image to yfrog: %s", status.getStatusString().toLatin1().constData());
+		qWarning("Error posting image to yfrog: %s (%i)", status.getStatusString().toLatin1().constData(), status.getErrorCode());
 
 		if (m_quit)
 		{
