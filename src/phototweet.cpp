@@ -180,7 +180,7 @@ void PhotoTweet::takePhotoAndTweet()
 	}
 	else
 	{
-		qDebug("Photo in progress..");
+		qDebug("Tried to take a photo but there is already one in progress..");
 	}
 }
 
@@ -208,7 +208,7 @@ QString PhotoTweet::scaleImage(const QString& imagePath)
 
 	QImage scaledImage = image.scaledToWidth(width, Qt::SmoothTransformation);
 	QFileInfo fi(imagePath);
-	QString newName = fi.path() + "/" + fi.baseName() + "_small." + fi.suffix();
+	QString newName = fi.path() + "/" + fi.baseName() + "_scaled." + fi.suffix();
 	scaledImage.save(newName, 0, quality);
 
 	int elapsed = timer.elapsed();
