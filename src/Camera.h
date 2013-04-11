@@ -58,6 +58,9 @@ class Camera : public QObject
 		// Signalled when taking a picture and there was an error.
 		void OnTakePictureError(Camera::ErrorType errorType, int error);
 
+		// Signalled when the camera has been disconnected.
+		void OnCameraDisconnected();
+
 	private:
 		static EdsError EDSCALLBACK HandleStateEventImp(EdsUInt32 inEvent, EdsUInt32 inParam, EdsVoid* inContext);
 		EdsError HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam);

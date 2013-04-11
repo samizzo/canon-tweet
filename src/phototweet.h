@@ -37,6 +37,7 @@ class PhotoTweet : public QObject
 
 		void takePictureSuccess(const QString& filePath);
 		void takePictureError(Camera::ErrorType errorType, int error);
+		void cameraDisconnected();
 
 		void takePhotoAndTweet();
 
@@ -57,6 +58,7 @@ class PhotoTweet : public QObject
 
 		bool m_quit;
 		bool m_idle;
+		bool m_uploading;
 		Camera* m_camera;
 		Config* m_config;
 		QTime m_uploadStartTime;

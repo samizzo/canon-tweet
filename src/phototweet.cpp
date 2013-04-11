@@ -46,12 +46,13 @@ m_config(config)
 
 	connect(m_camera, SIGNAL(OnTakePictureSuccess(QString)), SLOT(takePictureSuccess(QString)));
 	connect(m_camera, SIGNAL(OnTakePictureError(Camera::ErrorType, int)), SLOT(takePictureError(Camera::ErrorType, int)));
+	connect(m_camera, SIGNAL(OnCameraDisconnected()), SLOT(cameraDisconnected()));
 
 	int error = m_camera->Startup();
 	if (error != EDS_ERR_OK)
 	{
 		QLOG_ERROR() << "Couldn't start the camera system!";
-		QLOG_ERROR() << Camera::GetErrorMessage(Camera::ErrorType_Normal, error);
+		QLOG_ERROR() << Camera::GetErrorMessage(Camera::ErrorType_Normal, error).toLatin1().constData();
 	}
 
 	// Setup status update access.
@@ -229,13 +230,23 @@ void PhotoTweet::takePictureSuccess(const QString& filePath)
 
 void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
 {
-	QLOG_ERROR() << "Couldn't take a picture!";
 	QLOG_ERROR() << Camera::GetErrorMessage(errorType, error).toLatin1().constData();
 	m_idle = true;
 }
 
+void PhotoTweet::cameraDisconnected()
+{
+	QLOG_WARN() << "Camera was disconnected!";
+	if (!m_uploading)
+	{
+		// We only set idle if not uploading.
+		m_idle = true;
+	}
+}
+
 void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath)
 {
+	m_uploading = true;
 	m_uploadStartTime.start();
     m_message = message;
 
@@ -288,6 +299,7 @@ void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 	QLOG_DEBUG() << msg.toLatin1().constData();
 
 	m_idle = true;
+	m_uploading = false;
 }
 
 void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
@@ -303,6 +315,7 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 	}
 
 	m_idle = true;
+	m_uploading = false;
 }
 
 void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStatus& status)
@@ -315,6 +328,7 @@ void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStat
 	}
 
 	m_idle = true;
+	m_uploading = false;
 }
 
 void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
@@ -329,6 +343,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 		}
 
 		m_idle = true;
+		m_uploading = false;
 	}
 	else
 	{

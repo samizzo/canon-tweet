@@ -36,8 +36,8 @@ EdsError Camera::HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam)
 	if (inEvent == kEdsStateEvent_Shutdown)
 	{
 		// Camera was disconnected externally so make sure we are disconnected.
-		QLOG_WARN() << "Camera was disconnected!";
 		Disconnect();
+		emit OnCameraDisconnected();
 	}
 	else if (inEvent == kEdsStateEvent_CaptureError)
 	{
