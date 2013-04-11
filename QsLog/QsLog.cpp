@@ -45,7 +45,8 @@ static const char ErrorString[] = "ERROR";
 static const char FatalString[] = "FATAL";
 
 // not using Qt::ISODate because we need the milliseconds too
-static const QString fmtDateTime("yyyy-MM-ddThh:mm:ss.zzz");
+static const QString fmtDateTime("yyyy-MM-dd hh:mm:ss.zzz");
+static QString s_timestampFormat;
 
 static const char* LevelToText(Level theLevel)
 {
@@ -106,6 +107,39 @@ void Logger::setLoggingLevel(Level newLevel)
     d->level = newLevel;
 }
 
+void Logger::setLoggingLevel(QString newLevel)
+{
+	if (!newLevel.compare(TraceString, Qt::CaseInsensitive) || newLevel.length() == 0)
+	{
+		d->level = QsLogging::TraceLevel;
+	}
+	else if (!newLevel.compare(DebugString, Qt::CaseInsensitive))
+	{
+		d->level = QsLogging::DebugLevel;
+	}
+	else if (!newLevel.compare(InfoString, Qt::CaseInsensitive))
+	{
+		d->level = QsLogging::InfoLevel;
+	}
+	else if (!newLevel.compare(WarnString, Qt::CaseInsensitive))
+	{
+		d->level = QsLogging::WarnLevel;
+	}
+	else if (!newLevel.compare(ErrorString, Qt::CaseInsensitive))
+	{
+		d->level = QsLogging::ErrorLevel;
+	}
+	else if (!newLevel.compare(FatalString, Qt::CaseInsensitive))
+	{
+		d->level = QsLogging::FatalLevel;
+	}
+}
+
+void Logger::setTimestampFormat(QString format)
+{
+	s_timestampFormat = format;
+}
+
 Level Logger::loggingLevel() const
 {
     return d->level;
@@ -117,7 +151,7 @@ void Logger::Helper::writeToLog()
     const char* const levelName = LevelToText(level);
     const QString completeMessage(QString("%1 %2 %3")
                                   .arg(levelName, 5)
-                                  .arg(QDateTime::currentDateTime().toString(fmtDateTime))
+                                  .arg(QDateTime::currentDateTime().toString(s_timestampFormat.length() > 0 ? s_timestampFormat : fmtDateTime))
                                   .arg(buffer)
                                   );
 

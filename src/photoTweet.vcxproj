@@ -135,6 +135,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\QsLog\QsDebugOutput.cpp" />
+    <ClCompile Include="..\QsLog\QsLog.cpp" />
+    <ClCompile Include="..\QsLog\QsLogDest.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Camera.cpp">
@@ -347,6 +350,12 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I$(SolutionDir)qtweetlib\src" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)EOS SDK v2.11 Windows\EDSDK\Header"</Command>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\QsLog\QsDebugOutput.h" />
+    <ClInclude Include="..\QsLog\QsLog.h" />
+    <ClInclude Include="..\QsLog\QsLogDest.h" />
+    <ClInclude Include="..\QsLog\QsLogLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

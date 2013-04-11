@@ -47,7 +47,7 @@ class DestinationFactory
 {
 public:
     static DestinationPtr MakeFileDestination(const QString& filePath);
-    static DestinationPtr MakeDebugOutputDestination();
+    static DestinationPtr MakeDebugOutputDestination(bool toConsole);
 };
 
 } // end namespace

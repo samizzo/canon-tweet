@@ -38,6 +38,9 @@
     <Filter Include="Dlls">
       <UniqueIdentifier>{fc9bce1a-0573-44e8-b563-c479a7d8d2ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="QsLog">
+      <UniqueIdentifier>{5f2b6270-b479-4837-b4f6-af9faf5e9d60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -106,6 +109,15 @@
     <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\QsLog\QsDebugOutput.cpp">
+      <Filter>QsLog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QsLog\QsLog.cpp">
+      <Filter>QsLog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\QsLog\QsLogDest.cpp">
+      <Filter>QsLog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="phototweet.h">
@@ -157,5 +169,19 @@
     <CustomBuild Include="Config.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\QsLog\QsDebugOutput.h">
+      <Filter>QSLog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QsLog\QsLog.h">
+      <Filter>QSLog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QsLog\QsLogDest.h">
+      <Filter>QSLog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\QsLog\QsLogLevel.h">
+      <Filter>QSLog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

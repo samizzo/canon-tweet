@@ -10,6 +10,7 @@
 #include "twitpicUpload.h"
 #include "oauthtwitter.h"
 #include "twitpicUploadStatus.h"
+#include "../QsLog/QsLog.h"
 
 TwitpicUpload::TwitpicUpload(const QString& twitpicAppKey, OAuthTwitter* oauthTwitter, QObject* parent /*= 0*/) :
 QObject(parent),
@@ -77,9 +78,9 @@ void TwitpicUpload::reply()
 		}
 		else
 		{
-            qDebug() << "Network error: " << reply->error();
-            qDebug() << "Error string: " << reply->errorString();
-            qDebug() << "Error response: " << response;
+            QLOG_DEBUG() << "Network error:" << reply->error();
+            QLOG_DEBUG() << "Error string:" << reply->errorString();
+            QLOG_DEBUG() << "Error response:" << response;
 
             // HTTP status code
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();

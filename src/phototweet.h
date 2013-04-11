@@ -19,7 +19,7 @@ class PhotoTweet : public QObject
 	Q_OBJECT
 
 	public:
-		PhotoTweet();
+		PhotoTweet(Config* config);
 		~PhotoTweet();
 
 	signals:

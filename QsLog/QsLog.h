@@ -48,8 +48,12 @@ public:
     void addDestination(Destination* destination);
     //! Logging at a level < 'newLevel' will be ignored
     void setLoggingLevel(Level newLevel);
+	void setLoggingLevel(QString newLevel);
     //! The default level is INFO
     Level loggingLevel() const;
+
+	//! Set the timestamp format to use.  If empty string, the default will be used.
+	void setTimestampFormat(QString format);
 
     //! The helper forwards the streaming to QDebug and builds the final
     //! log message.

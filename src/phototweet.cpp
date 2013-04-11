@@ -7,6 +7,7 @@
 #include <QMultiHash>
 #include <QImage>
 #include <QFileInfo>
+#include "../QsLog/QsLog.h"
 #include "phototweet.h"
 #include "oauthtwitter.h"
 #include "qtweetstatusupdate.h"
@@ -15,14 +16,15 @@
 #include "yfrogUploadStatus.h"
 #include "Config.h"
 
-PhotoTweet::PhotoTweet() :
+PhotoTweet::PhotoTweet(Config* config) :
 m_quit(true),
-m_idle(true)
+m_idle(true),
+m_config(config)
 {
     m_oauthTwitter = new OAuthTwitter(this);
     m_oauthTwitter->setNetworkAccessManager(new QNetworkAccessManager(this));
 
-	m_config = new Config("phototweet.cfg");
+	Q_ASSERT(config);
 
 	QString val = m_config->GetValue("consumer_key");
 	m_oauthTwitter->setConsumerKey(val.toLatin1());
@@ -48,8 +50,8 @@ m_idle(true)
 	int error = m_camera->Startup();
 	if (error != EDS_ERR_OK)
 	{
-		qCritical("Couldn't start the camera system!");
-		qCritical("%s", Camera::GetErrorMessage(Camera::ErrorType_Normal, error).toLatin1().constData());
+		QLOG_ERROR() << "Couldn't start the camera system!";
+		QLOG_ERROR() << Camera::GetErrorMessage(Camera::ErrorType_Normal, error);
 	}
 
 	// Setup status update access.
@@ -175,12 +177,12 @@ void PhotoTweet::takePhotoAndTweet()
 	if (m_idle)
 	{
 		m_idle = false;
-		qDebug("Taking a photo..");
+		QLOG_INFO() << "Taking a photo..";
 		m_camera->TakePicture();
 	}
 	else
 	{
-		qDebug("Tried to take a photo but there is already one in progress..");
+		QLOG_DEBUG() << "Tried to take a photo but there is already one in progress..";
 	}
 }
 
@@ -212,7 +214,8 @@ QString PhotoTweet::scaleImage(const QString& imagePath)
 	scaledImage.save(newName, 0, quality);
 
 	int elapsed = timer.elapsed();
-	qDebug("Image scaling took %.2f seconds", elapsed / 1000.0f);
+	QString msg = QString().sprintf("Image scaling took %.2f seconds", elapsed / 1000.0f);
+	QLOG_DEBUG() << msg.toLatin1().constData();
 
 	return newName;
 }
@@ -226,8 +229,8 @@ void PhotoTweet::takePictureSuccess(const QString& filePath)
 
 void PhotoTweet::takePictureError(Camera::ErrorType errorType, int error)
 {
-	qCritical("Couldn't take a picture!");
-	qCritical("%s", Camera::GetErrorMessage(errorType, error).toLatin1().constData());
+	QLOG_ERROR() << "Couldn't take a picture!";
+	QLOG_ERROR() << Camera::GetErrorMessage(errorType, error).toLatin1().constData();
 	m_idle = true;
 }
 
@@ -238,22 +241,21 @@ void PhotoTweet::uploadAndTweet(const QString& message, const QString& imagePath
 
 	if (m_message.length() > 0)
 	{
-		qDebug("Tweeting message: '%s'", m_message.toLatin1().constData());
+		QLOG_INFO() << "Tweeting message:" << m_message;
 	}
 
     if (imagePath.length() > 0 && QFile::exists(imagePath))
     {
 		// Upload the image.  The message will be tweeted after the upload
 		// completes.
-		qDebug("Uploading image: '%s'", imagePath.toLatin1().constData());
+		QLOG_INFO() << "Uploading image:" << imagePath;
 		m_yfrog->upload(imagePath);
     }
     else
     {
 		if (imagePath.length() > 0 && !QFile::exists(imagePath))
 		{
-			qWarning("Image '%s' upload was requested but the image couldn't be found!",
-				imagePath.toLatin1().constData());
+			QLOG_WARN() << "Image " << imagePath << " upload was requested but the image couldn't be found!";
 		}
 
 		// No image specified so just tweet a message.
@@ -273,7 +275,8 @@ void PhotoTweet::postMessage()
 
 void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 {
-	qDebug("Posted status with id %llu", status.id());
+	QString msg = QString().sprintf("Posted status with id %llu", status.id());
+	QLOG_DEBUG() << msg.toLatin1().constData();
 
 	if (m_quit)
 	{
@@ -281,7 +284,8 @@ void PhotoTweet::postStatusFinished(const QTweetStatus &status)
 	}
 
 	int elapsed = m_uploadStartTime.elapsed();
-	qDebug("Uploads took %.2f seconds", elapsed / 1000.0f);
+	msg = QString().sprintf("Uploads took %.2f seconds", elapsed / 1000.0f);
+	QLOG_DEBUG() << msg.toLatin1().constData();
 
 	m_idle = true;
 }
@@ -290,7 +294,7 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 {
     if (errorMsg.length() > 0)
     {
-        qWarning("Error posting message: %s", errorMsg.toLatin1().constData());
+        QLOG_ERROR() << "Error posting message:" << errorMsg;
     }
 
 	if (m_quit)
@@ -303,7 +307,7 @@ void PhotoTweet::postStatusError(QTweetNetBase::ErrorCode, QString errorMsg)
 
 void PhotoTweet::yfrogError(QTweetNetBase::ErrorCode code, const YfrogUploadStatus& status)
 {
-	qWarning("Error posting image to yfrog: %s (%i)", status.getHttpStatusString(), code);
+	QLOG_ERROR() << "Error posting image to yfrog:" << status.getHttpStatusString() << "(" << code << ")";
 
 	if (m_quit)
 	{
@@ -317,7 +321,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 {
 	if (status.getStatus() != YfrogUploadStatus::Ok)
 	{
-		qWarning("Error posting image to yfrog: %s (%i)", status.getStatusString().toLatin1().constData(), status.getErrorCode());
+		QLOG_ERROR() << "Error posting image to yfrog:" << status.getStatusString() << "(" << status.getErrorCode() << ")";
 
 		if (m_quit)
 		{
@@ -329,8 +333,8 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 	else
 	{
 		// Image was posted successfully, so now tweet the url.
-		qDebug("Posted image to yfrog!");
-		qDebug("Url is %s", status.getMediaUrl().toLatin1().constData());
+		QLOG_DEBUG() << "Posted image to yfrog!";
+		QLOG_INFO() << "Url is" << status.getMediaUrl();
 
 		// Prepend message to url.
 		if (m_message.length() > 0)
@@ -347,8 +351,7 @@ void PhotoTweet::yfrogFinished(const YfrogUploadStatus& status)
 			m_message = m_message + " " + hashtags;
 		}
 
-		qDebug("Posting link to twitter, full message is:");
-		qDebug("%s", m_message.toLatin1().constData());
+		QLOG_INFO() << "Posting link to twitter, full message is:" << m_message;
 		postMessage();
 	}
 }

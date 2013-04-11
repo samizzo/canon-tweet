@@ -30,10 +30,15 @@
 #if defined(Q_OS_WIN)
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-void QsDebugOutput::output( const QString& message )
+void QsDebugOutput::output( const QString& message, bool toConsole /*= false*/ )
 {
    OutputDebugStringW(reinterpret_cast<const WCHAR*>(message.utf16()));
    OutputDebugStringW(L"\n");
+
+   if (toConsole)
+   {
+	   printf("%s\n", message.toUtf8().constData());
+   }
 }
 #elif defined(Q_OS_SYMBIAN)
 #include <e32debug.h>

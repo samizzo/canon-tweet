@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QtWidgets/QApplication>
 #include "Camera.h"
+#include "../QsLog/QsLog.h"
 
 EdsError EDSCALLBACK Camera::HandlePropertyEventImp(EdsPropertyEvent inEvent, EdsPropertyID inPropertyID, EdsUInt32 inParam, EdsVoid* inContext)
 {
@@ -35,7 +36,7 @@ EdsError Camera::HandleStateEvent(EdsUInt32 inEvent, EdsUInt32 inParam)
 	if (inEvent == kEdsStateEvent_Shutdown)
 	{
 		// Camera was disconnected externally so make sure we are disconnected.
-		qWarning("Camera was disconnected!");
+		QLOG_WARN() << "Camera was disconnected!";
 		Disconnect();
 	}
 	else if (inEvent == kEdsStateEvent_CaptureError)
@@ -133,8 +134,16 @@ int Camera::Startup()
 
 	Q_ASSERT(!m_camera);
 
-	return EdsInitializeSDK();
+	EdsError err = EdsInitializeSDK();
+
+	if (err == EDS_ERR_OK)
+	{
+		err = Connect();
+	}
+
+	return err;
 }
+
 
 void Camera::Shutdown()
 {
@@ -177,7 +186,7 @@ int Camera::Connect()
 					if (deviceInfo.deviceSubType == 0)
 					{
 						// Legacy devices aren't supported.
-						qWarning("Camera is a legacy device!  Legacy devices are not supported!");
+						QLOG_ERROR() << "Camera is a legacy device!  Legacy devices are not supported!";
 						lastError = EDS_ERR_DEVICE_NOT_FOUND;
 					}
 					else
@@ -236,7 +245,7 @@ int Camera::Connect()
 
 	if (lastError == EDS_ERR_OK)
 	{
-		qDebug("Camera connected!");
+		QLOG_INFO() << "Camera connected!";
 	}
 
 	return lastError;

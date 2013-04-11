@@ -1,13 +1,14 @@
 #include "Config.h"
 #include <QFile>
 #include <QTextStream>
+#include "../QsLog/QsLog.h"
 
 Config::Config(const QString& file)
 {
 	QFile f(file);
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qWarning("Couldn't load config file '%s'", file.toLatin1().constData());
+        QLOG_ERROR() << "Couldn't load config file " << file;
         return;
     }
 

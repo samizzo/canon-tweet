@@ -62,12 +62,15 @@ void FileDestination::write(const QString& message, Level)
 class DebugOutputDestination : public Destination
 {
 public:
+	DebugOutputDestination(bool toConsole) : m_toConsole(toConsole) { }
     virtual void write(const QString& message, Level level);
+private:
+	bool m_toConsole;
 };
 
 void DebugOutputDestination::write(const QString& message, Level)
 {
-    QsDebugOutput::output(message);
+    QsDebugOutput::output(message, m_toConsole);
 }
 
 DestinationPtr DestinationFactory::MakeFileDestination(const QString& filePath)
@@ -75,9 +78,9 @@ DestinationPtr DestinationFactory::MakeFileDestination(const QString& filePath)
     return DestinationPtr(new FileDestination(filePath));
 }
 
-DestinationPtr DestinationFactory::MakeDebugOutputDestination()
+DestinationPtr DestinationFactory::MakeDebugOutputDestination(bool toConsole)
 {
-    return DestinationPtr(new DebugOutputDestination);
+    return DestinationPtr(new DebugOutputDestination(toConsole));
 }
 
 } // end namespace
